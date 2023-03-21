@@ -38,10 +38,14 @@ public struct StoriesRequests {
         }
     }
     
+    /**
+     Retrieves the details of a story.
+
+     - Response: Story object
+     */
     public struct StoryDetail: APIRequestContract {
-        
         /// Retrieves the details of a story.
-        /// - Parameter offset: the offset that is the starting index of the next page
+        /// - Parameter id: the unqiue id of the story
         init(id: String) {
             parameters?.updateValue(id, forKey: "id")
             path = "stories/\(id)"
