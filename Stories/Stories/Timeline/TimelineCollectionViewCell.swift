@@ -9,6 +9,7 @@
 import UIKit
 
 class TimelineCollectionViewCell: UICollectionViewCell {
+    @IBOutlet private weak var storyContentView: UIView!
     @IBOutlet private weak var coverImageContainerView: UIView!
     @IBOutlet private weak var coverImagePlaceholderView: UIView!
     @IBOutlet private weak var coverImage: UIImageView!
@@ -24,7 +25,8 @@ class TimelineCollectionViewCell: UICollectionViewCell {
     func setUp() {
         // background
         backgroundColor = StoriesDesign.shared.attributes.colors.primary()
-
+        storyContentView.backgroundColor = StoriesDesign.shared.attributes.colors.primary()
+        
         // cover image
         coverImagePlaceholderView.alpha = 1.0
         coverImagePlaceholderView.backgroundColor = StoriesDesign.shared.attributes.colors.temporary()
@@ -40,7 +42,7 @@ class TimelineCollectionViewCell: UICollectionViewCell {
         title.text = nil
         title.font = StoriesDesign.shared.attributes.fonts.primaryTitle()
         title.adjustsFontForContentSizeCategory = true
-        title.textColor = StoriesDesign.shared.attributes.colors.primaryFill()
+        title.textColor = StoriesDesign.shared.attributes.colors.secondaryFill()
         
         // avatar image
         avatarPlaceholderImageView.image = #imageLiteral(resourceName: "UnkownUser")

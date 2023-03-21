@@ -8,8 +8,9 @@
 
 import Foundation
 
-public enum DesignTheme {
+public enum DesignTheme: String, CaseIterable {
     case plain
+    case retro
 }
 
 public protocol DesignContract {

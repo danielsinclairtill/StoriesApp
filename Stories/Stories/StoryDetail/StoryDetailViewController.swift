@@ -36,7 +36,7 @@ class StoryDetailViewController: UIViewController,
         let label = UILabel()
         label.font = StoriesDesign.shared.attributes.fonts.primaryTitleLarge()
         label.adjustsFontForContentSizeCategory = true
-        label.textColor = StoriesDesign.shared.attributes.colors.primaryFill()
+        label.textColor = StoriesDesign.shared.attributes.colors.secondaryFill()
         label.numberOfLines = 2
         label.textAlignment = .center
         
@@ -114,7 +114,7 @@ class StoryDetailViewController: UIViewController,
         // rootStackView
         view.addSubview(rootStackView)
         NSLayoutConstraint.activate([
-            rootStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            rootStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16.0),
             rootStackView.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8.0),
             rootStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16.0),
             rootStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16.0)

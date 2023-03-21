@@ -67,6 +67,7 @@ class TimelineCollectionViewController: UIViewController,
         collectionView.refreshControl = refreshControl
         refreshControl.addTarget(viewModel, action: #selector(viewModel.refresh), for: .valueChanged)
         collectionView.alpha = 0.0
+        collectionView.backgroundColor = StoriesDesign.shared.attributes.colors.primary()
         
         // animation view
         loadingAnimationView.backgroundBehavior = .pauseAndRestore

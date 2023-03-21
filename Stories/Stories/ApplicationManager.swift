@@ -20,4 +20,17 @@ class ApplicationManager {
             defaults.set(newValue, forKey: "hasSeenOfflineModeMessage")
         }
     }
+    
+    var theme: DesignTheme {
+        get {
+            guard let themeString = defaults.string(forKey: "theme"),
+                    let theme = DesignTheme(rawValue: themeString) else {
+                return .plain
+            }
+            return theme
+        }
+        set (newValue) {
+            defaults.set(newValue.rawValue, forKey: "theme")
+        }
+    }
 }

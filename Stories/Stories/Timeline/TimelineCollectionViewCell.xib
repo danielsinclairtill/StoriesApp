@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -22,8 +23,8 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m9d-Zf-mxW" userLabel="Cover Image Placeholder View">
                                 <rect key="frame" x="0.0" y="0.0" width="102" height="159"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <viewLayoutGuide key="safeArea" id="9Nb-ay-l0z"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="weK-UZ-Epm" userLabel="Cover Image View">
                                 <rect key="frame" x="0.0" y="0.0" width="102" height="159"/>
@@ -32,6 +33,7 @@
                                 </constraints>
                             </imageView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="E6U-e3-luf"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="IYv-ku-7cj" secondAttribute="height" multiplier="0.64" id="1rp-sq-jig"/>
                             <constraint firstItem="weK-UZ-Epm" firstAttribute="leading" secondItem="E6U-e3-luf" secondAttribute="leading" id="KN7-kT-aG9"/>
@@ -43,7 +45,6 @@
                             <constraint firstItem="weK-UZ-Epm" firstAttribute="top" secondItem="IYv-ku-7cj" secondAttribute="top" id="s3S-fA-La6"/>
                             <constraint firstItem="m9d-Zf-mxW" firstAttribute="leading" secondItem="IYv-ku-7cj" secondAttribute="leading" id="v3y-eW-CCC"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="E6U-e3-luf"/>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QQg-1A-c6B" userLabel="Descrition Content View">
                         <rect key="frame" x="118" y="8" width="224" height="159"/>
@@ -58,6 +59,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
                                     </imageView>
                                 </subviews>
+                                <viewLayoutGuide key="safeArea" id="415-y5-oL1"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="wJF-gq-DvE" secondAttribute="trailing" id="9ev-RG-wAt"/>
                                     <constraint firstItem="wJF-gq-DvE" firstAttribute="top" secondItem="GTk-k9-mVX" secondAttribute="top" id="LM0-hz-y4j"/>
@@ -70,7 +72,6 @@
                                     <constraint firstAttribute="bottom" secondItem="yH1-lO-qU2" secondAttribute="bottom" id="qRX-j9-8iF"/>
                                     <constraint firstItem="wJF-gq-DvE" firstAttribute="leading" secondItem="GTk-k9-mVX" secondAttribute="leading" id="z2h-kv-G3K"/>
                                 </constraints>
-                                <viewLayoutGuide key="safeArea" id="415-y5-oL1"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sxC-OM-Sls" userLabel="Title Label">
                                 <rect key="frame" x="8" y="8" width="33" height="18"/>
@@ -85,7 +86,8 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="dqK-XP-NX7"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="sxC-OM-Sls" secondAttribute="trailing" constant="8" id="CHd-eg-m5V"/>
                             <constraint firstItem="GTk-k9-mVX" firstAttribute="leading" secondItem="dqK-XP-NX7" secondAttribute="leading" constant="8" id="Ch4-A2-Uce"/>
@@ -96,7 +98,6 @@
                             <constraint firstItem="sxC-OM-Sls" firstAttribute="top" secondItem="QQg-1A-c6B" secondAttribute="top" constant="8" id="ZWf-Tq-2Zb"/>
                             <constraint firstItem="GTk-k9-mVX" firstAttribute="top" secondItem="sxC-OM-Sls" secondAttribute="bottom" constant="16" id="vV1-lG-aVf"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="dqK-XP-NX7"/>
                     </view>
                 </subviews>
                 <constraints>
@@ -117,6 +118,7 @@
                 <outlet property="coverImage" destination="weK-UZ-Epm" id="ZNy-tE-kPt"/>
                 <outlet property="coverImageContainerView" destination="IYv-ku-7cj" id="cav-SQ-CIZ"/>
                 <outlet property="coverImagePlaceholderView" destination="m9d-Zf-mxW" id="9Vz-jA-Igh"/>
+                <outlet property="storyContentView" destination="QQg-1A-c6B" id="HIU-hO-v6C"/>
                 <outlet property="title" destination="sxC-OM-Sls" id="bpH-Lv-V5k"/>
             </connections>
             <point key="canvasLocation" x="888.40579710144937" y="-158.37053571428569"/>
@@ -124,5 +126,8 @@
     </objects>
     <resources>
         <image name="UnkownUser" width="33" height="33"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

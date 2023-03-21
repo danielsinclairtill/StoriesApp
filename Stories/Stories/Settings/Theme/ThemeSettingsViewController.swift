@@ -15,7 +15,7 @@ class ThemeSettingsViewController: UIViewController,
                                    UIGestureRecognizerDelegate {
     private let cellID = "ID"
     private let tableView = UITableView()
-    private let options = ["Plain", "Retro"]
+    private let options: [DesignTheme] = DesignTheme.allCases
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +34,7 @@ class ThemeSettingsViewController: UIViewController,
         tableView.delegate = self
         tableView.allowsSelection = true
         tableView.separatorStyle = .singleLine
+        tableView.backgroundColor = StoriesDesign.shared.attributes.colors.primary()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -43,11 +44,13 @@ class ThemeSettingsViewController: UIViewController,
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let option = options[indexPath.row]
         let cell = UITableViewCell(style: .value1, reuseIdentifier: self.cellID)
-        cell.textLabel?.text = option
+        cell.textLabel?.text = option.rawValue.capitalized
+        cell.backgroundColor = StoriesDesign.shared.attributes.colors.primary()
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        return
+        let theme = options[indexPath.row]
+        StoriesDesign.shared.changeToTheme(theme)
     }
 }

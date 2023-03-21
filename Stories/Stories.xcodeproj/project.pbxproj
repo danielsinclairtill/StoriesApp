@@ -75,6 +75,7 @@
 		65AABD2229C9FE930049AAA9 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 65AABD2129C9FE930049AAA9 /* Alamofire */; };
 		65AABD2529C9FEA20049AAA9 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 65AABD2429C9FEA20049AAA9 /* Lottie */; };
 		65AABD2A29C9FED30049AAA9 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 65AABD2929C9FED30049AAA9 /* Podfile */; };
+		65AB629929CA576C003FE82D /* RetroTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AB629829CA576C003FE82D /* RetroTheme.swift */; };
 		99DA8AB8FC405BC5FBE3A0BB /* Pods_Stories.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E55D9003DA6B6D8A5C2542E7 /* Pods_Stories.framework */; };
 /* End PBXBuildFile section */
 
@@ -160,6 +161,7 @@
 		65AABCF129C9FE390049AAA9 /* TimelineCollectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimelineCollectionViewController.xib; sourceTree = "<group>"; };
 		65AABCF229C9FE390049AAA9 /* TimelineCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimelineCollectionViewCell.xib; sourceTree = "<group>"; };
 		65AABD2929C9FED30049AAA9 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		65AB629829CA576C003FE82D /* RetroTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetroTheme.swift; sourceTree = "<group>"; };
 		E55D9003DA6B6D8A5C2542E7 /* Pods_Stories.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Stories.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -223,6 +225,7 @@
 			isa = PBXGroup;
 			children = (
 				659FF37129CA050C00798CAB /* PlainTheme.swift */,
+				65AB629829CA576C003FE82D /* RetroTheme.swift */,
 			);
 			path = Themes;
 			sourceTree = "<group>";
@@ -728,6 +731,7 @@
 				659FF38229CA050C00798CAB /* Colors.swift in Sources */,
 				65AABCD129C9FE150049AAA9 /* APIRequestContract.swift in Sources */,
 				65AABC6629C9FC9A0049AAA9 /* AppDelegate.swift in Sources */,
+				65AB629929CA576C003FE82D /* RetroTheme.swift in Sources */,
 				65AABCF629C9FE390049AAA9 /* TimelineCollectionViewPagingLoadingCell.swift in Sources */,
 				65AABCCE29C9FE150049AAA9 /* RequestContract.swift in Sources */,
 				65AABCCF29C9FE150049AAA9 /* APIError.swift in Sources */,

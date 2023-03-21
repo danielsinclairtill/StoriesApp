@@ -34,6 +34,7 @@ class SettingsViewController: UIViewController,
         tableView.delegate = self
         tableView.allowsSelection = true
         tableView.separatorStyle = .singleLine
+        tableView.backgroundColor = StoriesDesign.shared.attributes.colors.primary()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -45,6 +46,7 @@ class SettingsViewController: UIViewController,
         let cell = UITableViewCell(style: .value1, reuseIdentifier: self.cellID)
         cell.selectionStyle = .none
         cell.textLabel?.text = option
+        cell.backgroundColor = StoriesDesign.shared.attributes.colors.primary()
         return cell
     }
     

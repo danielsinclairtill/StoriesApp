@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class StoriesDesign: DesignContract {
-    static let shared = StoriesDesign()
+    static let shared = StoriesDesign(theme: ApplicationManager.shared.theme)
     
     var theme: DesignTheme
     var attributes: Attributes
@@ -22,12 +22,16 @@ class StoriesDesign: DesignContract {
     func changeToTheme(_ theme: DesignTheme) {
         self.theme = theme
         self.attributes = StoriesDesign.getThemeAttributesFrom(theme: theme)
+        
+        ApplicationManager.shared.theme = theme
     }
     
     private static func getThemeAttributesFrom(theme: DesignTheme) -> Attributes {
         switch theme {
         case .plain:
-                return PlainTheme()
+            return PlainTheme()
+        case .retro:
+            return RetroTheme()
         }
     }
 }
