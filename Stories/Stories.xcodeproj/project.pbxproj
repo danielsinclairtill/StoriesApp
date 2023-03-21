@@ -26,9 +26,19 @@
 		659FF38A29CA050C00798CAB /* BubbleMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659FF37A29CA050C00798CAB /* BubbleMessageView.swift */; };
 		659FF38B29CA050C00798CAB /* BubbleMessageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 659FF37B29CA050C00798CAB /* BubbleMessageView.xib */; };
 		659FF38C29CA050C00798CAB /* AsyncImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659FF37D29CA050C00798CAB /* AsyncImageView.swift */; };
+		659FF3B229CA088200798CAB /* StoryDetailTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659FF3A629CA088200798CAB /* StoryDetailTests.swift */; };
+		659FF3B329CA088200798CAB /* StoryDetailViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659FF3A729CA088200798CAB /* StoryDetailViewControllerMock.swift */; };
+		659FF3B429CA088200798CAB /* TimelineCollectionViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659FF3A929CA088200798CAB /* TimelineCollectionViewControllerMock.swift */; };
+		659FF3B529CA088200798CAB /* TimelineCollectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659FF3AA29CA088200798CAB /* TimelineCollectionTests.swift */; };
+		659FF3B629CA088200798CAB /* StoriesImageManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659FF3AC29CA088200798CAB /* StoriesImageManagerMock.swift */; };
+		659FF3B729CA088200798CAB /* StoriesStoreMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659FF3AD29CA088200798CAB /* StoriesStoreMock.swift */; };
+		659FF3B829CA088200798CAB /* StoriesEnviromentMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659FF3AE29CA088200798CAB /* StoriesEnviromentMock.swift */; };
+		659FF3B929CA088200798CAB /* StoriesAPIMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659FF3AF29CA088200798CAB /* StoriesAPIMock.swift */; };
+		659FF3BA29CA088200798CAB /* ModelMockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659FF3B029CA088200798CAB /* ModelMockData.swift */; };
+		65A3566C29CA1474001F9892 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 65A3566B29CA1474001F9892 /* SDWebImage */; };
+		65A3567029CA167B001F9892 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 65A3566F29CA167B001F9892 /* SDWebImage */; };
 		65AABC6629C9FC9A0049AAA9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AABC6529C9FC9A0049AAA9 /* AppDelegate.swift */; };
 		65AABC7229C9FC9A0049AAA9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65AABC7129C9FC9A0049AAA9 /* Assets.xcassets */; };
-		65AABC8029C9FC9B0049AAA9 /* StoriesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AABC7F29C9FC9B0049AAA9 /* StoriesTests.swift */; };
 		65AABC9929C9FD590049AAA9 /* ApplicationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AABC9829C9FD590049AAA9 /* ApplicationManager.swift */; };
 		65AABCA329C9FD790049AAA9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 65AABCA129C9FD790049AAA9 /* Localizable.strings */; };
 		65AABCA829C9FDAB0049AAA9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65AABCA729C9FDAB0049AAA9 /* LaunchScreen.storyboard */; };
@@ -64,7 +74,6 @@
 		65AABCF829C9FE390049AAA9 /* TimelineCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65AABCF229C9FE390049AAA9 /* TimelineCollectionViewCell.xib */; };
 		65AABD2229C9FE930049AAA9 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 65AABD2129C9FE930049AAA9 /* Alamofire */; };
 		65AABD2529C9FEA20049AAA9 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 65AABD2429C9FEA20049AAA9 /* Lottie */; };
-		65AABD2829C9FEBE0049AAA9 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 65AABD2729C9FEBE0049AAA9 /* SDWebImage */; };
 		65AABD2A29C9FED30049AAA9 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 65AABD2929C9FED30049AAA9 /* Podfile */; };
 		99DA8AB8FC405BC5FBE3A0BB /* Pods_Stories.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E55D9003DA6B6D8A5C2542E7 /* Pods_Stories.framework */; };
 /* End PBXBuildFile section */
@@ -103,12 +112,20 @@
 		659FF37A29CA050C00798CAB /* BubbleMessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleMessageView.swift; sourceTree = "<group>"; };
 		659FF37B29CA050C00798CAB /* BubbleMessageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BubbleMessageView.xib; sourceTree = "<group>"; };
 		659FF37D29CA050C00798CAB /* AsyncImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncImageView.swift; sourceTree = "<group>"; };
+		659FF3A629CA088200798CAB /* StoryDetailTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryDetailTests.swift; sourceTree = "<group>"; };
+		659FF3A729CA088200798CAB /* StoryDetailViewControllerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryDetailViewControllerMock.swift; sourceTree = "<group>"; };
+		659FF3A929CA088200798CAB /* TimelineCollectionViewControllerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineCollectionViewControllerMock.swift; sourceTree = "<group>"; };
+		659FF3AA29CA088200798CAB /* TimelineCollectionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineCollectionTests.swift; sourceTree = "<group>"; };
+		659FF3AC29CA088200798CAB /* StoriesImageManagerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesImageManagerMock.swift; sourceTree = "<group>"; };
+		659FF3AD29CA088200798CAB /* StoriesStoreMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesStoreMock.swift; sourceTree = "<group>"; };
+		659FF3AE29CA088200798CAB /* StoriesEnviromentMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesEnviromentMock.swift; sourceTree = "<group>"; };
+		659FF3AF29CA088200798CAB /* StoriesAPIMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesAPIMock.swift; sourceTree = "<group>"; };
+		659FF3B029CA088200798CAB /* ModelMockData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelMockData.swift; sourceTree = "<group>"; };
 		65AABC6229C9FC9A0049AAA9 /* Stories.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stories.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65AABC6529C9FC9A0049AAA9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65AABC7129C9FC9A0049AAA9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		65AABC7629C9FC9A0049AAA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		65AABC7B29C9FC9B0049AAA9 /* StoriesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StoriesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		65AABC7F29C9FC9B0049AAA9 /* StoriesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesTests.swift; sourceTree = "<group>"; };
 		65AABC9829C9FD590049AAA9 /* ApplicationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationManager.swift; sourceTree = "<group>"; };
 		65AABCA229C9FD790049AAA9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		65AABCA729C9FDAB0049AAA9 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -153,7 +170,7 @@
 			files = (
 				99DA8AB8FC405BC5FBE3A0BB /* Pods_Stories.framework in Frameworks */,
 				65AABD2229C9FE930049AAA9 /* Alamofire in Frameworks */,
-				65AABD2829C9FEBE0049AAA9 /* SDWebImage in Frameworks */,
+				65A3566C29CA1474001F9892 /* SDWebImage in Frameworks */,
 				65AABD2529C9FEA20049AAA9 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -162,6 +179,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65A3567029CA167B001F9892 /* SDWebImage in Frameworks */,
 				0C391F56BCBCF1AD98D09B3A /* Pods_StoriesTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -255,6 +273,36 @@
 			path = AsyncImageView;
 			sourceTree = "<group>";
 		};
+		659FF3A529CA088200798CAB /* StoryDetail */ = {
+			isa = PBXGroup;
+			children = (
+				659FF3A629CA088200798CAB /* StoryDetailTests.swift */,
+				659FF3A729CA088200798CAB /* StoryDetailViewControllerMock.swift */,
+			);
+			path = StoryDetail;
+			sourceTree = "<group>";
+		};
+		659FF3A829CA088200798CAB /* TimelineCollection */ = {
+			isa = PBXGroup;
+			children = (
+				659FF3A929CA088200798CAB /* TimelineCollectionViewControllerMock.swift */,
+				659FF3AA29CA088200798CAB /* TimelineCollectionTests.swift */,
+			);
+			path = TimelineCollection;
+			sourceTree = "<group>";
+		};
+		659FF3AB29CA088200798CAB /* ModelMock */ = {
+			isa = PBXGroup;
+			children = (
+				659FF3AC29CA088200798CAB /* StoriesImageManagerMock.swift */,
+				659FF3AD29CA088200798CAB /* StoriesStoreMock.swift */,
+				659FF3AE29CA088200798CAB /* StoriesEnviromentMock.swift */,
+				659FF3AF29CA088200798CAB /* StoriesAPIMock.swift */,
+				659FF3B029CA088200798CAB /* ModelMockData.swift */,
+			);
+			path = ModelMock;
+			sourceTree = "<group>";
+		};
 		65AABC5929C9FC9A0049AAA9 = {
 			isa = PBXGroup;
 			children = (
@@ -300,7 +348,9 @@
 		65AABC7E29C9FC9B0049AAA9 /* StoriesTests */ = {
 			isa = PBXGroup;
 			children = (
-				65AABC7F29C9FC9B0049AAA9 /* StoriesTests.swift */,
+				659FF3AB29CA088200798CAB /* ModelMock */,
+				659FF3A529CA088200798CAB /* StoryDetail */,
+				659FF3A829CA088200798CAB /* TimelineCollection */,
 			);
 			path = StoriesTests;
 			sourceTree = "<group>";
@@ -476,7 +526,7 @@
 			packageProductDependencies = (
 				65AABD2129C9FE930049AAA9 /* Alamofire */,
 				65AABD2429C9FEA20049AAA9 /* Lottie */,
-				65AABD2729C9FEBE0049AAA9 /* SDWebImage */,
+				65A3566B29CA1474001F9892 /* SDWebImage */,
 			);
 			productName = Stories;
 			productReference = 65AABC6229C9FC9A0049AAA9 /* Stories.app */;
@@ -497,6 +547,9 @@
 				65AABC7D29C9FC9B0049AAA9 /* PBXTargetDependency */,
 			);
 			name = StoriesTests;
+			packageProductDependencies = (
+				65A3566F29CA167B001F9892 /* SDWebImage */,
+			);
 			productName = StoriesTests;
 			productReference = 65AABC7B29C9FC9B0049AAA9 /* StoriesTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -531,7 +584,7 @@
 			packageReferences = (
 				65AABD2029C9FE930049AAA9 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				65AABD2329C9FEA20049AAA9 /* XCRemoteSwiftPackageReference "lottie-ios" */,
-				65AABD2629C9FEBE0049AAA9 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				65A3566A29CA1474001F9892 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = 65AABC6329C9FC9A0049AAA9 /* Products */;
 			projectDirPath = "";
@@ -690,7 +743,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				65AABC8029C9FC9B0049AAA9 /* StoriesTests.swift in Sources */,
+				659FF3B829CA088200798CAB /* StoriesEnviromentMock.swift in Sources */,
+				659FF3B329CA088200798CAB /* StoryDetailViewControllerMock.swift in Sources */,
+				659FF3B629CA088200798CAB /* StoriesImageManagerMock.swift in Sources */,
+				659FF3B929CA088200798CAB /* StoriesAPIMock.swift in Sources */,
+				659FF3B729CA088200798CAB /* StoriesStoreMock.swift in Sources */,
+				659FF3B429CA088200798CAB /* TimelineCollectionViewControllerMock.swift in Sources */,
+				659FF3B229CA088200798CAB /* StoryDetailTests.swift in Sources */,
+				659FF3B529CA088200798CAB /* TimelineCollectionTests.swift in Sources */,
+				659FF3BA29CA088200798CAB /* ModelMockData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -965,6 +1026,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		65A3566A29CA1474001F9892 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		65AABD2029C9FE930049AAA9 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -981,17 +1050,19 @@
 				minimumVersion = 4.0.0;
 			};
 		};
-		65AABD2629C9FEBE0049AAA9 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		65A3566B29CA1474001F9892 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 65A3566A29CA1474001F9892 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		65A3566F29CA167B001F9892 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 65A3566A29CA1474001F9892 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
 		65AABD2129C9FE930049AAA9 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 65AABD2029C9FE930049AAA9 /* XCRemoteSwiftPackageReference "Alamofire" */;
@@ -1001,11 +1072,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 65AABD2329C9FEA20049AAA9 /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
-		};
-		65AABD2729C9FEBE0049AAA9 /* SDWebImage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 65AABD2629C9FEBE0049AAA9 /* XCRemoteSwiftPackageReference "SDWebImage" */;
-			productName = SDWebImage;
 		};
 /* End XCSwiftPackageProductDependency section */
 
