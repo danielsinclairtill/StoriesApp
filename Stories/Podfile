@@ -1,0 +1,14 @@
+platform :ios, '16.0'
+
+target 'Stories' do
+  use_frameworks!
+
+  # Pods for Stories
+  pod 'ViewAnimator', '3.1.0'
+
+  target 'StoriesTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
