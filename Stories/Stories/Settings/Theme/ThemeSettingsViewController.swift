@@ -34,6 +34,7 @@ class ThemeSettingsViewController: UIViewController,
         tableView.delegate = self
         tableView.allowsSelection = true
         tableView.separatorStyle = .singleLine
+        tableView.separatorColor = StoriesDesign.shared.attributes.colors.primaryFill()
         tableView.alwaysBounceVertical = false
         tableView.backgroundColor = StoriesDesign.shared.attributes.colors.primary()
     }
