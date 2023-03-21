@@ -37,7 +37,10 @@ class StoriesStore: StoreContract {
         let asyncRequest = NSAsynchronousFetchRequest(fetchRequest: request) { [weak self] results in
             guard let strongSelf = self else { fatalError("Could not find store class...") }
             if let results = results.finalResult {
-                let storiesCD = results as! [StoryCD]
+                guard let storiesCD = results as? [StoryCD] else {
+                    failure?(StoreError.readError)
+                    return
+                }
                 let stories: [Story] = storiesCD.map { strongSelf.converter.convert(storyCD: $0) }
                 success?(stories)
             }
