@@ -15,7 +15,8 @@ class TimelineCollectionViewModel {
     var stories: [Story] = []
     var isScrolling = false
     var isPagingLoading = false
-
+    private(set) var isOffline: Bool = false
+    
     init(environment: EnvironmentContract) {
         self.environment = environment
     }
@@ -33,13 +34,14 @@ class TimelineCollectionViewModel {
         updateData()
     }
     
-    @objc func refreshOffline() {
+    func refreshOffline() {
+        isOffline = true
         viewControllerDelegate?.initiateLoadingTimeline()
         updateDataOffline()
     }
     
-    @objc func loadNextPage() {
-        guard !stories.isEmpty && !isPagingLoading else { return }
+    func loadNextPage() {
+        guard !stories.isEmpty && !isPagingLoading && !isOffline else { return }
         isPagingLoading = true
         
         environment.api.get(request: StoriesRequests.StoriesTimelinePage(offset: self.stories.count + 1)) { [weak self] result in
@@ -53,6 +55,7 @@ class TimelineCollectionViewModel {
                 }
                 
                 strongSelf.stories += data.stories
+                strongSelf.isOffline = false
                 
                 strongSelf.prefetchImages()
                 strongSelf.viewControllerDelegate?.loadNextPage()
@@ -63,7 +66,7 @@ class TimelineCollectionViewModel {
             strongSelf.isPagingLoading = false
         }
     }
-    
+
     private func displayOfflineModeMessage() {
         // only show this bubble message once
         if !ApplicationManager.shared.hasSeenOfflineModeMessage {
@@ -100,6 +103,8 @@ class TimelineCollectionViewModel {
                 }
                 
                 strongSelf.stories = data.stories
+                strongSelf.isOffline = false
+
                 // store stories for offline mode
                 strongSelf.environment.store.storeStories(data.stories, success: { [weak self] completed in
                     self?.displayOfflineModeMessage()

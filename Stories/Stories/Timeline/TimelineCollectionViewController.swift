@@ -104,7 +104,7 @@ class TimelineCollectionViewController: UIViewController,
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        if viewModel.isPagingLoading {
+        if viewModel.isPagingLoading || viewModel.isOffline {
             return CGSize.zero
         } else {
             return CGSize(width: collectionView.bounds.size.width, height: TimelineCollectionViewPagingLoadingCell.cellHeight)
