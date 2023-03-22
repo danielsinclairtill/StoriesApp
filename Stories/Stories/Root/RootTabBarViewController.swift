@@ -42,7 +42,20 @@ class RootUITabBarController: UITabBarController, UITabBarControllerDelegate {
     }()
     
     private lazy var tabBarItems: [StoriesNavigationController] = [timelineNavigationController, settingsNavigationController]
-
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(themeUpdated(notification:)),
+                                               name: Notification.Name(StoriesNotifications.themeUpdated.rawValue),
+                                               object: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -71,5 +84,26 @@ class RootUITabBarController: UITabBarController, UITabBarControllerDelegate {
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         // update the lastSelectedIndex
         lastSelectedIndex = selectedIndex
+    }
+    
+    // MARK: ThemeUpdated
+    @objc
+    func themeUpdated(notification: Notification) {
+        let appearance = UITabBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = StoriesDesign.shared.attributes.colors.primary()
+        tabBar.standardAppearance = appearance
+        tabBar.scrollEdgeAppearance = appearance
+        tabBar.tintColor = StoriesDesign.shared.attributes.colors.primaryFill()
+        
+        tabBarItems = tabBarItems.map { item in
+            return Self.formatNavigationControllerUI(item)
+        }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self,
+                                                  name: Notification.Name(StoriesNotifications.themeUpdated.rawValue),
+                                                  object: nil)
     }
 }

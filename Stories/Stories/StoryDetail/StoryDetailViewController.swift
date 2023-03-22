@@ -15,7 +15,7 @@ protocol StoryDetailViewControllerContract: NSObject {
     func setStory(story: Story?)
 }
 
-class StoryDetailViewController: UIViewController,
+class StoryDetailViewController: StoriesViewController,
                                  StoryDetailViewControllerContract {
     private let viewModel: StoryDetailViewModel
     
@@ -188,5 +188,20 @@ class StoryDetailViewController: UIViewController,
     func presentError(message: String) {
         let alert = StoriesAlertControllerFactory.createAPIError(message: message)
         present(alert, animated: true, completion: nil)
+    }
+    
+    // MARK: ThemeUpdated
+    func themeUpdated(notification: Notification) {
+        view.backgroundColor = StoriesDesign.shared.attributes.colors.primary()
+        storyTitle.font = StoriesDesign.shared.attributes.fonts.primaryTitleLarge()
+        storyTitle.textColor = StoriesDesign.shared.attributes.colors.primaryFill()
+        authorTitle.font = StoriesDesign.shared.attributes.fonts.primaryTitle()
+        authorTitle.textColor = StoriesDesign.shared.attributes.colors.primaryFill()
+        descriptionTitle.font = StoriesDesign.shared.attributes.fonts.body()
+        descriptionTitle.textColor = StoriesDesign.shared.attributes.colors.primaryFill()
+        tagsListView.textFont = StoriesDesign.shared.attributes.fonts.body()
+        tagsListView.textColor = StoriesDesign.shared.attributes.colors.secondaryFill()
+        tagsListView.tagBackgroundColor = StoriesDesign.shared.attributes.colors.secondary()
+        tagsListView.cornerRadius = StoriesDesign.shared.attributes.dimensions.tagCornerRadius()
     }
 }

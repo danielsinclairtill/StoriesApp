@@ -18,7 +18,7 @@ fileprivate enum SettingsOptions: String, CaseIterable {
     }
 }
 
-class SettingsViewController: UIViewController,
+class SettingsViewController: StoriesViewController,
                               UITableViewDataSource,
                               UITableViewDelegate,
                               UIGestureRecognizerDelegate {
@@ -66,5 +66,13 @@ class SettingsViewController: UIViewController,
         if option == .theme {
             navigationController?.pushViewController(ThemeSettingsViewController(), animated: true)
         }
+    }
+    
+    // MARK: ThemeUpdated
+    func themeUpdated(notification: Notification) {
+        view.backgroundColor = StoriesDesign.shared.attributes.colors.primary()
+        tableView.separatorColor = StoriesDesign.shared.attributes.colors.primaryFill()
+        tableView.backgroundColor = StoriesDesign.shared.attributes.colors.primary()
+        tableView.reloadData()
     }
 }

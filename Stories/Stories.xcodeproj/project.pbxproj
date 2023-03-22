@@ -76,6 +76,8 @@
 		65AABD2529C9FEA20049AAA9 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 65AABD2429C9FEA20049AAA9 /* Lottie */; };
 		65AABD2A29C9FED30049AAA9 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 65AABD2929C9FED30049AAA9 /* Podfile */; };
 		65AB629929CA576C003FE82D /* RetroTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AB629829CA576C003FE82D /* RetroTheme.swift */; };
+		65ABAAC829CB84B500F50D6A /* StoriesNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65ABAAC729CB84B500F50D6A /* StoriesNotifications.swift */; };
+		65ABAACA29CB8DD700F50D6A /* StoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65ABAAC929CB8DD700F50D6A /* StoriesViewController.swift */; };
 		99DA8AB8FC405BC5FBE3A0BB /* Pods_Stories.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E55D9003DA6B6D8A5C2542E7 /* Pods_Stories.framework */; };
 /* End PBXBuildFile section */
 
@@ -162,6 +164,8 @@
 		65AABCF229C9FE390049AAA9 /* TimelineCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimelineCollectionViewCell.xib; sourceTree = "<group>"; };
 		65AABD2929C9FED30049AAA9 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		65AB629829CA576C003FE82D /* RetroTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetroTheme.swift; sourceTree = "<group>"; };
+		65ABAAC729CB84B500F50D6A /* StoriesNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesNotifications.swift; sourceTree = "<group>"; };
+		65ABAAC929CB8DD700F50D6A /* StoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesViewController.swift; sourceTree = "<group>"; };
 		E55D9003DA6B6D8A5C2542E7 /* Pods_Stories.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Stories.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -233,6 +237,7 @@
 		659FF37229CA050C00798CAB /* Templates */ = {
 			isa = PBXGroup;
 			children = (
+				65ABAACB29CB8E0000F50D6A /* StoriesViewController */,
 				659FF37329CA050C00798CAB /* NavigationController */,
 				659FF37629CA050C00798CAB /* AvatarView */,
 				659FF37829CA050C00798CAB /* BubbleMessageView */,
@@ -344,6 +349,7 @@
 				65AABCA129C9FD790049AAA9 /* Localizable.strings */,
 				65AABCA929C9FDFD0049AAA9 /* StoriesLoadingAnimation.json */,
 				65AABD2929C9FED30049AAA9 /* Podfile */,
+				65ABAAC729CB84B500F50D6A /* StoriesNotifications.swift */,
 			);
 			path = Stories;
 			sourceTree = "<group>";
@@ -486,6 +492,14 @@
 				65AABCF229C9FE390049AAA9 /* TimelineCollectionViewCell.xib */,
 			);
 			path = Timeline;
+			sourceTree = "<group>";
+		};
+		65ABAACB29CB8E0000F50D6A /* StoriesViewController */ = {
+			isa = PBXGroup;
+			children = (
+				65ABAAC929CB8DD700F50D6A /* StoriesViewController.swift */,
+			);
+			path = StoriesViewController;
 			sourceTree = "<group>";
 		};
 		9ED23200AF4BA5DC6CDCEC0F /* Frameworks */ = {
@@ -713,12 +727,14 @@
 				65AABCCC29C9FE150049AAA9 /* EnvironmentContract.swift in Sources */,
 				65AABCF529C9FE390049AAA9 /* TimelineCollectionViewCell.swift in Sources */,
 				659FF38929CA050C00798CAB /* StoriesAlertControllerFactory.swift in Sources */,
+				65ABAACA29CB8DD700F50D6A /* StoriesViewController.swift in Sources */,
 				65AABCD729C9FE150049AAA9 /* User.swift in Sources */,
 				659FF38529CA050C00798CAB /* PlainTheme.swift in Sources */,
 				65AABCF429C9FE390049AAA9 /* TimelineCollectionViewModel.swift in Sources */,
 				659FF38C29CA050C00798CAB /* AsyncImageView.swift in Sources */,
 				65AABCD329C9FE150049AAA9 /* ImageManagerContract.swift in Sources */,
 				65AABCD429C9FE150049AAA9 /* StoriesRequests.swift in Sources */,
+				65ABAAC829CB84B500F50D6A /* StoriesNotifications.swift in Sources */,
 				659FF38729CA050C00798CAB /* TabBarItemTapHandler.swift in Sources */,
 				659FF38329CA050C00798CAB /* DesignContract.swift in Sources */,
 				659FF37F29CA050C00798CAB /* Dimensions.swift in Sources */,

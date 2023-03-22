@@ -21,7 +21,7 @@ protocol TimelineCollectionViewControllerContract: NSObject {
     func animateScrollToTop(animated: Bool)
 }
 
-class TimelineCollectionViewController: UIViewController,
+class TimelineCollectionViewController: StoriesViewController,
                                         UICollectionViewDelegateFlowLayout,
                                         UICollectionViewDelegate,
                                         UICollectionViewDataSource,
@@ -67,7 +67,7 @@ class TimelineCollectionViewController: UIViewController,
         collectionView.refreshControl = refreshControl
         refreshControl.addTarget(viewModel, action: #selector(viewModel.refresh), for: .valueChanged)
         collectionView.alpha = 0.0
-        collectionView.backgroundColor = StoriesDesign.shared.attributes.colors.primary()
+        collectionView.backgroundColor = .clear
         
         // animation view
         loadingAnimationView.backgroundBehavior = .pauseAndRestore
@@ -248,6 +248,12 @@ class TimelineCollectionViewController: UIViewController,
     
     func animateScrollToTop(animated: Bool) {
         collectionView.setContentOffset(.zero, animated: animated)
+    }
+    
+    // MARK: ThemeUpdated
+    func themeUpdated(notification: Notification) {
+        view.backgroundColor = StoriesDesign.shared.attributes.colors.primary()
+        collectionView.reloadData()
     }
     
     // MARK: TabBarItemTapHandler

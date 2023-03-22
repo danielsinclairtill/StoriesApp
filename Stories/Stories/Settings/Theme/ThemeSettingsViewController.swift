@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class ThemeSettingsViewController: UIViewController,
+class ThemeSettingsViewController: StoriesViewController,
                                    UITableViewDataSource,
                                    UITableViewDelegate,
                                    UIGestureRecognizerDelegate {
@@ -19,10 +19,10 @@ class ThemeSettingsViewController: UIViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         title = "com.test.Stories.settings.theme.title".localized()
         view.backgroundColor = StoriesDesign.shared.attributes.colors.primary()
-
+        
         // tableView
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -39,6 +39,10 @@ class ThemeSettingsViewController: UIViewController,
         tableView.backgroundColor = StoriesDesign.shared.attributes.colors.primary()
         
         // select row
+        selectThemeRow()
+    }
+    
+    private func selectThemeRow() {
         let selectedIndex = options.firstIndex(of: ApplicationManager.shared.theme) ?? 0
         tableView.selectRow(at: IndexPath(row: selectedIndex, section: 0), animated: false, scrollPosition: .none)
     }
@@ -58,5 +62,16 @@ class ThemeSettingsViewController: UIViewController,
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let theme = options[indexPath.row]
         StoriesDesign.shared.changeToTheme(theme)
+        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: StoriesNotifications.themeUpdated.rawValue), object: nil)
+    }
+    
+    // MARK: ThemeUpdated
+    func themeUpdated(notification: Notification) {
+        view.backgroundColor = StoriesDesign.shared.attributes.colors.primary()
+        tableView.separatorColor = StoriesDesign.shared.attributes.colors.primaryFill()
+        tableView.backgroundColor = StoriesDesign.shared.attributes.colors.primary()
+        tableView.reloadData()
+        selectThemeRow()
     }
 }
