@@ -37,6 +37,8 @@ class ThemeSettingsViewController: StoriesViewController,
         tableView.separatorColor = StoriesDesign.shared.attributes.colors.primaryFill()
         tableView.alwaysBounceVertical = false
         tableView.backgroundColor = StoriesDesign.shared.attributes.colors.primary()
+        // required to remove top separator line
+        tableView.tableHeaderView = UIView()
         
         // select row
         selectThemeRow()

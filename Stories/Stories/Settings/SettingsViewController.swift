@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 fileprivate enum SettingsOptions: String, CaseIterable {
-    case clearLikes = "com.test.Stories.settings.clearLikedStories"
     case theme = "com.test.Stories.settings.theme.title"
     
     func getText() -> String {
@@ -46,6 +45,8 @@ class SettingsViewController: StoriesViewController,
         tableView.separatorColor = StoriesDesign.shared.attributes.colors.primaryFill()
         tableView.alwaysBounceVertical = false
         tableView.backgroundColor = StoriesDesign.shared.attributes.colors.primary()
+        // required to remove top separator line
+        tableView.tableHeaderView = UIView()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
