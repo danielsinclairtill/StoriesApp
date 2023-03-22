@@ -9,7 +9,10 @@
 
 // MARK: Settings
 "com.test.Stories.settings.title" = "Settings";
+"com.test.Stories.settings.clearLikedStories" = "Clear like stories";
 "com.test.Stories.settings.theme.title" = "Theme";
+"com.test.Stories.settings.theme.plain" = "Plain";
+"com.test.Stories.settings.theme.retro" = "Retro";
 
 // MARK: APIErorr
 "com.test.Stories.apiError.message.offlineMode" = "There seems to be no interenet connection. For now we will put you in offline mode.\n\nIf you want to try to connect to the internet again please refresh the timeline!";

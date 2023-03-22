@@ -9,13 +9,22 @@
 import Foundation
 import UIKit
 
+fileprivate enum SettingsOptions: String, CaseIterable {
+    case clearLikes = "com.test.Stories.settings.clearLikedStories"
+    case theme = "com.test.Stories.settings.theme.title"
+    
+    func getText() -> String {
+        return self.rawValue.localized()
+    }
+}
+
 class SettingsViewController: UIViewController,
                               UITableViewDataSource,
                               UITableViewDelegate,
                               UIGestureRecognizerDelegate {
     private let cellID = "ID"
     private let tableView = UITableView()
-    private let options = ["Profile", "Theme"]
+    private let options = SettingsOptions.allCases
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,14 +56,14 @@ class SettingsViewController: UIViewController,
         let option = options[indexPath.row]
         let cell = UITableViewCell(style: .value1, reuseIdentifier: self.cellID)
         cell.selectionStyle = .none
-        cell.textLabel?.text = option
+        cell.textLabel?.text = option.getText()
         cell.backgroundColor = StoriesDesign.shared.attributes.colors.primary()
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let option = options[indexPath.row]
-        if option == "Theme" {
+        if option == .theme {
             navigationController?.pushViewController(ThemeSettingsViewController(), animated: true)
         }
     }

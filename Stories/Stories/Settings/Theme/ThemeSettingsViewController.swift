@@ -37,6 +37,10 @@ class ThemeSettingsViewController: UIViewController,
         tableView.separatorColor = StoriesDesign.shared.attributes.colors.primaryFill()
         tableView.alwaysBounceVertical = false
         tableView.backgroundColor = StoriesDesign.shared.attributes.colors.primary()
+        
+        // select row
+        let selectedIndex = options.firstIndex(of: ApplicationManager.shared.theme) ?? 0
+        tableView.selectRow(at: IndexPath(row: selectedIndex, section: 0), animated: false, scrollPosition: .none)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -46,7 +50,7 @@ class ThemeSettingsViewController: UIViewController,
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let option = options[indexPath.row]
         let cell = UITableViewCell(style: .value1, reuseIdentifier: self.cellID)
-        cell.textLabel?.text = option.rawValue.capitalized
+        cell.textLabel?.text = option.getText()
         cell.backgroundColor = StoriesDesign.shared.attributes.colors.primary()
         return cell
     }
