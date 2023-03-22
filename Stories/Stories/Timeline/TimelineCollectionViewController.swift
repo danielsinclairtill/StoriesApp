@@ -236,13 +236,11 @@ class TimelineCollectionViewController: StoriesViewController,
         bubbleMessageViewContainer.addSubview(bubbleMessageView)
         AnimationController.fadeInView(bubbleMessageViewContainer, delay: 2.0) { [weak self] completed in
             guard let strongSelf = self else { return }
-            if completed {
-                AnimationController.fadeOutView(strongSelf.bubbleMessageViewContainer,
-                                                delay: BubbleMessageView.displayTime,
-                                                completion: { completed in
-                                                    bubbleMessageView.removeFromSuperview()
-                })
-            }
+            AnimationController.fadeOutView(strongSelf.bubbleMessageViewContainer,
+                                            delay: BubbleMessageView.displayTime,
+                                            completion: { completed in
+                bubbleMessageView.removeFromSuperview()
+            })
         }
     }
     
