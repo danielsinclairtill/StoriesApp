@@ -1,16 +1,20 @@
 PODS:
+  - TagListView (1.4.1)
   - ViewAnimator (3.1.0)
 
 DEPENDENCIES:
+  - TagListView (~> 1.0)
   - ViewAnimator (= 3.1.0)
 
 SPEC REPOS:
   trunk:
+    - TagListView
     - ViewAnimator
 
 SPEC CHECKSUMS:
+  TagListView: a1c236d17960a0cf64156725a76ce6d73ebce2be
   ViewAnimator: a9ceed80266e00fd435ec4fb99b2df64d580d0e4
 
-PODFILE CHECKSUM: 36bdd8b2b226bb5fddb7e30ccd45ccd503484dd9
+PODFILE CHECKSUM: b98fdd03773f551d116e0a31305b314b72fcf991
 
 COCOAPODS: 1.12.0

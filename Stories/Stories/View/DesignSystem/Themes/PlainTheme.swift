@@ -73,5 +73,9 @@ class PlainTheme: Theme, Attributes {
         func coverCornerRadius() -> CGFloat {
             return 4.0
         }
+        
+        func tagCornerRadius() -> CGFloat {
+            return 4.0
+        }
     }
 }

@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import TagListView
 
 protocol StoryDetailViewControllerContract: NSObject {
     func presentError(message: String)
@@ -55,7 +56,7 @@ class StoryDetailViewController: UIViewController,
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .leading
-        stackView.spacing = 16.0
+        stackView.spacing = 8.0
         stackView.backgroundColor = .clear
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -93,6 +94,19 @@ class StoryDetailViewController: UIViewController,
         return label
     }()
     
+    private lazy var tagsListView: TagListView = {
+        let tagsListView = TagListView()
+        tagsListView.textFont = StoriesDesign.shared.attributes.fonts.body()
+        tagsListView.textColor = StoriesDesign.shared.attributes.colors.secondaryFill()
+        tagsListView.tagBackgroundColor = StoriesDesign.shared.attributes.colors.secondary()
+        tagsListView.alignment = .leading
+        tagsListView.cornerRadius = StoriesDesign.shared.attributes.dimensions.tagCornerRadius()
+        tagsListView.backgroundColor = .clear
+        tagsListView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return tagsListView
+    }()
+    
     init(storyId: String) {
         self.viewModel = StoryDetailViewModel(storyId: storyId, environment: StoriesEnvironment.shared)
 
@@ -115,7 +129,7 @@ class StoryDetailViewController: UIViewController,
         view.addSubview(rootStackView)
         NSLayoutConstraint.activate([
             rootStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16.0),
-            rootStackView.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8.0),
+            rootStackView.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16.0),
             rootStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16.0),
             rootStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16.0)
         ])
@@ -139,8 +153,18 @@ class StoryDetailViewController: UIViewController,
         descrptionStackView.addArrangedSubview(authorStackView)
 
         // description
+        // make the descriptionTitle be the first the compress if the vertical spacing cannot fit all elements
+        descriptionTitle.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         descrptionStackView.addArrangedSubview(descriptionTitle)
-        
+        descrptionStackView.addArrangedSubview(tagsListView)
+        // add heightConstraint to ensure that the tagsListView height grows depending on the amount of tags
+        let heightConstraint = tagsListView.heightAnchor.constraint(greaterThanOrEqualToConstant: 18.0)
+        heightConstraint.priority = .init(250.0)
+        NSLayoutConstraint.activate([
+            tagsListView.widthAnchor.constraint(equalTo: descrptionStackView.widthAnchor),
+            heightConstraint
+        ])
+                
         // load story detail
         viewModel.loadStory()
     }
@@ -151,6 +175,14 @@ class StoryDetailViewController: UIViewController,
         viewModel.setImage(storyCover: avatarView, url: story?.user?.avatar)
         authorTitle.text = story?.user?.name ?? "..."
         descriptionTitle.text = story?.description ?? "..."
+        
+        // reset all the tags in the tags stack view
+        tagsListView.removeAllTags()
+        // only take the first five tags of the story
+        if let tags = story?.tags?.prefix(5) {
+            let formattedTags = Array(tags).map({ return "#\($0)" })
+            tagsListView.addTags(formattedTags)
+        }
     }
     
     func presentError(message: String) {
