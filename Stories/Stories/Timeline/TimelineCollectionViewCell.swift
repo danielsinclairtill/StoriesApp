@@ -42,7 +42,7 @@ class TimelineCollectionViewCell: UICollectionViewCell {
         title.text = nil
         title.font = StoriesDesign.shared.attributes.fonts.primaryTitle()
         title.adjustsFontForContentSizeCategory = true
-        title.textColor = StoriesDesign.shared.attributes.colors.secondaryFill()
+        title.textColor = StoriesDesign.shared.attributes.colors.primaryFill()
         
         // avatar image
         avatarPlaceholderImageView.image = #imageLiteral(resourceName: "UnkownUser")

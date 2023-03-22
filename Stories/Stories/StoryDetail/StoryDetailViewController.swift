@@ -37,7 +37,7 @@ class StoryDetailViewController: UIViewController,
         let label = UILabel()
         label.font = StoriesDesign.shared.attributes.fonts.primaryTitleLarge()
         label.adjustsFontForContentSizeCategory = true
-        label.textColor = StoriesDesign.shared.attributes.colors.secondaryFill()
+        label.textColor = StoriesDesign.shared.attributes.colors.primaryFill()
         label.numberOfLines = 2
         label.textAlignment = .center
         
