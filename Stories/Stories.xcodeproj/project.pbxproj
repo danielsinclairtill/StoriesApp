@@ -35,6 +35,7 @@
 		659FF3B829CA088200798CAB /* StoriesEnviromentMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659FF3AE29CA088200798CAB /* StoriesEnviromentMock.swift */; };
 		659FF3B929CA088200798CAB /* StoriesAPIMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659FF3AF29CA088200798CAB /* StoriesAPIMock.swift */; };
 		659FF3BA29CA088200798CAB /* ModelMockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659FF3B029CA088200798CAB /* ModelMockData.swift */; };
+		65A2153D29CCBDB00035FBCA /* StoriesNativeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A2153C29CCBDB00035FBCA /* StoriesNativeAPI.swift */; };
 		65A3566C29CA1474001F9892 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 65A3566B29CA1474001F9892 /* SDWebImage */; };
 		65A3567029CA167B001F9892 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 65A3566F29CA167B001F9892 /* SDWebImage */; };
 		65AABC6629C9FC9A0049AAA9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AABC6529C9FC9A0049AAA9 /* AppDelegate.swift */; };
@@ -124,6 +125,7 @@
 		659FF3AE29CA088200798CAB /* StoriesEnviromentMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesEnviromentMock.swift; sourceTree = "<group>"; };
 		659FF3AF29CA088200798CAB /* StoriesAPIMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesAPIMock.swift; sourceTree = "<group>"; };
 		659FF3B029CA088200798CAB /* ModelMockData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelMockData.swift; sourceTree = "<group>"; };
+		65A2153C29CCBDB00035FBCA /* StoriesNativeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesNativeAPI.swift; sourceTree = "<group>"; };
 		65AABC6229C9FC9A0049AAA9 /* Stories.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stories.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65AABC6529C9FC9A0049AAA9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65AABC7129C9FC9A0049AAA9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -392,6 +394,7 @@
 				65AABCB629C9FE140049AAA9 /* Contracts */,
 				65AABCBD29C9FE140049AAA9 /* Requests */,
 				659FF36229CA030D00798CAB /* StoriesAPI.swift */,
+				65A2153C29CCBDB00035FBCA /* StoriesNativeAPI.swift */,
 				659FF36429CA031300798CAB /* StoriesImageManager.swift */,
 			);
 			path = API;
@@ -734,6 +737,7 @@
 				659FF38C29CA050C00798CAB /* AsyncImageView.swift in Sources */,
 				65AABCD329C9FE150049AAA9 /* ImageManagerContract.swift in Sources */,
 				65AABCD429C9FE150049AAA9 /* StoriesRequests.swift in Sources */,
+				65A2153D29CCBDB00035FBCA /* StoriesNativeAPI.swift in Sources */,
 				65ABAAC829CB84B500F50D6A /* StoriesNotifications.swift in Sources */,
 				659FF38729CA050C00798CAB /* TabBarItemTapHandler.swift in Sources */,
 				659FF38329CA050C00798CAB /* DesignContract.swift in Sources */,

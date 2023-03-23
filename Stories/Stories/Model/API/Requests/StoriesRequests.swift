@@ -20,13 +20,13 @@ public struct StoriesRequests {
         /// Retrieves the next page of stories to display on the 'Stories' timeline.
         /// - Parameter offset: the offset that is the starting index of the next page
         init(offset: Int = 0) {
-            parameters?.updateValue(offset, forKey: "offset")
+            parameters?.updateValue(String(offset), forKey: "offset")
         }
         
         public let path: String = "stories"
-        public var parameters: [String : Any]? = [
-            "offset": 0,
-            "limit": 10,
+        public var parameters: [String : String]? = [
+            "offset": "0",
+            "limit": "10",
             "fields": "stories(id,title,cover,user,description,tags)",
             "filter": "new",
         ]
@@ -52,7 +52,7 @@ public struct StoriesRequests {
         }
         
         public var path: String
-        public var parameters: [String : Any]? = [
+        public var parameters: [String : String]? = [
             "fields": "id,title,cover,user,description,tags",
         ]
         public var timeoutInterval: TimeInterval = 10
