@@ -32,6 +32,7 @@ The tests ensure that each view controller's view model logic and interaction be
 - All lottie animations were taken from https://lottiefiles.com/
 
 ## Tradeoffs
+- The connection made between the view and the viewmodel layer can be better served with Observables and RxSwift, however for now I decided to just implement the connection through delegate methods. This can be improved on in the future.
 - With the assumptions made, the store contract is not as verbose as the API contract. If we wish to add more request types to the store (for different data types), then we need to refactor the store contract to behave similarly to the api contract instead.
 - I decided to prefetch all images received once the stories timeline response is received, so the timeline has all images ready to display once the user scrolls through. This increases the amount of initial requests during the timeline refresh.
 - I used placeholders and fade animations to display the stories timeline and fill images in the collection view cells. It gives a more smooth appearance to the application in my opinion, but this will also slightly delay the time it takes for the data to be shown to the user.
