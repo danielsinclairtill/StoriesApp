@@ -134,7 +134,7 @@ class TimelineCollectionTests: XCTestCase {
         
         XCTAssertTrue(mockView.loadedNextPage)
         XCTAssertEqual(mockEnvironment.mockApi.mockAPIRequestsCalled.count, 1)
-        XCTAssertTrue(mockEnvironment.mockApi.mockAPIRequestsCalled.contains { $0.parameters?["offset"] as? Int == 11 })
+        XCTAssertTrue(mockEnvironment.mockApi.mockAPIRequestsCalled.contains { $0.parameters?["offset"] as? String == "11" })
         XCTAssertEqual(viewModel.stories.count, 20)
     }
     
