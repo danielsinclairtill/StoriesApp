@@ -1,5 +1,5 @@
 //
-//  StoryDetailTests.swift
+//  StoryDetailViewModelTests.swift
 //  StoriesTests
 //
 //
@@ -12,23 +12,13 @@ import RxTest
 import RxBlocking
 @testable import Stories
 
-class StoryDetailTests: XCTestCase {
+class StoryDetailViewModelTests: XCTestCase {
+    let disposeBag: DisposeBag = DisposeBag()
     let mockEnvironment: StoriesEnvironmentMock = StoriesEnvironmentMock()
-    var testScheduler: TestScheduler!
-    var disposeBag: DisposeBag!
 
     override func setUp() {
         super.setUp()
-        testScheduler = TestScheduler(initialClock: 0)
-        disposeBag = DisposeBag()
-        
         mockEnvironment.reset()
-    }
-
-    override func tearDown() {
-        testScheduler = nil
-        disposeBag = nil
-        super.tearDown()
     }
     
     func testStoryDetailLoad() {
@@ -46,19 +36,14 @@ class StoryDetailTests: XCTestCase {
         ]
         let viewModel = StoryDetailViewModel(storyId: storyId,
                                              environment: mockEnvironment)
-        let storyRecorded = testScheduler.createObserver(Story?.self)
-        viewModel.output.story
-            .drive(storyRecorded)
-            .disposed(by: disposeBag)
-
-        XCTAssertNil(storyRecorded.events.last?.value.element ?? nil)
+        viewModel.output.story.drive().disposed(by: disposeBag)
         
         viewModel.input.viewDidLoad.onNext(())
         
         let expectedRequest = StoriesRequests.StoryDetail(id: storyId)
         XCTAssertEqual(mockEnvironment.mockApi.mockAPIRequestsCalled.count, 1)
         XCTAssertTrue(mockEnvironment.mockApi.mockAPIRequestsCalled.contains { $0.path == expectedRequest.path })
-        XCTAssertEqual(storyRecorded.events.last?.value.element, story)
+        XCTAssertEqual(try viewModel.output.story.toBlocking().first(), story)
     }
     
     func testStoryDetailPresentsError() {
@@ -68,26 +53,18 @@ class StoryDetailTests: XCTestCase {
         ]
         let viewModel = StoryDetailViewModel(storyId: storyId,
                                              environment: mockEnvironment)
-        let storyRecorded = testScheduler.createObserver(Story?.self)
-        viewModel.output.story
-            .drive(storyRecorded)
-            .disposed(by: disposeBag)
-        let errorRecorded = testScheduler.createObserver(String.self)
-        viewModel.output.error
-            .drive(errorRecorded)
-            .disposed(by: disposeBag)
-        
-        XCTAssertNil(storyRecorded.events.last?.value.element ?? nil)
+        viewModel.output.story.drive().disposed(by: disposeBag)
+        viewModel.output.error.drive().disposed(by: disposeBag)
 
         viewModel.input.viewDidLoad.onNext(())
 
         XCTAssertEqual(
-            errorRecorded.events.last?.value.element,
+            try viewModel.output.error.toBlocking().first(),
             APIError.serverError.message
         )
         let expectedRequest = StoriesRequests.StoryDetail(id: storyId)
         XCTAssertEqual(mockEnvironment.mockApi.mockAPIRequestsCalled.count, 1)
         XCTAssertTrue(mockEnvironment.mockApi.mockAPIRequestsCalled.contains { $0.path == expectedRequest.path })
-        XCTAssertEqual(storyRecorded.events.last?.value.element ?? nil, nil)
+        XCTAssertEqual(try viewModel.output.story.toBlocking().first() ?? nil, nil)
     }
 }
