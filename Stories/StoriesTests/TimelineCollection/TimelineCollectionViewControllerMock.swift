@@ -9,7 +9,7 @@
 import Foundation
 @testable import Stories
 
-class TimelineCollectionViewControllerMock: NSObject, TimelineCollectionViewControllerContract {
+class TimelineCollectionViewControllerMock: NSObject, TimelineCollectionViewModelOutputContract {
     private(set) var navigatedToStory: Story? = nil
     private(set) var initiatedLoadingTimeline = false
     private(set) var reloadedTimeline = false
