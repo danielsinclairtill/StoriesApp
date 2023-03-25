@@ -560,6 +560,7 @@
 				65AABC7729C9FC9B0049AAA9 /* Sources */,
 				65AABC7829C9FC9B0049AAA9 /* Frameworks */,
 				65AABC7929C9FC9B0049AAA9 /* Resources */,
+				529E918C998BF04AAD9DBC38 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -602,9 +603,9 @@
 			);
 			mainGroup = 65AABC5929C9FC9A0049AAA9;
 			packageReferences = (
-				65AABD2029C9FE930049AAA9 /* XCRemoteSwiftPackageReference "Alamofire" */,
-				65AABD2329C9FEA20049AAA9 /* XCRemoteSwiftPackageReference "lottie-ios" */,
-				65A3566A29CA1474001F9892 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				65AABD2029C9FE930049AAA9 /* XCRemoteSwiftPackageReference "Alamofire.git" */,
+				65AABD2329C9FEA20049AAA9 /* XCRemoteSwiftPackageReference "lottie-ios.git" */,
+				65A3566A29CA1474001F9892 /* XCRemoteSwiftPackageReference "SDWebImage.git" */,
 			);
 			productRefGroup = 65AABC6329C9FC9A0049AAA9 /* Products */;
 			projectDirPath = "";
@@ -662,6 +663,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		529E918C998BF04AAD9DBC38 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-StoriesTests/Pods-StoriesTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-StoriesTests/Pods-StoriesTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-StoriesTests/Pods-StoriesTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		6ED14EA4FA1FB0E20DF04927 /* [CP] Check Pods Manifest.lock */ = {
@@ -1050,7 +1068,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		65A3566A29CA1474001F9892 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+		65A3566A29CA1474001F9892 /* XCRemoteSwiftPackageReference "SDWebImage.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
 			requirement = {
@@ -1058,7 +1076,7 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		65AABD2029C9FE930049AAA9 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+		65AABD2029C9FE930049AAA9 /* XCRemoteSwiftPackageReference "Alamofire.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
 			requirement = {
@@ -1066,7 +1084,7 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		65AABD2329C9FEA20049AAA9 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+		65AABD2329C9FEA20049AAA9 /* XCRemoteSwiftPackageReference "lottie-ios.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
 			requirement = {
@@ -1079,22 +1097,22 @@
 /* Begin XCSwiftPackageProductDependency section */
 		65A3566B29CA1474001F9892 /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 65A3566A29CA1474001F9892 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			package = 65A3566A29CA1474001F9892 /* XCRemoteSwiftPackageReference "SDWebImage.git" */;
 			productName = SDWebImage;
 		};
 		65A3566F29CA167B001F9892 /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 65A3566A29CA1474001F9892 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			package = 65A3566A29CA1474001F9892 /* XCRemoteSwiftPackageReference "SDWebImage.git" */;
 			productName = SDWebImage;
 		};
 		65AABD2129C9FE930049AAA9 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 65AABD2029C9FE930049AAA9 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			package = 65AABD2029C9FE930049AAA9 /* XCRemoteSwiftPackageReference "Alamofire.git" */;
 			productName = Alamofire;
 		};
 		65AABD2429C9FEA20049AAA9 /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 65AABD2329C9FEA20049AAA9 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			package = 65AABD2329C9FEA20049AAA9 /* XCRemoteSwiftPackageReference "lottie-ios.git" */;
 			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */

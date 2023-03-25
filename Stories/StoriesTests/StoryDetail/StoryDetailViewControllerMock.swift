@@ -9,7 +9,7 @@
 import Foundation
 @testable import Stories
 
-class StoryDetailViewControllerMock: NSObject, StoryDetailViewControllerContract {
+class StoryDetailViewControllerMock: NSObject {
     private(set) var presentedError: String? = nil
     private(set) var setStory: Story? = nil
 
