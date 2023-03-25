@@ -10,13 +10,8 @@ import Foundation
 import UIKit
 import TagListView
 
-protocol StoryDetailViewControllerContract: NSObject {
-    func presentError(message: String)
-    func setStory(story: Story?)
-}
-
 class StoryDetailViewController: StoriesViewController,
-                                 StoryDetailViewControllerContract {
+                                 StoryDetailViewModelOutputContract {
     private let viewModel: StoryDetailViewModel
     
     private lazy var rootStackView: UIStackView = {

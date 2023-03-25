@@ -8,11 +8,16 @@
 
 import Foundation
 
+protocol StoryDetailViewModelOutputContract: NSObject {
+    func presentError(message: String)
+    func setStory(story: Story?)
+}
+
 class StoryDetailViewModel {
     private let storyId: String
     private(set) var story: Story?
     private let environment: EnvironmentContract
-    weak var viewControllerDelegate: StoryDetailViewControllerContract?
+    weak var viewControllerDelegate: StoryDetailViewModelOutputContract?
     
     required init(storyId: String,
                   environment: EnvironmentContract) {

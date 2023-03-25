@@ -8,9 +8,19 @@
 
 import Foundation
 
-// MARK: ViewModel
+protocol TimelineCollectionViewModelOutputContract: NSObject {
+    func navigateToStory(_ story: Story)
+    func initiateLoadingTimeline()
+    func reloadTimeline()
+    func loadNextPage()
+    func presentOfflineAlert(message: String)
+    func presentError(message: String)
+    func presentBubbleMessage(message: String)
+    func animateScrollToTop(animated: Bool)
+}
+
 class TimelineCollectionViewModel {
-    weak var viewControllerDelegate: TimelineCollectionViewControllerContract?
+    weak var viewControllerDelegate: TimelineCollectionViewModelOutputContract?
     private let environment: EnvironmentContract
     var stories: [Story] = []
     var isScrolling = false

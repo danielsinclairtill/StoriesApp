@@ -79,6 +79,7 @@
 		65AB629929CA576C003FE82D /* RetroTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AB629829CA576C003FE82D /* RetroTheme.swift */; };
 		65ABAAC829CB84B500F50D6A /* StoriesNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65ABAAC729CB84B500F50D6A /* StoriesNotifications.swift */; };
 		65ABAACA29CB8DD700F50D6A /* StoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65ABAAC929CB8DD700F50D6A /* StoriesViewController.swift */; };
+		65EDACA129CFB6E800C6134E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 65EDACA029CFB6E800C6134E /* README.md */; };
 		99DA8AB8FC405BC5FBE3A0BB /* Pods_Stories.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E55D9003DA6B6D8A5C2542E7 /* Pods_Stories.framework */; };
 /* End PBXBuildFile section */
 
@@ -168,6 +169,7 @@
 		65AB629829CA576C003FE82D /* RetroTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetroTheme.swift; sourceTree = "<group>"; };
 		65ABAAC729CB84B500F50D6A /* StoriesNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesNotifications.swift; sourceTree = "<group>"; };
 		65ABAAC929CB8DD700F50D6A /* StoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesViewController.swift; sourceTree = "<group>"; };
+		65EDACA029CFB6E800C6134E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		E55D9003DA6B6D8A5C2542E7 /* Pods_Stories.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Stories.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -352,6 +354,7 @@
 				65AABCA929C9FDFD0049AAA9 /* StoriesLoadingAnimation.json */,
 				65AABD2929C9FED30049AAA9 /* Podfile */,
 				65ABAAC729CB84B500F50D6A /* StoriesNotifications.swift */,
+				65EDACA029CFB6E800C6134E /* README.md */,
 			);
 			path = Stories;
 			sourceTree = "<group>";
@@ -627,6 +630,7 @@
 				65AABD2A29C9FED30049AAA9 /* Podfile in Resources */,
 				65AABC7229C9FC9A0049AAA9 /* Assets.xcassets in Resources */,
 				65AABCF829C9FE390049AAA9 /* TimelineCollectionViewCell.xib in Resources */,
+				65EDACA129CFB6E800C6134E /* README.md in Resources */,
 				65AABCA329C9FD790049AAA9 /* Localizable.strings in Resources */,
 				65AABCAA29C9FDFD0049AAA9 /* StoriesLoadingAnimation.json in Resources */,
 			);

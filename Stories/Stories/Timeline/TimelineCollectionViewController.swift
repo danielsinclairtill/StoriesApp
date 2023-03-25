@@ -10,24 +10,13 @@ import UIKit
 import ViewAnimator
 import Lottie
 
-protocol TimelineCollectionViewControllerContract: NSObject {
-    func navigateToStory(_ story: Story)
-    func initiateLoadingTimeline()
-    func reloadTimeline()
-    func loadNextPage()
-    func presentOfflineAlert(message: String)
-    func presentError(message: String)
-    func presentBubbleMessage(message: String)
-    func animateScrollToTop(animated: Bool)
-}
-
 class TimelineCollectionViewController: StoriesViewController,
                                         UICollectionViewDelegateFlowLayout,
                                         UICollectionViewDelegate,
                                         UICollectionViewDataSource,
                                         UIScrollViewDelegate,
                                         UITabBarControllerDelegate,
-                                        TimelineCollectionViewControllerContract,
+                                        TimelineCollectionViewModelOutputContract,
                                         TabBarItemTapHandler {
     
     private let cellIdentifier = "TimelineCollectionViewCell"
