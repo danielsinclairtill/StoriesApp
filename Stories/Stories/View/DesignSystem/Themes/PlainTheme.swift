@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class PlainTheme: Theme, Attributes {
+class PlainTheme: Attributes {
     var colors: Colors = PlainTheme.Color()
     var dimensions: Dimensions = PlainTheme.Dimension()
     var fonts: Fonts = PlainTheme.Font()

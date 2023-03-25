@@ -9,15 +9,12 @@
 import Foundation
 import UIKit
 import TagListView
+import RxSwift
+import RxCocoa
 
-protocol StoryDetailViewControllerContract: NSObject {
-    func presentError(message: String)
-    func setStory(story: Story?)
-}
-
-class StoryDetailViewController: StoriesViewController,
-                                 StoryDetailViewControllerContract {
+class StoryDetailViewController: UIViewController {
     private let viewModel: StoryDetailViewModel
+    private let disposeBag: DisposeBag = DisposeBag()
     
     private lazy var rootStackView: UIStackView = {
         let stackView = UIStackView()
@@ -31,13 +28,11 @@ class StoryDetailViewController: StoriesViewController,
     }()
     
     private lazy var storyCover = AsyncImageView(placeholderImage: nil,
-                                                 cornerRadius: StoriesDesign.shared.attributes.dimensions.coverCornerRadius())
+                                                 cornerRadius: StoriesDesign.shared.theme.attributes.dimensions.coverCornerRadius())
     
     private lazy var storyTitle: UILabel = {
         let label = UILabel()
-        label.font = StoriesDesign.shared.attributes.fonts.primaryTitleLarge()
         label.adjustsFontForContentSizeCategory = true
-        label.textColor = StoriesDesign.shared.attributes.colors.primaryFill()
         label.numberOfLines = 2
         label.textAlignment = .center
         
@@ -76,9 +71,7 @@ class StoryDetailViewController: StoriesViewController,
     
     private lazy var authorTitle: UILabel = {
         let label = UILabel()
-        label.font = StoriesDesign.shared.attributes.fonts.primaryTitle()
         label.adjustsFontForContentSizeCategory = true
-        label.textColor = StoriesDesign.shared.attributes.colors.primaryFill()
         label.numberOfLines = 0
         
         return label
@@ -86,9 +79,7 @@ class StoryDetailViewController: StoriesViewController,
     
     private lazy var descriptionTitle: UILabel = {
         let label = UILabel()
-        label.font = StoriesDesign.shared.attributes.fonts.body()
         label.adjustsFontForContentSizeCategory = true
-        label.textColor = StoriesDesign.shared.attributes.colors.primaryFill()
         label.numberOfLines = 0
         
         return label
@@ -96,11 +87,7 @@ class StoryDetailViewController: StoriesViewController,
     
     private lazy var tagsListView: TagListView = {
         let tagsListView = TagListView()
-        tagsListView.textFont = StoriesDesign.shared.attributes.fonts.body()
-        tagsListView.textColor = StoriesDesign.shared.attributes.colors.secondaryFill()
-        tagsListView.tagBackgroundColor = StoriesDesign.shared.attributes.colors.secondary()
         tagsListView.alignment = .leading
-        tagsListView.cornerRadius = StoriesDesign.shared.attributes.dimensions.tagCornerRadius()
         tagsListView.backgroundColor = .clear
         tagsListView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -109,10 +96,7 @@ class StoryDetailViewController: StoriesViewController,
     
     init(storyId: String) {
         self.viewModel = StoryDetailViewModel(storyId: storyId, environment: StoriesEnvironment.shared)
-
         super.init(nibName: nil, bundle: nil)
-        
-        self.viewModel.viewControllerDelegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -122,8 +106,15 @@ class StoryDetailViewController: StoriesViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = StoriesDesign.shared.attributes.colors.primary()
-        
+        setupConstraints()
+        setupDesign()
+        bindViewModel()
+   
+        // load story detail
+        viewModel.input.viewDidLoad.onNext(())
+    }
+    
+    private func setupConstraints() {
         // layout subviews
         // rootStackView
         view.addSubview(rootStackView)
@@ -164,12 +155,36 @@ class StoryDetailViewController: StoriesViewController,
             tagsListView.widthAnchor.constraint(equalTo: descrptionStackView.widthAnchor),
             heightConstraint
         ])
-                
-        // load story detail
-        viewModel.loadStory()
     }
     
-    func setStory(story: Story?) {
+    private func setupDesign() {
+        StoriesDesign.shared.output.theme
+            .drive { [weak self] theme in
+                guard let strongSelf = self else { return }
+                strongSelf.view.backgroundColor = theme.attributes.colors.primary()
+                strongSelf.storyTitle.font = theme.attributes.fonts.primaryTitleLarge()
+                strongSelf.storyTitle.textColor = theme.attributes.colors.primaryFill()
+                strongSelf.authorTitle.font = theme.attributes.fonts.primaryTitle()
+                strongSelf.authorTitle.textColor = theme.attributes.colors.primaryFill()
+                strongSelf.descriptionTitle.font = theme.attributes.fonts.body()
+                strongSelf.descriptionTitle.textColor = theme.attributes.colors.primaryFill()
+                strongSelf.tagsListView.textFont = theme.attributes.fonts.body()
+                strongSelf.tagsListView.textColor = theme.attributes.colors.secondaryFill()
+                strongSelf.tagsListView.tagBackgroundColor = theme.attributes.colors.secondary()
+                strongSelf.tagsListView.cornerRadius = theme.attributes.dimensions.tagCornerRadius()
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindViewModel() {
+        viewModel.output.story
+            .drive(onNext: { [weak self] story in
+                self?.setStory(story: story)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func setStory(story: Story?) {
         viewModel.setImage(storyCover: storyCover, url: story?.cover)
         storyTitle.text = story?.title ?? "..."
         viewModel.setImage(storyCover: avatarView, url: story?.user?.avatar)
@@ -188,20 +203,5 @@ class StoryDetailViewController: StoriesViewController,
     func presentError(message: String) {
         let alert = StoriesAlertControllerFactory.createAPIError(message: message)
         present(alert, animated: true, completion: nil)
-    }
-    
-    // MARK: ThemeUpdated
-    func themeUpdated(notification: Notification) {
-        view.backgroundColor = StoriesDesign.shared.attributes.colors.primary()
-        storyTitle.font = StoriesDesign.shared.attributes.fonts.primaryTitleLarge()
-        storyTitle.textColor = StoriesDesign.shared.attributes.colors.primaryFill()
-        authorTitle.font = StoriesDesign.shared.attributes.fonts.primaryTitle()
-        authorTitle.textColor = StoriesDesign.shared.attributes.colors.primaryFill()
-        descriptionTitle.font = StoriesDesign.shared.attributes.fonts.body()
-        descriptionTitle.textColor = StoriesDesign.shared.attributes.colors.primaryFill()
-        tagsListView.textFont = StoriesDesign.shared.attributes.fonts.body()
-        tagsListView.textColor = StoriesDesign.shared.attributes.colors.secondaryFill()
-        tagsListView.tagBackgroundColor = StoriesDesign.shared.attributes.colors.secondary()
-        tagsListView.cornerRadius = StoriesDesign.shared.attributes.dimensions.tagCornerRadius()
     }
 }

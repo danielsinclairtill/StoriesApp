@@ -9,6 +9,7 @@
 import UIKit
 import ViewAnimator
 import Lottie
+import RxSwift
 
 protocol TimelineCollectionViewControllerContract: NSObject {
     func navigateToStory(_ story: Story)
@@ -21,7 +22,7 @@ protocol TimelineCollectionViewControllerContract: NSObject {
     func animateScrollToTop(animated: Bool)
 }
 
-class TimelineCollectionViewController: StoriesViewController,
+class TimelineCollectionViewController: UIViewController,
                                         UICollectionViewDelegateFlowLayout,
                                         UICollectionViewDelegate,
                                         UICollectionViewDataSource,
@@ -39,6 +40,7 @@ class TimelineCollectionViewController: StoriesViewController,
     @IBOutlet private weak var bubbleMessageViewContainer: UIView!
     private let refreshControl = UIRefreshControl()
     private var pagingLoadingView: TimelineCollectionViewPagingLoadingCell?
+    private let disposeBag = DisposeBag()
 
     init() {
         self.viewModel = TimelineCollectionViewModel(environment: StoriesEnvironment.shared)
@@ -54,7 +56,6 @@ class TimelineCollectionViewController: StoriesViewController,
         super.viewDidLoad()
         
         title = "com.test.Stories.stories.title".localized()
-        view.backgroundColor = StoriesDesign.shared.attributes.colors.primary()
 
         // collection view
         collectionView.dataSource = self
@@ -74,8 +75,19 @@ class TimelineCollectionViewController: StoriesViewController,
         
         // bubble view
         bubbleMessageViewContainer.alpha = 0.0
+        
+        setupDesign()
 
         viewModel.viewDidLoad()
+    }
+    
+    private func setupDesign() {
+        StoriesDesign.shared.output.theme
+            .drive { [weak self] theme in
+                guard let strongSelf = self else { return }
+                strongSelf.view.backgroundColor = theme.attributes.colors.primary()
+            }
+            .disposed(by: disposeBag)
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -246,12 +258,6 @@ class TimelineCollectionViewController: StoriesViewController,
     
     func animateScrollToTop(animated: Bool) {
         collectionView.setContentOffset(.zero, animated: animated)
-    }
-    
-    // MARK: ThemeUpdated
-    func themeUpdated(notification: Notification) {
-        view.backgroundColor = StoriesDesign.shared.attributes.colors.primary()
-        collectionView.reloadData()
     }
     
     // MARK: TabBarItemTapHandler

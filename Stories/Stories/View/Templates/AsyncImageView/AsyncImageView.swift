@@ -17,7 +17,7 @@ class AsyncImageView: UIView {
         let placeholder = UIImageView()
         placeholder.image = placeholderImage
         placeholder.alpha = 1.0
-        placeholder.backgroundColor = StoriesDesign.shared.attributes.colors.temporary()
+        placeholder.backgroundColor = StoriesDesign.shared.theme.attributes.colors.temporary()
         placeholder.layer.cornerRadius = cornerRadius
         placeholder.clipsToBounds = true
 

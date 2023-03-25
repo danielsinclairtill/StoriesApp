@@ -8,11 +8,13 @@
 
 import Foundation
 import UIKit
+import RxSwift
 
 class TimelineCollectionViewPagingLoadingCell: UICollectionReusableView {
     static let reuseIdentifier = "TimelineCollectionViewPagingLoadingCell"
     static let cellHeight: CGFloat = 100
     private let spinnerView = UIActivityIndicatorView(style: .large)
+    private let disposeBag = DisposeBag()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -25,7 +27,11 @@ class TimelineCollectionViewPagingLoadingCell: UICollectionReusableView {
     }
     
     private func setUp() {
-        spinnerView.color = StoriesDesign.shared.attributes.colors.primaryFill()
+        StoriesDesign.shared.output.theme
+            .drive { [weak self] theme in
+                self?.spinnerView.color = theme.attributes.colors.primaryFill()
+            }
+            .disposed(by: disposeBag)
         addSubview(spinnerView)
     }
     

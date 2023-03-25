@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 
 class TimelineCollectionViewCell: UICollectionViewCell {
     @IBOutlet private weak var storyContentView: UIView!
@@ -21,28 +22,19 @@ class TimelineCollectionViewCell: UICollectionViewCell {
     static let cellHeightToWidthRatio: CGFloat = 0.5
     
     private let animationController = AnimationController()
-
+    private var disposeBag = DisposeBag()
+    
     func setUp() {
-        // background
-        backgroundColor = StoriesDesign.shared.attributes.colors.primary()
-        storyContentView.backgroundColor = StoriesDesign.shared.attributes.colors.primary()
-        
         // cover image
         coverImagePlaceholderView.alpha = 1.0
-        coverImagePlaceholderView.backgroundColor = StoriesDesign.shared.attributes.colors.temporary()
-        coverImagePlaceholderView.layer.cornerRadius = StoriesDesign.shared.attributes.dimensions.coverCornerRadius()
-
         coverImage.image = nil
         coverImage.contentMode = .scaleAspectFill
         coverImage.alpha = 0.0
-        coverImage.layer.cornerRadius = StoriesDesign.shared.attributes.dimensions.coverCornerRadius()
         coverImage.clipsToBounds = true
         
         // title
         title.text = nil
-        title.font = StoriesDesign.shared.attributes.fonts.primaryTitle()
         title.adjustsFontForContentSizeCategory = true
-        title.textColor = StoriesDesign.shared.attributes.colors.primaryFill()
         
         // avatar image
         avatarPlaceholderImageView.image = #imageLiteral(resourceName: "UnkownUser")
@@ -60,9 +52,7 @@ class TimelineCollectionViewCell: UICollectionViewCell {
 
         // author title
         authorTitle.text = nil
-        authorTitle.font = StoriesDesign.shared.attributes.fonts.body()
         authorTitle.adjustsFontForContentSizeCategory = true
-        authorTitle.textColor = StoriesDesign.shared.attributes.colors.primaryFill()
     }
     
     func setUpWith(story: Story, imageManager: ImageManagerContract) {
@@ -74,6 +64,35 @@ class TimelineCollectionViewCell: UICollectionViewCell {
                                   placeholder: avatarPlaceholderImageView,
                                   url: story.user?.avatar)
         authorTitle.text = story.user?.name
+        
+        setupDesign()
+    }
+    
+    func setupDesign() {
+        StoriesDesign.shared.output.theme
+            .drive(onNext: { [weak self] theme in
+                guard let strongSelf = self else { return }
+                strongSelf.backgroundColor = theme.attributes.colors.primary()
+                strongSelf.storyContentView.backgroundColor = theme.attributes.colors.primary()
+                
+                strongSelf.coverImagePlaceholderView.backgroundColor = theme.attributes.colors.temporary()
+                strongSelf.coverImagePlaceholderView.layer.cornerRadius = theme.attributes.dimensions.coverCornerRadius()
+                
+                strongSelf.coverImage.layer.cornerRadius = theme.attributes.dimensions.coverCornerRadius()
+                
+                strongSelf.title.font = theme.attributes.fonts.primaryTitle()
+                
+                strongSelf.title.textColor = theme.attributes.colors.primaryFill()
+                
+                strongSelf.authorTitle.font = theme.attributes.fonts.body()
+                strongSelf.authorTitle.textColor = theme.attributes.colors.primaryFill()
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
     }
     
     // MARK:- Animations

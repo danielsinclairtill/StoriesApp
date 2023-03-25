@@ -7,31 +7,55 @@
 //
 
 import Foundation
+import RxSwift
+import RxCocoa
 
-class StoryDetailViewModel {
-    private let storyId: String
-    private(set) var story: Story?
-    private let environment: EnvironmentContract
-    weak var viewControllerDelegate: StoryDetailViewControllerContract?
+class StoryDetailViewModel: StoriesViewModel {
+    let input: Input
+    struct Input {
+        let viewDidLoad: AnyObserver<Void>
+    }
+    private let viewDidLoad = PublishSubject<Void>()
+
+    let output: Output
+    struct Output {
+        let story: Driver<Story?>
+        let error: Driver<String>
+    }
+    private let story = PublishSubject<Story?>()
+    private let error = PublishSubject<String>()
     
+    private let storyId: String
+    private let environment: EnvironmentContract
+    private let disposeBag = DisposeBag()
+
     required init(storyId: String,
                   environment: EnvironmentContract) {
         self.storyId = storyId
         self.environment = environment
+                
+        self.input = Input(viewDidLoad: viewDidLoad.asObserver())
+        self.output = Output(story: story.asDriver(onErrorJustReturn: nil),
+                             error: error.asDriver(onErrorJustReturn: ""))
+        
+        stories()
     }
     
-    func loadStory() {
-        environment.api.get(request: StoriesRequests.StoryDetail(id: storyId), result: { [weak self] result in
+    private func stories() {
+        viewDidLoad.subscribe(onNext: { [weak self] in
             guard let strongSelf = self else { return }
-            switch result {
-            case .success(let story):
-                strongSelf.story = story
-                strongSelf.viewControllerDelegate?.setStory(story: story)
-            case .failure(let error):
-                strongSelf.viewControllerDelegate?.presentError(message: error.message)
-                strongSelf.viewControllerDelegate?.setStory(story: nil)
-            }
+            strongSelf.environment.api.get(request: StoriesRequests.StoryDetail(id: strongSelf.storyId), result: { [weak self] result in
+                guard let strongSelf = self else { return }
+                switch result {
+                case .success(let story):
+                    strongSelf.story.onNext(story)
+                case .failure(let error):
+                    strongSelf.story.onNext(nil)
+                    strongSelf.error.onNext(error.message)
+                }
+            })
         })
+        .disposed(by: disposeBag)
     }
     
     func setImage(storyCover: AsyncImageView, url: URL?) {

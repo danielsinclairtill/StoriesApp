@@ -8,20 +8,21 @@
 
 import Foundation
 import UIKit
+import RxSwift
 
-class ThemeSettingsViewController: StoriesViewController,
+class ThemeSettingsViewController: UIViewController,
                                    UITableViewDataSource,
                                    UITableViewDelegate,
                                    UIGestureRecognizerDelegate {
     private let cellID = "ID"
     private let tableView = UITableView()
-    private let options: [DesignTheme] = DesignTheme.allCases
-    
+    private let options: [StoriesDesignTheme] = StoriesDesignTheme.allCases
+    private let disposeBag = DisposeBag()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "com.test.Stories.settings.theme.title".localized()
-        view.backgroundColor = StoriesDesign.shared.attributes.colors.primary()
         
         // tableView
         view.addSubview(tableView)
@@ -34,14 +35,25 @@ class ThemeSettingsViewController: StoriesViewController,
         tableView.delegate = self
         tableView.allowsSelection = true
         tableView.separatorStyle = .singleLine
-        tableView.separatorColor = StoriesDesign.shared.attributes.colors.primaryFill()
         tableView.alwaysBounceVertical = false
-        tableView.backgroundColor = StoriesDesign.shared.attributes.colors.primary()
         // required to remove top separator line
         tableView.tableHeaderView = UIView()
         
+        setupDesign()
+        
         // select row
         selectThemeRow()
+    }
+    
+    private func setupDesign() {
+        StoriesDesign.shared.output.theme
+            .drive { [weak self] theme in
+                guard let strongSelf = self else { return }
+                strongSelf.view.backgroundColor = theme.attributes.colors.primary()
+                strongSelf.tableView.separatorColor = theme.attributes.colors.primaryFill()
+                strongSelf.tableView.backgroundColor = theme.attributes.colors.primary()
+            }
+            .disposed(by: disposeBag)
     }
     
     private func selectThemeRow() {
@@ -57,23 +69,18 @@ class ThemeSettingsViewController: StoriesViewController,
         let option = options[indexPath.row]
         let cell = UITableViewCell(style: .value1, reuseIdentifier: self.cellID)
         cell.textLabel?.text = option.getText()
-        cell.backgroundColor = StoriesDesign.shared.attributes.colors.primary()
+        // TODO: Move to custom cell to reset disposeBag
+        StoriesDesign.shared.output.theme
+            .drive { theme in
+                cell.backgroundColor = theme.attributes.colors.primary()
+                cell.textLabel?.textColor = theme.attributes.colors.primaryFill()
+            }
+            .disposed(by: disposeBag)
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let theme = options[indexPath.row]
         StoriesDesign.shared.changeToTheme(theme)
-        
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: StoriesNotifications.themeUpdated.rawValue), object: nil)
-    }
-    
-    // MARK: ThemeUpdated
-    func themeUpdated(notification: Notification) {
-        view.backgroundColor = StoriesDesign.shared.attributes.colors.primary()
-        tableView.separatorColor = StoriesDesign.shared.attributes.colors.primaryFill()
-        tableView.backgroundColor = StoriesDesign.shared.attributes.colors.primary()
-        tableView.reloadData()
-        selectThemeRow()
     }
 }

@@ -8,18 +8,25 @@
 
 import Foundation
 import UIKit
+import RxSwift
 
 class RootUITabBarController: UITabBarController, UITabBarControllerDelegate {
     private var lastSelectedIndex: Int = 0
+    private let disposeBag = DisposeBag()
     
-    private static func formatNavigationControllerUI<Controller: UINavigationController>(_ navigationController: Controller) -> Controller {
-        navigationController.navigationBar.barTintColor = StoriesDesign.shared.attributes.colors.primary()
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = StoriesDesign.shared.attributes.colors.primary()
-        navigationController.navigationBar.standardAppearance = appearance
-        navigationController.navigationBar.scrollEdgeAppearance = appearance
-        navigationController.navigationBar.tintColor = StoriesDesign.shared.attributes.colors.primaryFill()
+    private func formatNavigationControllerUI<Controller: UINavigationController>(_ navigationController: Controller) -> Controller {
+        StoriesDesign.shared.output.theme
+            .drive { theme in
+                navigationController.navigationBar.barTintColor = theme.attributes.colors.primary()
+                let appearance = UINavigationBarAppearance()
+                appearance.configureWithOpaqueBackground()
+                appearance.backgroundColor = theme.attributes.colors.primary()
+                navigationController.navigationBar.standardAppearance = appearance
+                navigationController.navigationBar.scrollEdgeAppearance = appearance
+                navigationController.navigationBar.tintColor = theme.attributes.colors.primaryFill()
+            }
+            .disposed(by: disposeBag)
+
         return navigationController
     }
     
@@ -29,7 +36,7 @@ class RootUITabBarController: UITabBarController, UITabBarControllerDelegate {
         navigationController.tabBarItem = UITabBarItem(title: "com.test.Stories.stories.title".localized(),
                                                        image: #imageLiteral(resourceName: "StoriesUnselected"),
                                                        selectedImage: #imageLiteral(resourceName: "Stories"))
-        return Self.formatNavigationControllerUI(navigationController)
+        return formatNavigationControllerUI(navigationController)
     }()
     
     // settings tab
@@ -38,35 +45,32 @@ class RootUITabBarController: UITabBarController, UITabBarControllerDelegate {
         navigationController.tabBarItem = UITabBarItem(title: "com.test.Stories.settings.title".localized(),
                                                        image: #imageLiteral(resourceName: "SettingsUnselected"),
                                                        selectedImage: #imageLiteral(resourceName: "Settings"))
-        return Self.formatNavigationControllerUI(navigationController)
+        return formatNavigationControllerUI(navigationController)
     }()
     
     private lazy var tabBarItems: [StoriesNavigationController] = [timelineNavigationController, settingsNavigationController]
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(themeUpdated(notification:)),
-                                               name: Notification.Name(StoriesNotifications.themeUpdated.rawValue),
-                                               object: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let appearance = UITabBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = StoriesDesign.shared.attributes.colors.primary()
-        tabBar.standardAppearance = appearance
-        tabBar.scrollEdgeAppearance = appearance
-        tabBar.tintColor = StoriesDesign.shared.attributes.colors.primaryFill()
         setViewControllers(tabBarItems, animated: false)
         delegate = self
+        
+        setupDesign()
+    }
+    
+    func setupDesign() {
+        StoriesDesign.shared.output.theme
+            .drive { [weak self] theme in
+                guard let strongSelf = self else { return }
+                let appearance = UITabBarAppearance()
+                appearance.configureWithOpaqueBackground()
+                appearance.backgroundColor = theme.attributes.colors.primary()
+                strongSelf.tabBar.standardAppearance = appearance
+                strongSelf.tabBar.scrollEdgeAppearance = appearance
+                strongSelf.tabBar.tintColor = theme.attributes.colors.primaryFill()
+            }
+            .disposed(by: disposeBag)
     }
     
     // MARK: UITabBarControllerDelegate
@@ -84,26 +88,5 @@ class RootUITabBarController: UITabBarController, UITabBarControllerDelegate {
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         // update the lastSelectedIndex
         lastSelectedIndex = selectedIndex
-    }
-    
-    // MARK: ThemeUpdated
-    @objc
-    func themeUpdated(notification: Notification) {
-        let appearance = UITabBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = StoriesDesign.shared.attributes.colors.primary()
-        tabBar.standardAppearance = appearance
-        tabBar.scrollEdgeAppearance = appearance
-        tabBar.tintColor = StoriesDesign.shared.attributes.colors.primaryFill()
-        
-        tabBarItems = tabBarItems.map { item in
-            return Self.formatNavigationControllerUI(item)
-        }
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self,
-                                                  name: Notification.Name(StoriesNotifications.themeUpdated.rawValue),
-                                                  object: nil)
     }
 }

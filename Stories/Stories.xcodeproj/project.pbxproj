@@ -14,9 +14,8 @@
 		659FF37E29CA050C00798CAB /* Attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659FF36929CA050C00798CAB /* Attributes.swift */; };
 		659FF37F29CA050C00798CAB /* Dimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659FF36A29CA050C00798CAB /* Dimensions.swift */; };
 		659FF38029CA050C00798CAB /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659FF36B29CA050C00798CAB /* Fonts.swift */; };
-		659FF38129CA050C00798CAB /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659FF36C29CA050C00798CAB /* Theme.swift */; };
 		659FF38229CA050C00798CAB /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659FF36D29CA050C00798CAB /* Colors.swift */; };
-		659FF38329CA050C00798CAB /* DesignContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659FF36E29CA050C00798CAB /* DesignContract.swift */; };
+		659FF38329CA050C00798CAB /* StoriesDesignTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659FF36E29CA050C00798CAB /* StoriesDesignTheme.swift */; };
 		659FF38429CA050C00798CAB /* StoriesDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659FF36F29CA050C00798CAB /* StoriesDesign.swift */; };
 		659FF38529CA050C00798CAB /* PlainTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659FF37129CA050C00798CAB /* PlainTheme.swift */; };
 		659FF38629CA050C00798CAB /* StoriesNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659FF37429CA050C00798CAB /* StoriesNavigationController.swift */; };
@@ -79,6 +78,7 @@
 		65AB629929CA576C003FE82D /* RetroTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AB629829CA576C003FE82D /* RetroTheme.swift */; };
 		65ABAAC829CB84B500F50D6A /* StoriesNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65ABAAC729CB84B500F50D6A /* StoriesNotifications.swift */; };
 		65ABAACA29CB8DD700F50D6A /* StoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65ABAAC929CB8DD700F50D6A /* StoriesViewController.swift */; };
+		65EDAC9F29CF639A00C6134E /* StoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EDAC9E29CF639A00C6134E /* StoriesViewModel.swift */; };
 		99DA8AB8FC405BC5FBE3A0BB /* Pods_Stories.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E55D9003DA6B6D8A5C2542E7 /* Pods_Stories.framework */; };
 /* End PBXBuildFile section */
 
@@ -104,9 +104,8 @@
 		659FF36929CA050C00798CAB /* Attributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Attributes.swift; sourceTree = "<group>"; };
 		659FF36A29CA050C00798CAB /* Dimensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dimensions.swift; sourceTree = "<group>"; };
 		659FF36B29CA050C00798CAB /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
-		659FF36C29CA050C00798CAB /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		659FF36D29CA050C00798CAB /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
-		659FF36E29CA050C00798CAB /* DesignContract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignContract.swift; sourceTree = "<group>"; };
+		659FF36E29CA050C00798CAB /* StoriesDesignTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesDesignTheme.swift; sourceTree = "<group>"; };
 		659FF36F29CA050C00798CAB /* StoriesDesign.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesDesign.swift; sourceTree = "<group>"; };
 		659FF37129CA050C00798CAB /* PlainTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlainTheme.swift; sourceTree = "<group>"; };
 		659FF37429CA050C00798CAB /* StoriesNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesNavigationController.swift; sourceTree = "<group>"; };
@@ -168,6 +167,7 @@
 		65AB629829CA576C003FE82D /* RetroTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetroTheme.swift; sourceTree = "<group>"; };
 		65ABAAC729CB84B500F50D6A /* StoriesNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesNotifications.swift; sourceTree = "<group>"; };
 		65ABAAC929CB8DD700F50D6A /* StoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesViewController.swift; sourceTree = "<group>"; };
+		65EDAC9E29CF639A00C6134E /* StoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesViewModel.swift; sourceTree = "<group>"; };
 		E55D9003DA6B6D8A5C2542E7 /* Pods_Stories.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Stories.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -220,9 +220,8 @@
 				659FF36929CA050C00798CAB /* Attributes.swift */,
 				659FF36A29CA050C00798CAB /* Dimensions.swift */,
 				659FF36B29CA050C00798CAB /* Fonts.swift */,
-				659FF36C29CA050C00798CAB /* Theme.swift */,
 				659FF36D29CA050C00798CAB /* Colors.swift */,
-				659FF36E29CA050C00798CAB /* DesignContract.swift */,
+				659FF36E29CA050C00798CAB /* StoriesDesignTheme.swift */,
 			);
 			path = Contracts;
 			sourceTree = "<group>";
@@ -501,6 +500,7 @@
 			isa = PBXGroup;
 			children = (
 				65ABAAC929CB8DD700F50D6A /* StoriesViewController.swift */,
+				65EDAC9E29CF639A00C6134E /* StoriesViewModel.swift */,
 			);
 			path = StoriesViewController;
 			sourceTree = "<group>";
@@ -720,7 +720,6 @@
 				65AABCDD29C9FE150049AAA9 /* StoriesStoreConverter.swift in Sources */,
 				659FF37E29CA050C00798CAB /* Attributes.swift in Sources */,
 				65AABCD629C9FE150049AAA9 /* StoriesEnvironment.swift in Sources */,
-				659FF38129CA050C00798CAB /* Theme.swift in Sources */,
 				65AABCF329C9FE390049AAA9 /* TimelineCollectionViewController.swift in Sources */,
 				65AABCEB29C9FE340049AAA9 /* StoryDetailViewController.swift in Sources */,
 				65AABCDA29C9FE150049AAA9 /* StoreError.swift in Sources */,
@@ -734,13 +733,14 @@
 				65AABCD729C9FE150049AAA9 /* User.swift in Sources */,
 				659FF38529CA050C00798CAB /* PlainTheme.swift in Sources */,
 				65AABCF429C9FE390049AAA9 /* TimelineCollectionViewModel.swift in Sources */,
+				65EDAC9F29CF639A00C6134E /* StoriesViewModel.swift in Sources */,
 				659FF38C29CA050C00798CAB /* AsyncImageView.swift in Sources */,
 				65AABCD329C9FE150049AAA9 /* ImageManagerContract.swift in Sources */,
 				65AABCD429C9FE150049AAA9 /* StoriesRequests.swift in Sources */,
 				65A2153D29CCBDB00035FBCA /* StoriesNativeAPI.swift in Sources */,
 				65ABAAC829CB84B500F50D6A /* StoriesNotifications.swift in Sources */,
 				659FF38729CA050C00798CAB /* TabBarItemTapHandler.swift in Sources */,
-				659FF38329CA050C00798CAB /* DesignContract.swift in Sources */,
+				659FF38329CA050C00798CAB /* StoriesDesignTheme.swift in Sources */,
 				659FF37F29CA050C00798CAB /* Dimensions.swift in Sources */,
 				659FF38029CA050C00798CAB /* Fonts.swift in Sources */,
 				65AABCD229C9FE150049AAA9 /* ResponseContract.swift in Sources */,
