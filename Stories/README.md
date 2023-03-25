@@ -23,7 +23,7 @@ The tests ensure that each view controller's view model logic and interaction be
 
 ## Third Party Sources
 - [Alamofire](https://github.com/Alamofire/Alamofire): for API requests in the model layer
-- [PINRemoteImage](https://github.com/pinterest/PINRemoteImage): for prefetching and downloading images
+- [SDWebImage](https://github.com/SDWebImage/SDWebImage): for prefetching and downloading images
 - [ViewAnimator](https://github.com/marcosgriselli/ViewAnimator): for custom animations on collection views
 - [TagListView](https://github.com/ElaWorkshop/TagListView): for using a custom tags list in the story details view
 - [lottie-ios](https://github.com/airbnb/lottie-ios): for json based animations
