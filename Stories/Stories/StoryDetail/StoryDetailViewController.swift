@@ -182,6 +182,12 @@ class StoryDetailViewController: UIViewController {
                 self?.setStory(story: story)
             })
             .disposed(by: disposeBag)
+        
+        viewModel.output.error
+            .drive { [weak self] message in
+                self?.presentError(message: message)
+            }
+            .disposed(by: disposeBag)
     }
     
     private func setStory(story: Story?) {
@@ -200,7 +206,7 @@ class StoryDetailViewController: UIViewController {
         }
     }
     
-    func presentError(message: String) {
+    private func presentError(message: String) {
         let alert = StoriesAlertControllerFactory.createAPIError(message: message)
         present(alert, animated: true, completion: nil)
     }
