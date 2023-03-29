@@ -68,7 +68,7 @@ class TimelineCollectionViewCell: UICollectionViewCell {
         setupDesign()
     }
     
-    func setupDesign() {
+    private func setupDesign() {
         StoriesDesign.shared.output.theme
             .drive(onNext: { [weak self] theme in
                 guard let strongSelf = self else { return }
@@ -92,6 +92,12 @@ class TimelineCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        
+        coverImage.image = nil
+        title.text = nil
+        avatarImage.image = nil
+        authorTitle.text = ""
+        
         disposeBag = DisposeBag()
     }
     

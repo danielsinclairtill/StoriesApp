@@ -10,42 +10,24 @@ import UIKit
 import ViewAnimator
 import Lottie
 import RxSwift
-
-protocol TimelineCollectionViewControllerContract: NSObject {
-    func navigateToStory(_ story: Story)
-    func initiateLoadingTimeline()
-    func reloadTimeline()
-    func loadNextPage()
-    func presentOfflineAlert(message: String)
-    func presentError(message: String)
-    func presentBubbleMessage(message: String)
-    func animateScrollToTop(animated: Bool)
-}
+import RxCocoa
 
 class TimelineCollectionViewController: UIViewController,
                                         UICollectionViewDelegateFlowLayout,
                                         UICollectionViewDelegate,
-                                        UICollectionViewDataSource,
                                         UIScrollViewDelegate,
                                         UITabBarControllerDelegate,
-                                        TimelineCollectionViewControllerContract,
                                         TabBarItemTapHandler {
-    
     private let cellIdentifier = "TimelineCollectionViewCell"
     private let viewModel: TimelineCollectionViewModel
-    // animation for displaying cells in collection view
-    private let animations = [AnimationType.from(direction: .bottom, offset: 150.0)]
     @IBOutlet private weak var collectionView: UICollectionView!
-    @IBOutlet private weak var loadingAnimationView: LottieAnimationView!
     @IBOutlet private weak var bubbleMessageViewContainer: UIView!
     private let refreshControl = UIRefreshControl()
-    private var pagingLoadingView: TimelineCollectionViewPagingLoadingCell?
     private let disposeBag = DisposeBag()
 
     init() {
         self.viewModel = TimelineCollectionViewModel(environment: StoriesEnvironment.shared)
         super.init(nibName: String(describing: TimelineCollectionViewController.self), bundle: nil)
-        self.viewModel.viewControllerDelegate = self
     }
 
     required init?(coder: NSCoder) {
@@ -58,7 +40,6 @@ class TimelineCollectionViewController: UIViewController,
         title = "com.test.Stories.stories.title".localized()
 
         // collection view
-        collectionView.dataSource = self
         collectionView.delegate = self
         let nib = UINib(nibName: cellIdentifier, bundle: nil)
         collectionView.register(nib, forCellWithReuseIdentifier: cellIdentifier)
@@ -66,19 +47,72 @@ class TimelineCollectionViewController: UIViewController,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
                                 withReuseIdentifier: TimelineCollectionViewPagingLoadingCell.reuseIdentifier)
         collectionView.refreshControl = refreshControl
-        refreshControl.addTarget(viewModel, action: #selector(viewModel.refresh), for: .valueChanged)
-        collectionView.alpha = 0.0
         collectionView.backgroundColor = .clear
-        
-        // animation view
-        loadingAnimationView.backgroundBehavior = .pauseAndRestore
         
         // bubble view
         bubbleMessageViewContainer.alpha = 0.0
         
+        bindViewModel()
         setupDesign()
 
-        viewModel.viewDidLoad()
+        viewModel.input.viewDidLoad.onNext(())
+    }
+    
+    private func bindViewModel() {
+        refreshControl.rx.controlEvent(.valueChanged)
+            .bind(to: viewModel.input.refresh)
+            .disposed(by: disposeBag)
+        viewModel.output.isLoading
+            .drive(collectionView.refreshControl!.rx.isRefreshing)
+            .disposed(by: disposeBag)
+
+        viewModel.output.stories
+            .drive(collectionView.rx.items(cellIdentifier: cellIdentifier, cellType: TimelineCollectionViewCell.self)) { [weak self] collectionView, story, cell in
+                guard let strongSelf = self else { return }
+                cell.setUpWith(story: story, imageManager: strongSelf.viewModel.imageManager)
+            }
+            .disposed(by: disposeBag)
+        
+        collectionView.rx.contentOffset
+            .flatMap({ [weak self] contentOffset in
+                guard let strongSelf = self else { return Signal<Void>.empty() }
+                return strongSelf.collectionView.contentOffset.y + strongSelf.collectionView.frame.size.height + 80.0 > strongSelf.collectionView.contentSize.height ?
+                    Signal.just(()) : Signal.empty()
+            })
+            .bind(to: viewModel.input.loadNextPage)
+            .disposed(by: disposeBag)
+        
+        collectionView.rx.contentOffset
+            .map({ [weak self] contentOffset in
+                guard let strongSelf = self else { return false }
+                return strongSelf.collectionView.contentOffset == .zero
+            })
+            .distinctUntilChanged()
+            .subscribe(onNext: { [weak self] isTopOfPage in
+                guard let strongSelf = self else { return }
+                strongSelf.viewModel.input.isTopOfPage.onNext(isTopOfPage)
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.output.scrollToTop
+            .drive(onNext: { [weak self] in
+                self?.viewModel.input.isScrolling.onNext(true)
+                self?.collectionView.setContentOffset(.zero, animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        collectionView.rx.itemSelected
+            .subscribe(onNext: { [weak self] indexPath in
+                self?.viewModel.input.cellTapped.onNext(indexPath.row)
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.output.navigateToStory
+            .drive(onNext: { [weak self] story in
+                guard let story = story else { return }
+                self?.navigateToStory(story)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func setupDesign() {
@@ -116,131 +150,34 @@ class TimelineCollectionViewController: UIViewController,
         return 0
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        if viewModel.isPagingLoading || viewModel.isOffline {
-            return CGSize.zero
-        } else {
-            return CGSize(width: collectionView.bounds.size.width, height: TimelineCollectionViewPagingLoadingCell.cellHeight)
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if kind == UICollectionView.elementKindSectionFooter {
-            let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                                                                       withReuseIdentifier: TimelineCollectionViewPagingLoadingCell.reuseIdentifier,
-                                                                       for: indexPath) as! TimelineCollectionViewPagingLoadingCell
-            view.backgroundColor = .clear
-            pagingLoadingView = view
-            return view
-        }
-        return UICollectionReusableView()
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
-        if elementKind == UICollectionView.elementKindSectionFooter {
-            self.pagingLoadingView?.startLoading()
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didEndDisplayingSupplementaryView view: UICollectionReusableView, forElementOfKind elementKind: String, at indexPath: IndexPath) {
-        if elementKind == UICollectionView.elementKindSectionFooter {
-            self.pagingLoadingView?.stopLoading()
-        }
-    }
-    
-    // MARK: UICollectionViewDataSource
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.stories.count
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! TimelineCollectionViewCell
-
-        cell.setUp()
-        viewModel.configureCell(cell, row: indexPath.row)
-        return cell
-    }
-
-    // MARK: UICollectionViewDelegate
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        viewModel.cellTapped(row: indexPath.row)
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let position = scrollView.contentOffset.y
-        if position > scrollView.contentSize.height - scrollView.bounds.height - TimelineCollectionViewPagingLoadingCell.cellHeight {
-            viewModel.loadNextPage()
-        }
-    }
-    
     // MARK: UIScrollViewDelegate
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        viewModel.isScrolling = false
+        viewModel.input.isScrolling.onNext(false)
     }
     
-    // MARK: TimelineCollectionViewControllerContract
-    func navigateToStory(_ story: Story) {
+    private func navigateToStory(_ story: Story) {
         guard let id = story.id else { return }
         navigationController?.pushViewController(StoryDetailViewController(storyId: id),
                                                  animated: true)
     }
-    
-    func initiateLoadingTimeline() {
-        collectionView.isScrollEnabled = false
-        loadingAnimationView.loopMode = .loop
-        loadingAnimationView.play()
-        AnimationController.fadeOutView(collectionView) { [weak self] completed in
-            self?.refreshControl.endRefreshing()
-        }
-        AnimationController.fadeInView(loadingAnimationView, completion: nil)
-    }
-    
-    func reloadTimeline() {
-        collectionView.isScrollEnabled = true
-        animateScrollToTop(animated: false)
-        AnimationController.fadeOutView(loadingAnimationView,
-                                        completion: { [weak self] completed in
-                                            if completed {
-                                                self?.loadingAnimationView.stop()
-                                            }
-        })
-        
-        collectionView.reloadData()
-        collectionView.performBatchUpdates({
-            AnimationController.fadeInView(collectionView, completion: nil)
-            // use ViewAnimator library animation to display cells
-            UIView.animate(views: collectionView.orderedVisibleCells,
-                           animations: animations,
-                           duration: AnimationController.fadeDuration,
-                           completion: nil)
-        }, completion: nil)
-    }
-    
-    func loadNextPage() {
-        collectionView.reloadData()
-    }
 
-    func presentOfflineAlert(message: String) {
+    private func presentOfflineAlert(message: String) {
         let alert = StoriesAlertControllerFactory.createOfflineAlert(message: message, closeHandler: { [weak self] _ in
-            self?.viewModel.refreshOffline()
+            self?.viewModel.input.refreshOffline.onNext(())
         })
         present(alert, animated: true, completion: nil)
     }
     
-    func presentError(message: String) {
+    private func presentError(message: String) {
         let alert = StoriesAlertControllerFactory.createAPIError(message: message, offlineHandler: { [weak self] _ in
-            self?.viewModel.refreshOffline()
+            self?.viewModel.input.refreshOffline.onNext(())
             }, refreshHandler: { [weak self] _ in
-                self?.viewModel.refresh()
+                self?.viewModel.input.refresh.onNext(())
         })
         present(alert, animated: true, completion: nil)
     }
     
-    func presentBubbleMessage(message: String) {
+    private func presentBubbleMessage(message: String) {
         // do not present if bubble message is already being displayed
         guard bubbleMessageViewContainer.subviews.isEmpty else { return }
         let bubbleMessageView: BubbleMessageView = BubbleMessageView.instertInto(containerView: bubbleMessageViewContainer,
@@ -256,12 +193,8 @@ class TimelineCollectionViewController: UIViewController,
         }
     }
     
-    func animateScrollToTop(animated: Bool) {
-        collectionView.setContentOffset(.zero, animated: animated)
-    }
-    
     // MARK: TabBarItemTapHandler
     func tabBarItemTappedWhileDisplayed() {
-        viewModel.tabBarItemTappedWhileDisplayed(isAtTopOfView: collectionView.contentOffset == .zero)
+        viewModel.input.tabBarItemTapped.onNext(())
     }
 }

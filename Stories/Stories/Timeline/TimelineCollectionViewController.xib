@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -13,7 +12,6 @@
             <connections>
                 <outlet property="bubbleMessageViewContainer" destination="9BV-PI-Agx" id="Mdz-pe-OLN"/>
                 <outlet property="collectionView" destination="fZq-um-e1q" id="xDH-e0-doM"/>
-                <outlet property="loadingAnimationView" destination="MGU-q3-SKj" id="ygn-qO-Lf1"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -32,17 +30,6 @@
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
                 </collectionView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MGU-q3-SKj" userLabel="Loading Animation View" customClass="LottieAnimationView" customModule="Lottie">
-                    <rect key="frame" x="79" y="320" width="256" height="256"/>
-                    <viewLayoutGuide key="safeArea" id="BFs-OL-l6s"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="256" id="7Eg-ky-dMB"/>
-                        <constraint firstAttribute="height" constant="256" id="B1L-pQ-ENi"/>
-                    </constraints>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="animationName" value="StoriesLoadingAnimation"/>
-                    </userDefinedRuntimeAttributes>
-                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9BV-PI-Agx" userLabel="Bubble Message View Container">
                     <rect key="frame" x="16" y="776" width="382" height="70"/>
                     <viewLayoutGuide key="safeArea" id="rwb-Pv-qvG"/>
@@ -57,12 +44,10 @@
             <constraints>
                 <constraint firstItem="9BV-PI-Agx" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" priority="999" constant="16" id="2Zc-JW-ygY"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="9BV-PI-Agx" secondAttribute="trailing" priority="999" constant="16" id="Imu-9m-BOy"/>
-                <constraint firstItem="MGU-q3-SKj" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="NnR-rZ-MXx"/>
                 <constraint firstItem="9BV-PI-Agx" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Qcq-cL-SrG"/>
                 <constraint firstItem="fZq-um-e1q" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Rox-B8-WBw"/>
                 <constraint firstItem="fZq-um-e1q" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="S2m-h7-6Cf"/>
                 <constraint firstItem="fZq-um-e1q" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="ifS-0R-JIJ"/>
-                <constraint firstItem="MGU-q3-SKj" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="jUO-pO-bU3"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="fZq-um-e1q" secondAttribute="bottom" id="ste-zR-j97"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="9BV-PI-Agx" secondAttribute="bottom" constant="16" id="vZc-Pg-9GR"/>
             </constraints>
