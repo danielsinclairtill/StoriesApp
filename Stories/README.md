@@ -1,4 +1,18 @@
 # Stories
+
+### Versions
+Below are the different implementations of the Stories app, using different technologies and coding practices to bind the architecture layers together:
+
+[Delegate MVVM](https://github.com/danielsinclairtill/StoriesApp/tree/master/Stories)
+```
+[View] <---delegate methods-----> [ViewModel] <-----> [Model]
+```
+
+[RxSwift MVVM](https://github.com/danielsinclairtill/StoriesApp/tree/RxSwift/Stories)
+```
+[View] <---RxSwift Observables--> [ViewModel] <-----> [Model]
+```
+
 ## Summary
 This is a simple iOS application which shows lists and details of stories provided by the Wattpad API. It is a reference app to showcase how one could create a testable MVVM architecture codebase.
 
