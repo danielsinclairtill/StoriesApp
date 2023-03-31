@@ -11,15 +11,24 @@ import RxSwift
 import RxCocoa
 
 class TimelineCollectionViewModel: StoriesViewModel {
+    // MARK: Input
     let input: Input
     struct Input {
+        /// Triggered when the view did load.
         let viewDidLoad: AnyObserver<Void>
+        /// Triggered when the stories timeline collection wants to refresh.
         let refresh: AnyObserver<Void>
+        /// Triggered when the stories timeline collection wants to refresh offline.
         let refreshOffline: AnyObserver<Void>
+        /// Triggered when the stories timeline collection wants to load the next page.
         let loadNextPage: AnyObserver<Void>
+        /// Is the timeline scrolling state.
         let isScrolling: AnyObserver<Bool>
+        /// Is the timeline at the top state.
         let isTopOfPage: AnyObserver<Bool>
+        /// Triggered when the tab bar item has been tapped while the view is displayed.
         let tabBarItemTapped: AnyObserver<Void>
+        /// Triggered when a story cell has been tapped.
         let cellTapped: AnyObserver<Int>
     }
     private let viewDidLoad = PublishSubject<Void>()
@@ -31,23 +40,30 @@ class TimelineCollectionViewModel: StoriesViewModel {
     private let tabBarItemTapped = PublishSubject<Void>()
     private let cellTapped = PublishSubject<Int>()
     
+    // MARK: Output
     let output: Output
     struct Output {
+        /// The stories in the timeline collection.
         let stories: Driver<[Story]>
+        /// Is the timeline loading state.
         let isLoading: Driver<Bool>
+        /// Is the timeline loading the next page state.
         let isLoadingNext: Driver<Bool>
+        /// Is the timeline in offline mode state.
         let isOffline: Driver<Bool>
-        let loadingCellSize: Driver<CGSize>
+        /// Show an error message with a message.
         let error: Driver<String>
+        /// Show a bubble message with a message.
         let bubbleMessage: Driver<String>
+        /// Scroll to the top of the timeline collection.
         let scrollToTop: Driver<Void>
+        /// Nativate to a story.
         let navigateToStory: Driver<Story?>
     }
     private let stories = PublishSubject<[Story]>()
     private let isLoading = PublishSubject<Bool>()
     private let isLoadingNext = PublishSubject<Bool>()
     private let isOffline = PublishSubject<Bool>()
-    private let loadingCellSize = PublishSubject<CGSize>()
     private let error = PublishSubject<String>()
     private let bubbleMessage = PublishSubject<String>()
     private let scrollToTop = PublishSubject<Void>()
@@ -74,7 +90,6 @@ class TimelineCollectionViewModel: StoriesViewModel {
                              isLoading: isLoading.asDriver(onErrorJustReturn: false),
                              isLoadingNext: isLoading.asDriver(onErrorJustReturn: false),
                              isOffline: isOffline.asDriver(onErrorJustReturn: true),
-                             loadingCellSize: loadingCellSize.asDriver(onErrorJustReturn: .zero),
                              error: error.asDriver(onErrorJustReturn: ""),
                              bubbleMessage: bubbleMessage.asDriver(onErrorJustReturn: ""),
                              scrollToTop: scrollToTop.asDriver(onErrorJustReturn: ()),
