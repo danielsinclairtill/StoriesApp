@@ -23,8 +23,10 @@ class TimelineCollectionViewCell: UICollectionViewCell {
     
     private let animationController = AnimationController()
     private var disposeBag = DisposeBag()
-    
-    func setUp() {
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
         // cover image
         coverImagePlaceholderView.alpha = 1.0
         coverImage.image = nil
