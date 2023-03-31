@@ -59,6 +59,7 @@ class TimelineCollectionViewController: UIViewController,
     }
     
     private func bindViewModel() {
+        // refresh control
         refreshControl.rx.controlEvent(.valueChanged)
             .bind(to: viewModel.input.refresh)
             .disposed(by: disposeBag)
@@ -66,6 +67,7 @@ class TimelineCollectionViewController: UIViewController,
             .drive(collectionView.refreshControl!.rx.isRefreshing)
             .disposed(by: disposeBag)
 
+        // stories collection
         viewModel.output.stories
             .drive(collectionView.rx.items(cellIdentifier: cellIdentifier, cellType: TimelineCollectionViewCell.self)) { [weak self] collectionView, story, cell in
                 guard let strongSelf = self else { return }
@@ -73,6 +75,7 @@ class TimelineCollectionViewController: UIViewController,
             }
             .disposed(by: disposeBag)
         
+        // loading next page
         collectionView.rx.contentOffset
             .flatMap({ [weak self] contentOffset in
                 guard let strongSelf = self else { return Signal<Void>.empty() }
@@ -82,6 +85,7 @@ class TimelineCollectionViewController: UIViewController,
             .bind(to: viewModel.input.loadNextPage)
             .disposed(by: disposeBag)
         
+        // scrolling to top
         collectionView.rx.contentOffset
             .map({ [weak self] contentOffset in
                 guard let strongSelf = self else { return false }
@@ -93,7 +97,6 @@ class TimelineCollectionViewController: UIViewController,
                 strongSelf.viewModel.input.isTopOfPage.onNext(isTopOfPage)
             })
             .disposed(by: disposeBag)
-        
         viewModel.output.scrollToTop
             .drive(onNext: { [weak self] in
                 self?.viewModel.input.isScrolling.onNext(true)
@@ -101,12 +104,21 @@ class TimelineCollectionViewController: UIViewController,
             })
             .disposed(by: disposeBag)
         
+        // bubble message
+        viewModel.output.bubbleMessage
+            .drive(onNext: { message in
+                self.presentBubbleMessage(message: message)
+            })
+            .disposed(by: disposeBag)
+        
+        // story selection
         collectionView.rx.itemSelected
             .subscribe(onNext: { [weak self] indexPath in
                 self?.viewModel.input.cellTapped.onNext(indexPath.row)
             })
             .disposed(by: disposeBag)
         
+        // navigation
         viewModel.output.navigateToStory
             .drive(onNext: { [weak self] story in
                 guard let story = story else { return }
