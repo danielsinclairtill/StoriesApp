@@ -90,7 +90,7 @@ class TimelineCollectionViewController: UIViewController,
         collectionView.rx.contentOffset
             .flatMap({ [weak self] contentOffset in
                 guard let strongSelf = self else { return Signal<Void>.empty() }
-                return strongSelf.collectionView.contentOffset.y + strongSelf.collectionView.frame.size.height + 80.0 > strongSelf.collectionView.contentSize.height ?
+                return strongSelf.collectionView.contentOffset.y + strongSelf.collectionView.frame.size.height + strongSelf.getCellSize().height > strongSelf.collectionView.contentSize.height ?
                     Signal.just(()) : Signal.empty()
             })
             .bind(to: viewModel.input.loadNextPage)
@@ -153,12 +153,16 @@ class TimelineCollectionViewController: UIViewController,
         collectionView.collectionViewLayout.invalidateLayout()
     }
     
-    // MARK: UICollectionViewDelegateFlowLayout
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    private func getCellSize() -> CGSize {
         let width = UIDevice.current.iPad ? collectionView.bounds.width / 2 : collectionView.bounds.width
         let height = TimelineCollectionViewCell.cellHeightToWidthRatio * width
-
+        
         return CGSize(width: width, height: height)
+    }
+    
+    // MARK: UICollectionViewDelegateFlowLayout
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return getCellSize()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
