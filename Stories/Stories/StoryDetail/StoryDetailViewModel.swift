@@ -11,15 +11,20 @@ import RxSwift
 import RxCocoa
 
 class StoryDetailViewModel: StoriesViewModel {
+    // MARK: Input
     let input: Input
     struct Input {
+        /// Triggered when the view did load.
         let viewDidLoad: AnyObserver<Void>
     }
     private let viewDidLoad = PublishSubject<Void>()
 
+    // MARK: Output
     let output: Output
     struct Output {
+        /// The story on the detail page.
         let story: Driver<Story?>
+        /// An error message to display.
         let error: Driver<String>
     }
     private let story = PublishSubject<Story?>()
