@@ -21,6 +21,7 @@ class TimelineCollectionViewController: UIViewController,
     private let cellIdentifier = "TimelineCollectionViewCell"
     private let viewModel: TimelineCollectionViewModel
     @IBOutlet private weak var collectionView: UICollectionView!
+    @IBOutlet private weak var loadingAnimationView: LottieAnimationView!
     @IBOutlet private weak var bubbleMessageViewContainer: UIView!
     private let refreshControl = UIRefreshControl()
     private let disposeBag = DisposeBag()
@@ -52,6 +53,9 @@ class TimelineCollectionViewController: UIViewController,
         // bubble view
         bubbleMessageViewContainer.alpha = 0.0
         
+        // animation view
+        loadingAnimationView.backgroundBehavior = .pauseAndRestore
+        
         bindViewModel()
         setupDesign()
 
@@ -65,6 +69,17 @@ class TimelineCollectionViewController: UIViewController,
             .disposed(by: disposeBag)
         viewModel.output.isLoading
             .drive(collectionView.refreshControl!.rx.isRefreshing)
+            .disposed(by: disposeBag)
+        
+        // loading timeline animation
+        viewModel.output.isLoading
+            .drive(onNext: { [weak self] isLoading in
+                if isLoading {
+                    self?.initiateLoadingTimeline()
+                } else {
+                    self?.finishLoadingTimeline()
+                }
+            })
             .disposed(by: disposeBag)
 
         // stories collection
@@ -202,6 +217,28 @@ class TimelineCollectionViewController: UIViewController,
                                             completion: { completed in
                 bubbleMessageView.removeFromSuperview()
             })
+        }
+    }
+    
+    private func initiateLoadingTimeline() {
+        collectionView.isScrollEnabled = false
+        loadingAnimationView.loopMode = .loop
+        loadingAnimationView.play()
+        AnimationController.fadeOutView(collectionView) { [weak self] completed in
+            self?.refreshControl.endRefreshing()
+        }
+        AnimationController.fadeInView(loadingAnimationView, completion: nil)
+    }
+    
+    private func finishLoadingTimeline() {
+        AnimationController.fadeOutView(loadingAnimationView,
+                                        completion: { [weak self] completed in
+            if completed {
+                self?.loadingAnimationView.stop()
+            }
+        })
+        AnimationController.fadeInView(collectionView) { [weak self] completed in
+            self?.collectionView.isScrollEnabled = true
         }
     }
     
