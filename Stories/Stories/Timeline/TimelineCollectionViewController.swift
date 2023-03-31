@@ -42,11 +42,7 @@ class TimelineCollectionViewController: UIViewController,
 
         // collection view
         collectionView.delegate = self
-        let nib = UINib(nibName: cellIdentifier, bundle: nil)
-        collectionView.register(nib, forCellWithReuseIdentifier: cellIdentifier)
-        collectionView.register(TimelineCollectionViewPagingLoadingCell.self,
-                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
-                                withReuseIdentifier: TimelineCollectionViewPagingLoadingCell.reuseIdentifier)
+        collectionView.register(UINib(nibName: cellIdentifier, bundle: nil), forCellWithReuseIdentifier: cellIdentifier)
         collectionView.refreshControl = refreshControl
         collectionView.backgroundColor = .clear
         
