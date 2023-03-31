@@ -26,8 +26,7 @@
 		659FF38B29CA050C00798CAB /* BubbleMessageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 659FF37B29CA050C00798CAB /* BubbleMessageView.xib */; };
 		659FF38C29CA050C00798CAB /* AsyncImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659FF37D29CA050C00798CAB /* AsyncImageView.swift */; };
 		659FF3B229CA088200798CAB /* StoryDetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659FF3A629CA088200798CAB /* StoryDetailViewModelTests.swift */; };
-		659FF3B429CA088200798CAB /* TimelineCollectionViewControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659FF3A929CA088200798CAB /* TimelineCollectionViewControllerMock.swift */; };
-		659FF3B529CA088200798CAB /* TimelineCollectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659FF3AA29CA088200798CAB /* TimelineCollectionTests.swift */; };
+		659FF3B529CA088200798CAB /* TimelineCollectionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659FF3AA29CA088200798CAB /* TimelineCollectionViewModelTests.swift */; };
 		659FF3B629CA088200798CAB /* StoriesImageManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659FF3AC29CA088200798CAB /* StoriesImageManagerMock.swift */; };
 		659FF3B729CA088200798CAB /* StoriesStoreMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659FF3AD29CA088200798CAB /* StoriesStoreMock.swift */; };
 		659FF3B829CA088200798CAB /* StoriesEnviromentMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659FF3AE29CA088200798CAB /* StoriesEnviromentMock.swift */; };
@@ -115,8 +114,7 @@
 		659FF37B29CA050C00798CAB /* BubbleMessageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BubbleMessageView.xib; sourceTree = "<group>"; };
 		659FF37D29CA050C00798CAB /* AsyncImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncImageView.swift; sourceTree = "<group>"; };
 		659FF3A629CA088200798CAB /* StoryDetailViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryDetailViewModelTests.swift; sourceTree = "<group>"; };
-		659FF3A929CA088200798CAB /* TimelineCollectionViewControllerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineCollectionViewControllerMock.swift; sourceTree = "<group>"; };
-		659FF3AA29CA088200798CAB /* TimelineCollectionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineCollectionTests.swift; sourceTree = "<group>"; };
+		659FF3AA29CA088200798CAB /* TimelineCollectionViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineCollectionViewModelTests.swift; sourceTree = "<group>"; };
 		659FF3AC29CA088200798CAB /* StoriesImageManagerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesImageManagerMock.swift; sourceTree = "<group>"; };
 		659FF3AD29CA088200798CAB /* StoriesStoreMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesStoreMock.swift; sourceTree = "<group>"; };
 		659FF3AE29CA088200798CAB /* StoriesEnviromentMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesEnviromentMock.swift; sourceTree = "<group>"; };
@@ -291,8 +289,7 @@
 		659FF3A829CA088200798CAB /* TimelineCollection */ = {
 			isa = PBXGroup;
 			children = (
-				659FF3A929CA088200798CAB /* TimelineCollectionViewControllerMock.swift */,
-				659FF3AA29CA088200798CAB /* TimelineCollectionTests.swift */,
+				659FF3AA29CA088200798CAB /* TimelineCollectionViewModelTests.swift */,
 			);
 			path = TimelineCollection;
 			sourceTree = "<group>";
@@ -786,9 +783,8 @@
 				659FF3B629CA088200798CAB /* StoriesImageManagerMock.swift in Sources */,
 				659FF3B929CA088200798CAB /* StoriesAPIMock.swift in Sources */,
 				659FF3B729CA088200798CAB /* StoriesStoreMock.swift in Sources */,
-				659FF3B429CA088200798CAB /* TimelineCollectionViewControllerMock.swift in Sources */,
 				659FF3B229CA088200798CAB /* StoryDetailViewModelTests.swift in Sources */,
-				659FF3B529CA088200798CAB /* TimelineCollectionTests.swift in Sources */,
+				659FF3B529CA088200798CAB /* TimelineCollectionViewModelTests.swift in Sources */,
 				659FF3BA29CA088200798CAB /* ModelMockData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
