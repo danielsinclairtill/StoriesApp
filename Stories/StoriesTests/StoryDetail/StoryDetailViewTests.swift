@@ -103,7 +103,7 @@ class StoryDetailViewTests: XCTestCase {
     func testStoryDetailMax5TagsShown() {
         let story = Story(id: "id",
                           title: "test story",
-                          user: User(name: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo",
+                          user: User(name: "test_user",
                                      avatar: nil,
                                      fullname: nil),
                           cover: nil,
