@@ -26,8 +26,8 @@ class TimelineCollectionViewController: UIViewController,
     private let refreshControl = UIRefreshControl()
     private let disposeBag = DisposeBag()
 
-    init() {
-        self.viewModel = TimelineCollectionViewModel(environment: StoriesEnvironment.shared)
+    init(viewModel: TimelineCollectionViewModel = TimelineCollectionViewModel(environment: StoriesEnvironment.shared)) {
+        self.viewModel = viewModel
         super.init(nibName: String(describing: TimelineCollectionViewController.self), bundle: nil)
     }
 
@@ -184,8 +184,10 @@ class TimelineCollectionViewController: UIViewController,
     
     private func navigateToStory(_ story: Story) {
         guard let id = story.id else { return }
-        navigationController?.pushViewController(StoryDetailViewController(storyId: id),
-                                                 animated: true)
+        navigationController?.pushViewController(
+            StoryDetailViewController(viewModel: StoryDetailViewModel(storyId: id,
+                                                                      environment: StoriesEnvironment.shared)),
+            animated: true)
     }
 
     private func presentOfflineAlert(message: String) {

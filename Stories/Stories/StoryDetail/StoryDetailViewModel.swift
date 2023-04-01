@@ -10,24 +10,38 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class StoryDetailViewModel: StoriesViewModel {
-    // MARK: Input
-    let input: Input
-    struct Input {
-        /// Triggered when the view did load.
-        let viewDidLoad: AnyObserver<Void>
-    }
+protocol StoryDetailViewModelContract: StoriesViewModel
+    where Input == StoryDetailViewModelInput, Output == StoryDetailViewModelOutput {
+    func setImage(storyCover: AsyncImageView, url: URL?)
+}
+
+// MARK: Input
+protocol StoryDetailViewModelInput {
+    /// Triggered when the view did load.
+    var viewDidLoad: AnyObserver<Void> { get }
+}
+private struct InputBind: StoryDetailViewModelInput {
+    let viewDidLoad: AnyObserver<Void>
+}
+
+// MARK: Output
+protocol StoryDetailViewModelOutput {
+    /// The story on the detail page.
+    var story: Driver<Story?> { get }
+    /// An error message to display.
+    var error: Driver<String> { get }
+}
+private struct OutputBind: StoryDetailViewModelOutput {
+    let story: Driver<Story?>
+    let error: Driver<String>
+}
+
+class StoryDetailViewModel: StoryDetailViewModelContract {
+    let input: StoryDetailViewModelInput
     private let viewDidLoad = PublishSubject<Void>()
 
-    // MARK: Output
-    let output: Output
-    struct Output {
-        /// The story on the detail page.
-        let story: Driver<Story?>
-        /// An error message to display.
-        let error: Driver<String>
-    }
-    private let story = PublishSubject<Story?>()
+    let output: StoryDetailViewModelOutput
+    private let story = BehaviorSubject<Story?>(value: nil)
     private let error = PublishSubject<String>()
     
     private let storyId: String
@@ -38,10 +52,10 @@ class StoryDetailViewModel: StoriesViewModel {
                   environment: EnvironmentContract) {
         self.storyId = storyId
         self.environment = environment
-                
-        self.input = Input(viewDidLoad: viewDidLoad.asObserver())
-        self.output = Output(story: story.asDriver(onErrorJustReturn: nil),
-                             error: error.asDriver(onErrorJustReturn: ""))
+        
+        self.input = InputBind(viewDidLoad: viewDidLoad.asObserver())
+        self.output = OutputBind(story: story.asDriver(onErrorJustReturn: nil),
+                                 error: error.asDriver(onErrorJustReturn: ""))
         
         stories()
     }

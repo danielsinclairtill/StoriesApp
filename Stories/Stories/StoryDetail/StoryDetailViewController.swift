@@ -13,7 +13,7 @@ import RxSwift
 import RxCocoa
 
 class StoryDetailViewController: UIViewController {
-    private let viewModel: StoryDetailViewModel
+    private let viewModel: any StoryDetailViewModelContract
     private let disposeBag: DisposeBag = DisposeBag()
     
     private lazy var rootStackView: UIStackView = {
@@ -72,7 +72,7 @@ class StoryDetailViewController: UIViewController {
     private lazy var authorTitle: UILabel = {
         let label = UILabel()
         label.adjustsFontForContentSizeCategory = true
-        label.numberOfLines = 0
+        label.numberOfLines = 1
         
         return label
     }()
@@ -94,8 +94,8 @@ class StoryDetailViewController: UIViewController {
         return tagsListView
     }()
     
-    init(storyId: String) {
-        self.viewModel = StoryDetailViewModel(storyId: storyId, environment: StoriesEnvironment.shared)
+    init(viewModel: any StoryDetailViewModelContract) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
