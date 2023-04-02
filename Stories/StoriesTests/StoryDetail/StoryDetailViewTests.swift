@@ -169,28 +169,28 @@ class StoryDetailViewTests: XCTestCase {
                                   traits: UITraitCollection(userInterfaceStyle: .dark)),
                        named: "dark mode")
     }
+}
+
+private class MockStoryDetailViewModel: StoryDetailViewModelContract {
+    var input: StoryDetailViewModelInput
+    private struct InputBind: StoryDetailViewModelInput {
+        var viewDidLoad: AnyObserver<Void>
+    }
     
-    private class MockStoryDetailViewModel: StoryDetailViewModelContract {
-        var input: StoryDetailViewModelInput
-        private struct InputBind: StoryDetailViewModelInput {
-            var viewDidLoad: AnyObserver<Void>
-        }
-        
-        var output: StoryDetailViewModelOutput
-        private struct OutputBind: StoryDetailViewModelOutput {
-            var story: Driver<Story?>
-            var error: Driver<String>
-        }
-        
-        init(story: Story?, error: String? = nil) {
-            self.input = InputBind(viewDidLoad: PublishSubject<Void>().asObserver())
-            self.output = OutputBind(story: BehaviorSubject(value: story).asDriver(onErrorJustReturn: nil),
-                                     error: PublishSubject<String>().asDriver(onErrorJustReturn: ""))
-        }
-        
-        func setImage(storyCover: Stories.AsyncImageView, url: URL?) {
-            // no op needed in testing
-            return
-        }
+    var output: StoryDetailViewModelOutput
+    private struct OutputBind: StoryDetailViewModelOutput {
+        var story: Driver<Story?>
+        var error: Driver<String>
+    }
+    
+    init(story: Story?, error: String? = nil) {
+        self.input = InputBind(viewDidLoad: PublishSubject<Void>().asObserver())
+        self.output = OutputBind(story: BehaviorSubject(value: story).asDriver(onErrorJustReturn: nil),
+                                 error: PublishSubject<String>().asDriver(onErrorJustReturn: ""))
+    }
+    
+    func setImage(storyCover: Stories.AsyncImageView, url: URL?) {
+        // no op needed in testing
+        return
     }
 }

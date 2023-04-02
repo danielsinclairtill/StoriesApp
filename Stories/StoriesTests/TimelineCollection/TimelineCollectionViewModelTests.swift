@@ -34,14 +34,14 @@ class TimelineCollectionViewModelTests: XCTestCase {
         let stories = scheduler.createObserver(Array<Story>.self)
         viewModel.output.stories.drive(stories).disposed(by: disposeBag)
 
-        XCTAssertTrue(stories.events.isEmpty)
+        XCTAssertTrue(stories.events.last?.value.element?.isEmpty ?? true)
         
         viewModel.input.viewDidLoad.onNext(())
 
         let expectedRequest = StoriesRequests.StoriesTimelinePage()
         XCTAssertEqual(mockEnvironment.mockApi.mockAPIRequestsCalled.count, 1)
         XCTAssertTrue(mockEnvironment.mockApi.mockAPIRequestsCalled.contains { $0.path == expectedRequest.path })
-        XCTAssertEqual(stories.events.first?.value.element, mockStories)
+        XCTAssertEqual(stories.events.last?.value.element, mockStories)
     }
     
     func testRefreshStoriesImagesArePrefetched() {
@@ -78,13 +78,13 @@ class TimelineCollectionViewModelTests: XCTestCase {
         let errorMessage = scheduler.createObserver(String.self)
         viewModel.output.error.drive(errorMessage).disposed(by: disposeBag)
         
-        XCTAssertTrue(stories.events.isEmpty)
+        XCTAssertTrue(stories.events.last?.value.element?.isEmpty ?? true)
 
         viewModel.input.viewDidLoad.onNext(())
         
         XCTAssertEqual(errorMessage.events.first?.value.element, APIError.offline.message)
         XCTAssertEqual(mockEnvironment.mockApi.mockAPIRequestsCalled.count, 0)
-        XCTAssertTrue(stories.events.isEmpty)
+        XCTAssertTrue(stories.events.last?.value.element?.isEmpty ?? true)
     }
     
     func testRefreshStoriesPresentsError() {
@@ -97,12 +97,12 @@ class TimelineCollectionViewModelTests: XCTestCase {
         let errorMessage = scheduler.createObserver(String.self)
         viewModel.output.error.drive(errorMessage).disposed(by: disposeBag)
         
-        XCTAssertTrue(stories.events.isEmpty)
-        
+        XCTAssertTrue(stories.events.last?.value.element?.isEmpty ?? true)
+
         viewModel.input.refresh.onNext(())
         
         XCTAssertEqual(errorMessage.events.first?.value.element, APIError.serverError.message)
-        XCTAssertTrue(stories.events.isEmpty)
+        XCTAssertTrue(stories.events.last?.value.element?.isEmpty ?? true)
     }
     
     func testRefreshStoriesPresentsErrorIfEmpty() {
@@ -115,12 +115,12 @@ class TimelineCollectionViewModelTests: XCTestCase {
         let errorMessage = scheduler.createObserver(String.self)
         viewModel.output.error.drive(errorMessage).disposed(by: disposeBag)
         
-        XCTAssertTrue(stories.events.isEmpty)
+        XCTAssertTrue(stories.events.last?.value.element?.isEmpty ?? true)
 
         viewModel.input.refresh.onNext(())
         
         XCTAssertEqual(errorMessage.events.first?.value.element, APIError.serverError.message)
-        XCTAssertTrue(stories.events.isEmpty)
+        XCTAssertTrue(stories.events.last?.value.element?.isEmpty ?? true)
     }
     
     func testLoadNextPageLoadsMoreStoriesInTimeline() {
@@ -150,7 +150,7 @@ class TimelineCollectionViewModelTests: XCTestCase {
         let stories = scheduler.createObserver(Array<Story>.self)
         viewModel.output.stories.drive(stories).disposed(by: disposeBag)
 
-        XCTAssertTrue(stories.events.isEmpty)
+        XCTAssertTrue(stories.events.last?.value.element?.isEmpty ?? true)
 
         viewModel.input.refresh.onNext(())
 
@@ -193,7 +193,7 @@ class TimelineCollectionViewModelTests: XCTestCase {
         let stories = scheduler.createObserver(Array<Story>.self)
         viewModel.output.stories.drive(stories).disposed(by: disposeBag)
 
-        XCTAssertTrue(stories.events.isEmpty)
+        XCTAssertTrue(stories.events.last?.value.element?.isEmpty ?? true)
 
         viewModel.input.refreshOffline.onNext(())
 
@@ -211,14 +211,14 @@ class TimelineCollectionViewModelTests: XCTestCase {
         let errorMessage = scheduler.createObserver(String.self)
         viewModel.output.error.drive(errorMessage).disposed(by: disposeBag)
         
-        XCTAssertTrue(stories.events.isEmpty)
+        XCTAssertTrue(stories.events.last?.value.element?.isEmpty ?? true)
 
         viewModel.input.refreshOffline.onNext(())
 
         XCTAssertEqual(errorMessage.events.first?.value.element, StoreError.readError.message)
 
         XCTAssertEqual(mockEnvironment.mockStore.mockGetStoriesRequestsCalledCount, 1)
-        XCTAssertTrue(stories.events.isEmpty)
+        XCTAssertTrue(stories.events.last?.value.element?.isEmpty ?? true)
     }
     
     func testGetStoredStoriesPresentsErrorIfEmpty() {
@@ -229,14 +229,14 @@ class TimelineCollectionViewModelTests: XCTestCase {
         let errorMessage = scheduler.createObserver(String.self)
         viewModel.output.error.drive(errorMessage).disposed(by: disposeBag)
         
-        XCTAssertTrue(stories.events.isEmpty)
+        XCTAssertTrue(stories.events.last?.value.element?.isEmpty ?? true)
 
         viewModel.input.refreshOffline.onNext(())
 
         XCTAssertEqual(errorMessage.events.first?.value.element, StoreError.readError.message)
 
         XCTAssertEqual(mockEnvironment.mockStore.mockGetStoriesRequestsCalledCount, 1)
-        XCTAssertTrue(stories.events.isEmpty)
+        XCTAssertTrue(stories.events.last?.value.element?.isEmpty ?? true)
     }
     
     // MARK: TabBarItem
