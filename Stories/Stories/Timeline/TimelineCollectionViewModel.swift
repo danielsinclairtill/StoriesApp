@@ -77,7 +77,7 @@ protocol TimelineCollectionViewModelOutput {
     /// Nativate to a story.
     var navigateToStory: Driver<Story?> { get }
 }
-private struct TimelineCollectionViewModelOutputBind: TimelineCollectionViewModelOutput {
+struct TimelineCollectionViewModelOutputBind: TimelineCollectionViewModelOutput {
     var stories: Driver<[Story]> { return storiesBind.asDriver(onErrorJustReturn: []) }
     var isLoading: Driver<Bool> { return isLoadingBind.asDriver(onErrorJustReturn: false) }
     var isLoadingNext: Driver<Bool> { return isLoadingNextBind.asDriver(onErrorJustReturn: false) }
