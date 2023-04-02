@@ -64,7 +64,9 @@ class TimelineCollectionViewController: UIViewController,
     private func bindViewModel() {
         // refresh control
         refreshControl.rx.controlEvent(.valueChanged)
-            .bind(to: viewModel.input.refresh)
+            .subscribe(onNext: { [weak self] in
+                self?.viewModel.input.refreshBegin.onNext(.online)
+            })
             .disposed(by: disposeBag)
         viewModel.output.isLoading
             .drive(collectionView.refreshControl!.rx.isRefreshing)
@@ -205,16 +207,16 @@ class TimelineCollectionViewController: UIViewController,
 
     private func presentOfflineAlert(message: String) {
         let alert = StoriesAlertControllerFactory.createOfflineAlert(message: message, closeHandler: { [weak self] _ in
-            self?.viewModel.input.refreshOffline.onNext(())
+            self?.viewModel.input.refreshBegin.onNext(.offline)
         })
         present(alert, animated: true, completion: nil)
     }
     
     private func presentError(message: String) {
         let alert = StoriesAlertControllerFactory.createAPIError(message: message, offlineHandler: { [weak self] _ in
-            self?.viewModel.input.refreshOffline.onNext(())
+            self?.viewModel.input.refreshBegin.onNext(.offline)
             }, refreshHandler: { [weak self] _ in
-                self?.viewModel.input.refresh.onNext(())
+                self?.viewModel.input.refreshBegin.onNext(.online)
         })
         present(alert, animated: true, completion: nil)
     }
@@ -244,7 +246,7 @@ class TimelineCollectionViewController: UIViewController,
         loadingAnimationView.play()
         AnimationController.fadeOutView(collectionView) { [weak self] completed in
             self?.refreshControl.endRefreshing()
-            self?.viewModel.input.refreshReady.onNext((true))
+            self?.viewModel.input.refresh.onNext(())
         }
         AnimationController.fadeInView(loadingAnimationView, completion: nil)
     }

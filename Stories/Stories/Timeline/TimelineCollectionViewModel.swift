@@ -15,16 +15,19 @@ where Input == TimelineCollectionViewModelInput, Output == TimelineCollectionVie
     var imageManager: ImageManagerContract { get }
 }
 
+enum TimelineRefreshType {
+    case offline
+    case online
+}
+
 // MARK: Input
 protocol TimelineCollectionViewModelInput {
     /// Triggered when the view did load.
     var viewDidLoad: AnyObserver<Void> { get }
-    /// Triggered when the stories timeline collection wants to refresh.
+    /// Triggered when all animations on the stories timeline collection are complete, and it is ready to refresh the data.
     var refresh: AnyObserver<Void> { get }
-    /// Triggered when all animations on the stories timeline collection are complete, and it is ready to refresh.
-    var refreshReady: AnyObserver<Bool> { get }
-    /// Triggered when the stories timeline collection wants to refresh offline.
-    var refreshOffline: AnyObserver<Void> { get }
+    /// Triggered when the stories timeline collection wants to start to refresh. Either offline or online data.
+    var refreshBegin: AnyObserver<TimelineRefreshType> { get }
     /// Triggered when the stories timeline collection wants to load the next page.
     var loadNextPage: AnyObserver<Void> { get }
     /// Is the timeline scrolling state.
@@ -39,8 +42,7 @@ protocol TimelineCollectionViewModelInput {
 struct TimelineCollectionViewModelInputBind: TimelineCollectionViewModelInput {
     var viewDidLoad: AnyObserver<Void> { return viewDidLoadBind.asObserver() }
     var refresh: AnyObserver<Void> { return refreshBind.asObserver() }
-    var refreshReady: AnyObserver<Bool> { return refreshReadyBind.asObserver() }
-    var refreshOffline: AnyObserver<Void> { return refreshOfflineBind.asObserver() }
+    var refreshBegin: AnyObserver<TimelineRefreshType> { return refreshBeginBind.asObserver() }
     var loadNextPage: AnyObserver<Void> { return loadNextPageBind.asObserver() }
     var isScrolling: AnyObserver<Bool> { return isScrollingBind.asObserver() }
     var isTopOfPage: AnyObserver<Bool> { return isTopOfPageBind.asObserver() }
@@ -49,8 +51,7 @@ struct TimelineCollectionViewModelInputBind: TimelineCollectionViewModelInput {
     
     let viewDidLoadBind = PublishSubject<Void>()
     let refreshBind = PublishSubject<Void>()
-    let refreshReadyBind = PublishSubject<Bool>()
-    let refreshOfflineBind = PublishSubject<Void>()
+    let refreshBeginBind = PublishSubject<TimelineRefreshType>()
     let loadNextPageBind = PublishSubject<Void>()
     let isScrollingBind = BehaviorSubject<Bool>(value: false)
     let isTopOfPageBind = BehaviorSubject<Bool>(value: false)
@@ -115,7 +116,6 @@ class TimelineCollectionViewModel: TimelineCollectionViewModelContract {
         
         setViewDidLoad()
         setRefresh()
-        setRefreshOffline()
         setLoadNextPage()
         setTabBarItemTappedWhileDisplayed()
         setCellTapped()
@@ -127,38 +127,32 @@ class TimelineCollectionViewModel: TimelineCollectionViewModelContract {
             if !strongSelf.environment.api.isConnectedToInternet() {
                 strongSelf.outputBind.errorBind.onNext(APIError.offline.message)
             } else {
-                strongSelf.inputBind.refreshBind.onNext(())
-                strongSelf.inputBind.refreshReady.onNext(true)
+                strongSelf.updateData()
             }
         })
         .disposed(by: disposeBag)
     }
     
     private func setRefresh() {
-        inputBind.refreshBind.subscribe(onNext: { [weak self] in
+        inputBind.refreshBeginBind.subscribe(onNext: { [weak self] refreshType in
             guard let strongSelf = self else { return }
+            strongSelf.outputBind.isOfflineBind.onNext(refreshType == .offline)
             strongSelf.outputBind.isLoadingBind.onNext(true)
         })
         .disposed(by: disposeBag)
         
         // only initiate refresh is the refresh is wanted,
         // and all animations are completed before starting the refresh
-        Observable.zip(inputBind.refreshBind, inputBind.refreshReadyBind)
-            .subscribe(onNext: { [weak self] refreshReady in
+        inputBind.refreshBind.withLatestFrom(outputBind.isOfflineBind)
+            .subscribe(onNext: { [weak self] isOffline in
                 guard let strongSelf = self else { return }
-                strongSelf.updateData()
+                if isOffline {
+                    strongSelf.updateDataOffline()
+                } else {
+                    strongSelf.updateData()
+                }
             })
             .disposed(by: disposeBag)
-    }
-    
-    private func setRefreshOffline() {
-        inputBind.refreshOfflineBind.subscribe(onNext: { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.outputBind.isLoadingBind.onNext(true)
-            strongSelf.outputBind.isOfflineBind.onNext(true)
-            strongSelf.updateDataOffline()
-        })
-        .disposed(by: disposeBag)
     }
     
     private func setLoadNextPage() {
