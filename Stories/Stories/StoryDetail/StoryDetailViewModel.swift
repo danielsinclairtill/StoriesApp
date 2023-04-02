@@ -20,8 +20,10 @@ protocol StoryDetailViewModelInput {
     /// Triggered when the view did load.
     var viewDidLoad: AnyObserver<Void> { get }
 }
-private struct InputBind: StoryDetailViewModelInput {
-    let viewDidLoad: AnyObserver<Void>
+struct StoryDetailViewModelInputBind: StoryDetailViewModelInput {
+    var viewDidLoad: AnyObserver<Void> { return viewDidLoadBind.asObserver() }
+    
+    let viewDidLoadBind = PublishSubject<Void>()
 }
 
 // MARK: Output
@@ -31,18 +33,20 @@ protocol StoryDetailViewModelOutput {
     /// An error message to display.
     var error: Driver<String> { get }
 }
-private struct OutputBind: StoryDetailViewModelOutput {
-    let story: Driver<Story?>
-    let error: Driver<String>
+struct StoryDetailViewModelOutputBind: StoryDetailViewModelOutput {
+    var story: Driver<Story?> { return storyBind.asDriver(onErrorJustReturn: nil) }
+    var error: Driver<String> { return errorBind.asDriver(onErrorJustReturn: "") }
+    
+    var storyBind = BehaviorSubject<Story?>(value: nil)
+    var errorBind = PublishSubject<String>()
 }
 
+// MARK: ViewModel
 class StoryDetailViewModel: StoryDetailViewModelContract {
-    let input: StoryDetailViewModelInput
-    private let viewDidLoad = PublishSubject<Void>()
-
-    let output: StoryDetailViewModelOutput
-    private let story = BehaviorSubject<Story?>(value: nil)
-    private let error = PublishSubject<String>()
+    var input: StoryDetailViewModelInput { return inputBind }
+    private let inputBind = StoryDetailViewModelInputBind()
+    var output: StoryDetailViewModelOutput { return outputBind }
+    private let outputBind = StoryDetailViewModelOutputBind()
     
     private let storyId: String
     private let environment: EnvironmentContract
@@ -53,24 +57,20 @@ class StoryDetailViewModel: StoryDetailViewModelContract {
         self.storyId = storyId
         self.environment = environment
         
-        self.input = InputBind(viewDidLoad: viewDidLoad.asObserver())
-        self.output = OutputBind(story: story.asDriver(onErrorJustReturn: nil),
-                                 error: error.asDriver(onErrorJustReturn: ""))
-        
         stories()
     }
     
     private func stories() {
-        viewDidLoad.subscribe(onNext: { [weak self] in
+        inputBind.viewDidLoadBind.subscribe(onNext: { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.environment.api.get(request: StoriesRequests.StoryDetail(id: strongSelf.storyId), result: { [weak self] result in
                 guard let strongSelf = self else { return }
                 switch result {
                 case .success(let story):
-                    strongSelf.story.onNext(story)
+                    strongSelf.outputBind.storyBind.onNext(story)
                 case .failure(let error):
-                    strongSelf.story.onNext(nil)
-                    strongSelf.error.onNext(error.message)
+                    strongSelf.outputBind.storyBind.onNext(nil)
+                    strongSelf.outputBind.errorBind.onNext(error.message)
                 }
             })
         })

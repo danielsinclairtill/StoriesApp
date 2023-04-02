@@ -172,21 +172,13 @@ class StoryDetailViewTests: XCTestCase {
 }
 
 private class MockStoryDetailViewModel: StoryDetailViewModelContract {
-    var input: StoryDetailViewModelInput
-    private struct InputBind: StoryDetailViewModelInput {
-        var viewDidLoad: AnyObserver<Void>
-    }
-    
-    var output: StoryDetailViewModelOutput
-    private struct OutputBind: StoryDetailViewModelOutput {
-        var story: Driver<Story?>
-        var error: Driver<String>
-    }
+    var input: StoryDetailViewModelInput { return inputBind }
+    private let inputBind = StoryDetailViewModelInputBind()
+    var output: StoryDetailViewModelOutput { return outputBind }
+    private let outputBind: StoryDetailViewModelOutputBind
     
     init(story: Story?, error: String? = nil) {
-        self.input = InputBind(viewDidLoad: PublishSubject<Void>().asObserver())
-        self.output = OutputBind(story: BehaviorSubject(value: story).asDriver(onErrorJustReturn: nil),
-                                 error: PublishSubject<String>().asDriver(onErrorJustReturn: ""))
+        self.outputBind = StoryDetailViewModelOutputBind(storyBind: BehaviorSubject(value: story))
     }
     
     func setImage(storyCover: Stories.AsyncImageView, url: URL?) {
