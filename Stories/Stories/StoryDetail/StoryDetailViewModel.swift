@@ -7,36 +7,74 @@
 //
 
 import Foundation
+import RxSwift
+import RxCocoa
 
-protocol StoryDetailViewModelOutputContract: NSObject {
-    func presentError(message: String)
-    func setStory(story: Story?)
+protocol StoryDetailViewModelContract: StoriesViewModel
+    where Input == StoryDetailViewModelInput, Output == StoryDetailViewModelOutput {
+    func setImage(storyCover: AsyncImageView, url: URL?)
 }
 
-class StoryDetailViewModel {
-    private let storyId: String
-    private(set) var story: Story?
-    private let environment: EnvironmentContract
-    weak var viewControllerDelegate: StoryDetailViewModelOutputContract?
+// MARK: Input
+protocol StoryDetailViewModelInput {
+    /// Triggered when the view did load.
+    var viewDidLoad: AnyObserver<Void> { get }
+}
+struct StoryDetailViewModelInputBind: StoryDetailViewModelInput {
+    var viewDidLoad: AnyObserver<Void> { return viewDidLoadBind.asObserver() }
     
+    let viewDidLoadBind = PublishSubject<Void>()
+}
+
+// MARK: Output
+protocol StoryDetailViewModelOutput {
+    /// The story on the detail page.
+    var story: Driver<Story?> { get }
+    /// An error message to display.
+    var error: Driver<String> { get }
+}
+struct StoryDetailViewModelOutputBind: StoryDetailViewModelOutput {
+    var story: Driver<Story?> { return storyBind.asDriver(onErrorJustReturn: nil) }
+    var error: Driver<String> { return errorBind.asDriver(onErrorJustReturn: "") }
+    
+    var storyBind = BehaviorSubject<Story?>(value: nil)
+    var errorBind = PublishSubject<String>()
+}
+
+// MARK: ViewModel
+class StoryDetailViewModel: StoryDetailViewModelContract {
+    var input: StoryDetailViewModelInput { return inputBind }
+    private let inputBind = StoryDetailViewModelInputBind()
+    var output: StoryDetailViewModelOutput { return outputBind }
+    private let outputBind = StoryDetailViewModelOutputBind()
+    
+    private let storyId: String
+    private let environment: EnvironmentContract
+    private let disposeBag = DisposeBag()
+
     required init(storyId: String,
                   environment: EnvironmentContract) {
         self.storyId = storyId
         self.environment = environment
+        
+        stories()
     }
     
-    func loadStory() {
-        environment.api.get(request: StoriesRequests.StoryDetail(id: storyId), result: { [weak self] result in
+    private func stories() {
+        inputBind.viewDidLoadBind.subscribe(onNext: { [weak self] in
             guard let strongSelf = self else { return }
-            switch result {
-            case .success(let story):
-                strongSelf.story = story
-                strongSelf.viewControllerDelegate?.setStory(story: story)
-            case .failure(let error):
-                strongSelf.viewControllerDelegate?.presentError(message: error.message)
-                strongSelf.viewControllerDelegate?.setStory(story: nil)
-            }
+            strongSelf.environment.api.get(request: StoriesRequests.StoryDetail(id: strongSelf.storyId), result: { [weak self] result in
+                guard let strongSelf = self else { return }
+                switch result {
+                case .success(let story):
+                    strongSelf.outputBind.storyBind.onNext(story)
+                case .failure(let error):
+                    strongSelf.outputBind.storyBind.onNext(nil)
+                    strongSelf.outputBind.errorBind.onNext(error.message)
+                }
+            })
         })
+        .disposed(by: disposeBag)
     }
     
     func setImage(storyCover: AsyncImageView, url: URL?) {

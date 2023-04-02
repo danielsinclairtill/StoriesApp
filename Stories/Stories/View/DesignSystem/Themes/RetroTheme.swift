@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class RetroTheme: Theme, Attributes {
+class RetroTheme: Attributes {
     var colors: Colors = RetroTheme.Color()
     var dimensions: Dimensions = RetroTheme.Dimension()
     var fonts: Fonts = RetroTheme.Font()

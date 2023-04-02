@@ -21,10 +21,10 @@ class ApplicationManager {
         }
     }
     
-    var theme: DesignTheme {
+    var theme: StoriesDesignTheme {
         get {
             guard let themeString = defaults.string(forKey: "theme"),
-                    let theme = DesignTheme(rawValue: themeString) else {
+                    let theme = StoriesDesignTheme(rawValue: themeString) else {
                 return .plain
             }
             return theme
