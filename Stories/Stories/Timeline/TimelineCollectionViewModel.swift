@@ -21,6 +21,8 @@ protocol TimelineCollectionViewModelInput {
     var viewDidLoad: AnyObserver<Void> { get }
     /// Triggered when the stories timeline collection wants to refresh.
     var refresh: AnyObserver<Void> { get }
+    /// Triggered when all animations on the stories timeline collection are complete, and it is ready to refresh.
+    var refreshReady: AnyObserver<Bool> { get }
     /// Triggered when the stories timeline collection wants to refresh offline.
     var refreshOffline: AnyObserver<Void> { get }
     /// Triggered when the stories timeline collection wants to load the next page.
@@ -37,6 +39,7 @@ protocol TimelineCollectionViewModelInput {
 private struct InputBind: TimelineCollectionViewModelInput {
     let viewDidLoad: AnyObserver<Void>
     let refresh: AnyObserver<Void>
+    let refreshReady: AnyObserver<Bool>
     let refreshOffline: AnyObserver<Void>
     let loadNextPage: AnyObserver<Void>
     let isScrolling: AnyObserver<Bool>
@@ -79,6 +82,7 @@ class TimelineCollectionViewModel: TimelineCollectionViewModelContract {
     let input: TimelineCollectionViewModelInput
     private let viewDidLoad = PublishSubject<Void>()
     private let refresh = PublishSubject<Void>()
+    private let refreshReady = PublishSubject<Bool>()
     private let refreshOffline = PublishSubject<Void>()
     private let loadNextPage = PublishSubject<Void>()
     private let isScrolling = BehaviorSubject<Bool>(value: false)
@@ -88,9 +92,9 @@ class TimelineCollectionViewModel: TimelineCollectionViewModelContract {
     
     let output: TimelineCollectionViewModelOutput
     private let stories = BehaviorSubject<[Story]>(value: [])
-    private let isLoading = PublishSubject<Bool>()
-    private let isLoadingNext = PublishSubject<Bool>()
-    private let isOffline = PublishSubject<Bool>()
+    private let isLoading = BehaviorSubject<Bool>(value: true)
+    private let isLoadingNext = BehaviorSubject<Bool>(value: false)
+    private let isOffline = BehaviorSubject<Bool>(value: false)
     private let error = PublishSubject<String>()
     private let bubbleMessage = PublishSubject<String>()
     private let scrollToTop = PublishSubject<Void>()
@@ -107,6 +111,7 @@ class TimelineCollectionViewModel: TimelineCollectionViewModelContract {
         
         self.input = InputBind(viewDidLoad: viewDidLoad.asObserver(),
                                refresh: refresh.asObserver(),
+                               refreshReady: refreshReady.asObserver(),
                                refreshOffline: refreshOffline.asObserver(),
                                loadNextPage: loadNextPage.asObserver(),
                                isScrolling: isScrolling.asObserver(),
@@ -115,7 +120,7 @@ class TimelineCollectionViewModel: TimelineCollectionViewModelContract {
                                cellTapped: cellTapped.asObserver())
         self.output = OutputBind(stories: stories.asDriver(onErrorJustReturn: []),
                                  isLoading: isLoading.asDriver(onErrorJustReturn: false),
-                                 isLoadingNext: isLoading.asDriver(onErrorJustReturn: false),
+                                 isLoadingNext: isLoadingNext.asDriver(onErrorJustReturn: false),
                                  isOffline: isOffline.asDriver(onErrorJustReturn: true),
                                  error: error.asDriver(onErrorJustReturn: ""),
                                  bubbleMessage: bubbleMessage.asDriver(onErrorJustReturn: ""),
@@ -146,9 +151,17 @@ class TimelineCollectionViewModel: TimelineCollectionViewModelContract {
         refresh.subscribe(onNext: { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.isLoading.onNext(true)
-            strongSelf.updateData()
         })
         .disposed(by: disposeBag)
+        
+        // only initiate refresh is the refresh is wanted,
+        // and all animations are completed before starting the refresh
+        Observable.zip(refresh, refreshReady)
+            .subscribe(onNext: { [weak self] refreshReady in
+                guard let strongSelf = self else { return }
+                strongSelf.updateData()
+            })
+            .disposed(by: disposeBag)
     }
     
     private func setRefreshOffline() {
@@ -162,10 +175,13 @@ class TimelineCollectionViewModel: TimelineCollectionViewModelContract {
     }
     
     private func setLoadNextPage() {
-        loadNextPage.withLatestFrom(Observable.combineLatest(stories, isLoadingNext))
+        loadNextPage.withLatestFrom(Observable.combineLatest(stories, isLoadingNext, isOffline))
             .throttle(.seconds(1), latest: false, scheduler: MainScheduler.instance)
-            .filter { (stories, isLoadingNext) in isLoadingNext == false }
-            .subscribe(onNext: { [weak self] (stories, isLoading) in
+            .filter { (stories, isLoadingNext, isOffline) in
+                !isOffline &&
+                !isLoadingNext &&
+                !stories.isEmpty }
+            .subscribe(onNext: { [weak self] (stories, isLoading, isOffline) in
                 guard let strongSelf = self else { return }
                 strongSelf.isLoadingNext.onNext(true)
                 strongSelf.updateData(stories: stories)
@@ -229,21 +245,22 @@ class TimelineCollectionViewModel: TimelineCollectionViewModelContract {
         environment.api.imageManager.prefetchImages(prefetchImageURLs, reset: true)
     }
     
-    private func updateDataOffline() {
-        isLoading.onNext(true)
-        
+    private func updateDataOffline() {        
         environment.store.getStories(success: { [weak self] stories in
             guard let strongSelf = self else { return }
             guard !stories.isEmpty else {
                 // no stories were recieved, assume there is an issue with store read
                 strongSelf.error.onNext(StoreError.readError.message)
+                strongSelf.isLoading.onNext(false)
                 return
             }
             
             strongSelf.stories.onNext(stories)
+            strongSelf.isLoading.onNext(false)
         }) { [weak self] error in
             guard let strongSelf = self else { return }
             strongSelf.error.onNext(error.message)
+            strongSelf.isLoading.onNext(false)
         }
     }
     
@@ -258,7 +275,7 @@ class TimelineCollectionViewModel: TimelineCollectionViewModelContract {
     
     private func setTabBarItemTappedWhileDisplayed() {
         tabBarItemTapped.withLatestFrom(Observable.combineLatest(isTopOfPage, isScrolling))
-            .filter { isTopOfPage, isScrolling in isTopOfPage == false && isScrolling == false}
+            .filter { isTopOfPage, isScrolling in !isTopOfPage && !isScrolling}
             .subscribe { [weak self] _, _ in
                 self?.scrollToTop.onNext(())
             }

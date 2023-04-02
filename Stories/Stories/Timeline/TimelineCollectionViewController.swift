@@ -45,6 +45,7 @@ class TimelineCollectionViewController: UIViewController,
         collectionView.register(UINib(nibName: cellIdentifier, bundle: nil), forCellWithReuseIdentifier: cellIdentifier)
         collectionView.refreshControl = refreshControl
         collectionView.backgroundColor = .clear
+        collectionView.alpha = 0.0
         
         // bubble view
         bubbleMessageViewContainer.alpha = 0.0
@@ -69,6 +70,9 @@ class TimelineCollectionViewController: UIViewController,
         
         // loading timeline animation
         viewModel.output.isLoading
+            .distinctUntilChanged()
+            // make sure animating between loading states is buffered by at least 0.8 seconds
+            .throttle(.milliseconds(800))
             .drive(onNext: { [weak self] isLoading in
                 if isLoading {
                     self?.initiateLoadingTimeline()
@@ -115,10 +119,17 @@ class TimelineCollectionViewController: UIViewController,
             })
             .disposed(by: disposeBag)
         
+        // error message
+        viewModel.output.error
+            .drive(onNext: { [weak self] message in
+                self?.presentError(message: message)
+            })
+            .disposed(by: disposeBag)
+        
         // bubble message
         viewModel.output.bubbleMessage
-            .drive(onNext: { message in
-                self.presentBubbleMessage(message: message)
+            .drive(onNext: { [weak self] message in
+                self?.presentBubbleMessage(message: message)
             })
             .disposed(by: disposeBag)
         
@@ -228,6 +239,7 @@ class TimelineCollectionViewController: UIViewController,
         loadingAnimationView.play()
         AnimationController.fadeOutView(collectionView) { [weak self] completed in
             self?.refreshControl.endRefreshing()
+            self?.viewModel.input.refreshReady.onNext((true))
         }
         AnimationController.fadeInView(loadingAnimationView, completion: nil)
     }
