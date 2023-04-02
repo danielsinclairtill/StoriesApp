@@ -14,7 +14,7 @@ import RxCocoa
 class TimelineCollectionViewTests: XCTestCase {
     func testTimelineCollection() {
         let stories = ModelMockData.makeMockStories(count: 20)
-        let viewModel = MockTimelineCollectionView(stories: stories)
+        let viewModel = MockTimelineCollectionViewModel(stories: stories)
         let view = TimelineCollectionViewController(viewModel: viewModel)
         
         isRecording = false
@@ -27,20 +27,16 @@ class TimelineCollectionViewTests: XCTestCase {
     }
 }
 
-private class MockTimelineCollectionView: TimelineCollectionViewModelContract {
+private class MockTimelineCollectionViewModel: TimelineCollectionViewModelContract {
     var input: TimelineCollectionViewModelInput { return inputBind }
     private let inputBind = TimelineCollectionViewModelInputBind()
     var output: TimelineCollectionViewModelOutput { return outputBind }
     private let outputBind: TimelineCollectionViewModelOutputBind
     
-    init(stories: [Story],
-         isLoading: BehaviorSubject<Bool>? = nil,
-         error: PublishSubject<String>? = nil,
-         bubbleMessage: PublishSubject<String>? = nil) {
+    init(stories: [Story] = [],
+         isLoading: Bool = false) {
         self.outputBind = TimelineCollectionViewModelOutputBind(storiesBind: BehaviorSubject(value: stories),
-                                                                isLoadingBind: (isLoading ?? BehaviorSubject(value: false)),
-                                                                errorBind: (error ?? PublishSubject()),
-                                                                bubbleMessageBind: (bubbleMessage ?? PublishSubject()))
+                                                                isLoadingBind: BehaviorSubject(value: isLoading))
     }
     
     let imageManager: ImageManagerContract = StoriesImageManagerMock()
