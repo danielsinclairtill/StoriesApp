@@ -36,16 +36,26 @@ protocol TimelineCollectionViewModelInput {
     /// Triggered when a story cell has been tapped.
     var cellTapped: AnyObserver<Int> { get }
 }
-private struct InputBind: TimelineCollectionViewModelInput {
-    let viewDidLoad: AnyObserver<Void>
-    let refresh: AnyObserver<Void>
-    let refreshReady: AnyObserver<Bool>
-    let refreshOffline: AnyObserver<Void>
-    let loadNextPage: AnyObserver<Void>
-    let isScrolling: AnyObserver<Bool>
-    let isTopOfPage: AnyObserver<Bool>
-    let tabBarItemTapped: AnyObserver<Void>
-    let cellTapped: AnyObserver<Int>
+struct TimelineCollectionViewModelInputBind: TimelineCollectionViewModelInput {
+    var viewDidLoad: AnyObserver<Void> { return viewDidLoadBind.asObserver() }
+    var refresh: AnyObserver<Void> { return refreshBind.asObserver() }
+    var refreshReady: AnyObserver<Bool> { return refreshReadyBind.asObserver() }
+    var refreshOffline: AnyObserver<Void> { return refreshOfflineBind.asObserver() }
+    var loadNextPage: AnyObserver<Void> { return loadNextPageBind.asObserver() }
+    var isScrolling: AnyObserver<Bool> { return isScrollingBind.asObserver() }
+    var isTopOfPage: AnyObserver<Bool> { return isTopOfPageBind.asObserver() }
+    var tabBarItemTapped: AnyObserver<Void> { return tabBarItemTappedBind.asObserver() }
+    var cellTapped: AnyObserver<Int> { return cellTappedBind.asObserver() }
+    
+    let viewDidLoadBind = PublishSubject<Void>()
+    let refreshBind = PublishSubject<Void>()
+    let refreshReadyBind = PublishSubject<Bool>()
+    let refreshOfflineBind = PublishSubject<Void>()
+    let loadNextPageBind = PublishSubject<Void>()
+    let isScrollingBind = BehaviorSubject<Bool>(value: false)
+    let isTopOfPageBind = BehaviorSubject<Bool>(value: false)
+    let tabBarItemTappedBind = PublishSubject<Void>()
+    let cellTappedBind = PublishSubject<Int>()
 }
 
 // MARK: Output
@@ -67,38 +77,32 @@ protocol TimelineCollectionViewModelOutput {
     /// Nativate to a story.
     var navigateToStory: Driver<Story?> { get }
 }
-private struct OutputBind: TimelineCollectionViewModelOutput {
-    let stories: Driver<[Story]>
-    let isLoading: Driver<Bool>
-    let isLoadingNext: Driver<Bool>
-    let isOffline: Driver<Bool>
-    let error: Driver<String>
-    let bubbleMessage: Driver<String>
-    let scrollToTop: Driver<Void>
-    let navigateToStory: Driver<Story?>
+private struct TimelineCollectionViewModelOutputBind: TimelineCollectionViewModelOutput {
+    var stories: Driver<[Story]> { return storiesBind.asDriver(onErrorJustReturn: []) }
+    var isLoading: Driver<Bool> { return isLoadingBind.asDriver(onErrorJustReturn: false) }
+    var isLoadingNext: Driver<Bool> { return isLoadingNextBind.asDriver(onErrorJustReturn: false) }
+    var isOffline: Driver<Bool> { return isOfflineBind.asDriver(onErrorJustReturn: false) }
+    var error: Driver<String> { return errorBind.asDriver(onErrorJustReturn: "") }
+    var bubbleMessage: Driver<String> { return bubbleMessageBind.asDriver(onErrorJustReturn: "") }
+    var scrollToTop: Driver<Void> { return scrollToTopBind.asDriver(onErrorJustReturn: ()) }
+    var navigateToStory: Driver<Story?> { return navigateToStoryBind.asDriver(onErrorJustReturn: nil) }
+    
+    var storiesBind = BehaviorSubject<[Story]>(value: [])
+    var isLoadingBind = BehaviorSubject<Bool>(value: true)
+    var isLoadingNextBind = BehaviorSubject<Bool>(value: false)
+    var isOfflineBind = BehaviorSubject<Bool>(value: false)
+    var errorBind = PublishSubject<String>()
+    var bubbleMessageBind = PublishSubject<String>()
+    var scrollToTopBind = PublishSubject<Void>()
+    var navigateToStoryBind = PublishSubject<Story?>()
 }
 
+// MARK: ViewModel
 class TimelineCollectionViewModel: TimelineCollectionViewModelContract {
-    let input: TimelineCollectionViewModelInput
-    private let viewDidLoad = PublishSubject<Void>()
-    private let refresh = PublishSubject<Void>()
-    private let refreshReady = PublishSubject<Bool>()
-    private let refreshOffline = PublishSubject<Void>()
-    private let loadNextPage = PublishSubject<Void>()
-    private let isScrolling = BehaviorSubject<Bool>(value: false)
-    private let isTopOfPage = BehaviorSubject<Bool>(value: false)
-    private let tabBarItemTapped = PublishSubject<Void>()
-    private let cellTapped = PublishSubject<Int>()
-    
-    let output: TimelineCollectionViewModelOutput
-    private let stories = BehaviorSubject<[Story]>(value: [])
-    private let isLoading = BehaviorSubject<Bool>(value: true)
-    private let isLoadingNext = BehaviorSubject<Bool>(value: false)
-    private let isOffline = BehaviorSubject<Bool>(value: false)
-    private let error = PublishSubject<String>()
-    private let bubbleMessage = PublishSubject<String>()
-    private let scrollToTop = PublishSubject<Void>()
-    private let navigateToStory = PublishSubject<Story?>()
+    var input: TimelineCollectionViewModelInput { return inputBind }
+    private let inputBind = TimelineCollectionViewModelInputBind()
+    var output: TimelineCollectionViewModelOutput { return outputBind }
+    private let outputBind = TimelineCollectionViewModelOutputBind()
     
     private let environment: EnvironmentContract
     var imageManager: ImageManagerContract {
@@ -109,24 +113,6 @@ class TimelineCollectionViewModel: TimelineCollectionViewModelContract {
     init(environment: EnvironmentContract) {
         self.environment = environment
         
-        self.input = InputBind(viewDidLoad: viewDidLoad.asObserver(),
-                               refresh: refresh.asObserver(),
-                               refreshReady: refreshReady.asObserver(),
-                               refreshOffline: refreshOffline.asObserver(),
-                               loadNextPage: loadNextPage.asObserver(),
-                               isScrolling: isScrolling.asObserver(),
-                               isTopOfPage: isTopOfPage.asObserver(),
-                               tabBarItemTapped: tabBarItemTapped.asObserver(),
-                               cellTapped: cellTapped.asObserver())
-        self.output = OutputBind(stories: stories.asDriver(onErrorJustReturn: []),
-                                 isLoading: isLoading.asDriver(onErrorJustReturn: false),
-                                 isLoadingNext: isLoadingNext.asDriver(onErrorJustReturn: false),
-                                 isOffline: isOffline.asDriver(onErrorJustReturn: true),
-                                 error: error.asDriver(onErrorJustReturn: ""),
-                                 bubbleMessage: bubbleMessage.asDriver(onErrorJustReturn: ""),
-                                 scrollToTop: scrollToTop.asDriver(onErrorJustReturn: ()),
-                                 navigateToStory: navigateToStory.asDriver(onErrorJustReturn: nil))
-        
         setViewDidLoad()
         setRefresh()
         setRefreshOffline()
@@ -136,27 +122,27 @@ class TimelineCollectionViewModel: TimelineCollectionViewModelContract {
     }
     
     private func setViewDidLoad() {
-        viewDidLoad.subscribe(onNext: { [weak self] in
+        inputBind.viewDidLoadBind.subscribe(onNext: { [weak self] in
             guard let strongSelf = self else { return }
             if !strongSelf.environment.api.isConnectedToInternet() {
-                strongSelf.error.onNext(APIError.offline.message)
+                strongSelf.outputBind.errorBind.onNext(APIError.offline.message)
             } else {
-                strongSelf.refresh.onNext(())
+                strongSelf.inputBind.refreshBind.onNext(())
             }
         })
         .disposed(by: disposeBag)
     }
     
     private func setRefresh() {
-        refresh.subscribe(onNext: { [weak self] in
+        inputBind.refreshBind.subscribe(onNext: { [weak self] in
             guard let strongSelf = self else { return }
-            strongSelf.isLoading.onNext(true)
+            strongSelf.outputBind.isLoadingBind.onNext(true)
         })
         .disposed(by: disposeBag)
         
         // only initiate refresh is the refresh is wanted,
         // and all animations are completed before starting the refresh
-        Observable.zip(refresh, refreshReady)
+        Observable.zip(inputBind.refreshBind, inputBind.refreshReadyBind)
             .subscribe(onNext: { [weak self] refreshReady in
                 guard let strongSelf = self else { return }
                 strongSelf.updateData()
@@ -165,17 +151,19 @@ class TimelineCollectionViewModel: TimelineCollectionViewModelContract {
     }
     
     private func setRefreshOffline() {
-        refreshOffline.subscribe(onNext: { [weak self] in
+        inputBind.refreshOfflineBind.subscribe(onNext: { [weak self] in
             guard let strongSelf = self else { return }
-            strongSelf.isLoading.onNext(true)
-            strongSelf.isOffline.onNext(true)
+            strongSelf.outputBind.isLoadingBind.onNext(true)
+            strongSelf.outputBind.isOfflineBind.onNext(true)
             strongSelf.updateDataOffline()
         })
         .disposed(by: disposeBag)
     }
     
     private func setLoadNextPage() {
-        loadNextPage.withLatestFrom(Observable.combineLatest(stories, isLoadingNext, isOffline))
+        inputBind.loadNextPageBind.withLatestFrom(Observable.combineLatest(outputBind.storiesBind,
+                                                                           outputBind.isLoadingNextBind,
+                                                                           outputBind.isOfflineBind))
             .throttle(.seconds(1), latest: false, scheduler: MainScheduler.instance)
             .filter { (stories, isLoadingNext, isOffline) in
                 !isOffline &&
@@ -183,7 +171,7 @@ class TimelineCollectionViewModel: TimelineCollectionViewModelContract {
                 !stories.isEmpty }
             .subscribe(onNext: { [weak self] (stories, isLoading, isOffline) in
                 guard let strongSelf = self else { return }
-                strongSelf.isLoadingNext.onNext(true)
+                strongSelf.outputBind.isLoadingNextBind.onNext(true)
                 strongSelf.updateData(stories: stories)
             })
             .disposed(by: disposeBag)
@@ -196,7 +184,7 @@ class TimelineCollectionViewModel: TimelineCollectionViewModelContract {
             case .success(let data):
                 guard !data.stories.isEmpty else {
                     // no stories were recieved, assume there is an issue with the API
-                    strongSelf.error.onNext(APIError.serverError.message)
+                    strongSelf.outputBind.errorBind.onNext(APIError.serverError.message)
                     return
                 }
                 
@@ -210,15 +198,15 @@ class TimelineCollectionViewModel: TimelineCollectionViewModelContract {
                         self?.displayOfflineModeMessage()
                     }, failure: nil)
                 }
-                strongSelf.isOffline.onNext(false)
-                strongSelf.stories.onNext(newStories)
+                strongSelf.outputBind.isOfflineBind.onNext(false)
+                strongSelf.outputBind.storiesBind.onNext(newStories)
                 strongSelf.prefetchImages(stories: newStories)
-                strongSelf.isLoading.onNext(false)
-                strongSelf.isLoadingNext.onNext(false)
+                strongSelf.outputBind.isLoadingBind.onNext(false)
+                strongSelf.outputBind.isLoadingNextBind.onNext(false)
             case .failure(let error):
-                strongSelf.error.onNext(error.message)
-                strongSelf.isLoading.onNext(false)
-                strongSelf.isLoadingNext.onNext(false)
+                strongSelf.outputBind.errorBind.onNext(error.message)
+                strongSelf.outputBind.isLoadingBind.onNext(false)
+                strongSelf.outputBind.isLoadingNextBind.onNext(false)
             }
         }
     }
@@ -226,7 +214,7 @@ class TimelineCollectionViewModel: TimelineCollectionViewModelContract {
     private func displayOfflineModeMessage() {
         // only show this bubble message once
         if !ApplicationManager.shared.hasSeenOfflineModeMessage {
-            bubbleMessage.onNext("com.test.Stories.stories.bubbleMessage.offlineAvailable".localized())
+            outputBind.bubbleMessageBind.onNext("com.test.Stories.stories.bubbleMessage.offlineAvailable".localized())
             ApplicationManager.shared.hasSeenOfflineModeMessage = true
         }
     }
@@ -250,35 +238,37 @@ class TimelineCollectionViewModel: TimelineCollectionViewModelContract {
             guard let strongSelf = self else { return }
             guard !stories.isEmpty else {
                 // no stories were recieved, assume there is an issue with store read
-                strongSelf.error.onNext(StoreError.readError.message)
-                strongSelf.isLoading.onNext(false)
+                strongSelf.outputBind.errorBind.onNext(StoreError.readError.message)
+                strongSelf.outputBind.isLoadingBind.onNext(false)
                 return
             }
             
-            strongSelf.stories.onNext(stories)
-            strongSelf.isLoading.onNext(false)
+            strongSelf.outputBind.storiesBind.onNext(stories)
+            strongSelf.outputBind.isLoadingBind.onNext(false)
         }) { [weak self] error in
             guard let strongSelf = self else { return }
-            strongSelf.error.onNext(error.message)
-            strongSelf.isLoading.onNext(false)
+            strongSelf.outputBind.errorBind.onNext(error.message)
+            strongSelf.outputBind.isLoadingBind.onNext(false)
         }
     }
     
     private func setCellTapped() {
-        cellTapped.withLatestFrom(Observable.combineLatest(cellTapped, stories))
-            .subscribe(onNext: { [weak self] row, stories in
-                guard stories.indices.contains(row) else { return }
-                self?.navigateToStory.onNext(stories[row])
-            })
-            .disposed(by: disposeBag)
+        inputBind.cellTappedBind.withLatestFrom(Observable.combineLatest(inputBind.cellTappedBind,
+                                                                         outputBind.storiesBind))
+        .subscribe(onNext: { [weak self] row, stories in
+            guard stories.indices.contains(row) else { return }
+            self?.outputBind.navigateToStoryBind.onNext(stories[row])
+        })
+        .disposed(by: disposeBag)
     }
     
     private func setTabBarItemTappedWhileDisplayed() {
-        tabBarItemTapped.withLatestFrom(Observable.combineLatest(isTopOfPage, isScrolling))
-            .filter { isTopOfPage, isScrolling in !isTopOfPage && !isScrolling}
-            .subscribe { [weak self] _, _ in
-                self?.scrollToTop.onNext(())
-            }
-            .disposed(by: disposeBag)
+        inputBind.tabBarItemTappedBind.withLatestFrom(Observable.combineLatest(inputBind.isTopOfPageBind,
+                                                                               inputBind.isScrollingBind))
+        .filter { isTopOfPage, isScrolling in !isTopOfPage && !isScrolling}
+        .subscribe { [weak self] _, _ in
+            self?.outputBind.scrollToTopBind.onNext(())
+        }
+        .disposed(by: disposeBag)
     }
 }
