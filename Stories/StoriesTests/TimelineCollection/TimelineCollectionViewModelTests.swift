@@ -25,7 +25,7 @@ class TimelineCollectionViewModelTests: XCTestCase {
     }
     
     // MARK: Online
-    func testRefreshStoriesOnViewDidLoad() {
+    func testRefreshStoriesOnRefresh() {
         let mockStories: [Story] =  ModelMockData.makeMockStories(count: 10)
         mockEnvironment.mockApi.mockAPIResponses = [
             .success(StoriesRequests.StoriesTimelinePage.Response(stories: mockStories, nextUrl: URL(string: "test")!))
@@ -36,12 +36,24 @@ class TimelineCollectionViewModelTests: XCTestCase {
 
         XCTAssertTrue(stories.events.last?.value.element?.isEmpty ?? true)
         
-        viewModel.input.viewDidLoad.onNext(())
+        viewModel.input.refreshBegin.onNext(.online)
+        viewModel.input.refresh.onNext(())
 
         let expectedRequest = StoriesRequests.StoriesTimelinePage()
         XCTAssertEqual(mockEnvironment.mockApi.mockAPIRequestsCalled.count, 1)
         XCTAssertTrue(mockEnvironment.mockApi.mockAPIRequestsCalled.contains { $0.path == expectedRequest.path })
         XCTAssertEqual(stories.events.last?.value.element, mockStories)
+    }
+    
+    func testViewDidLoadShowsErrorIfOffline() {
+        mockEnvironment.mockApi.mockIsConnectedToInternet = false
+        let viewModel = TimelineCollectionViewModel(environment: mockEnvironment)
+        let errorMessage = scheduler.createObserver(String.self)
+        viewModel.output.error.drive(errorMessage).disposed(by: disposeBag)
+                
+        viewModel.input.viewDidLoad.onNext(())
+
+        XCTAssertEqual(errorMessage.events.first?.value.element, APIError.offline.message)
     }
     
     func testRefreshStoriesImagesArePrefetched() {
@@ -53,7 +65,8 @@ class TimelineCollectionViewModelTests: XCTestCase {
         let stories = scheduler.createObserver(Array<Story>.self)
         viewModel.output.stories.drive(stories).disposed(by: disposeBag)
 
-        viewModel.input.viewDidLoad.onNext(())
+        viewModel.input.refreshBegin.onNext(.online)
+        viewModel.input.refresh.onNext(())
         
         var prefetchImageURLs: [URL] = []
         for mockStory in mockStories {
@@ -132,7 +145,8 @@ class TimelineCollectionViewModelTests: XCTestCase {
         let viewModel = TimelineCollectionViewModel(environment: mockEnvironment)
         let stories = scheduler.createObserver(Array<Story>.self)
         viewModel.output.stories.drive(stories).disposed(by: disposeBag)
-        viewModel.input.viewDidLoad.onNext(())
+        viewModel.input.refreshBegin.onNext(.online)
+        viewModel.input.refresh.onNext(())
                 
         viewModel.input.loadNextPage.onNext(())
 
@@ -168,7 +182,8 @@ class TimelineCollectionViewModelTests: XCTestCase {
         let bubbleMessage = scheduler.createObserver(String.self)
         viewModel.output.bubbleMessage.drive(bubbleMessage).disposed(by: disposeBag)
         
-        viewModel.input.viewDidLoad.onNext(())
+        viewModel.input.refreshBegin.onNext(.online)
+        viewModel.input.refresh.onNext(())
 
         XCTAssertEqual(bubbleMessage.events.last?.value.element, "com.test.Stories.stories.bubbleMessage.offlineAvailable".localized())
     }

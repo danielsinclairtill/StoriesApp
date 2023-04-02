@@ -30,8 +30,9 @@ class ModelMockData {
             let story = makeMockStory(id: String(index),
                                       title: "title \(index)",
                                       user: User(name: "user \(index)",
-                                                 avatar: nil,
-                                                 fullname: nil))
+                                                 avatar: URL(string: "avatar_url_\(index)"),
+                                                 fullname: nil),
+                                      cover: URL(string: "cover_url_\(index)"))
             stories.append(story)
         }
         return stories
