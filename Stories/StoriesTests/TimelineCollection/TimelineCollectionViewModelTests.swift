@@ -100,7 +100,8 @@ class TimelineCollectionViewModelTests: XCTestCase {
         XCTAssertTrue(stories.events.last?.value.element?.isEmpty ?? true)
 
         viewModel.input.refresh.onNext(())
-        
+        viewModel.input.refreshReady.onNext(true)
+
         XCTAssertEqual(errorMessage.events.first?.value.element, APIError.serverError.message)
         XCTAssertTrue(stories.events.last?.value.element?.isEmpty ?? true)
     }
@@ -118,7 +119,8 @@ class TimelineCollectionViewModelTests: XCTestCase {
         XCTAssertTrue(stories.events.last?.value.element?.isEmpty ?? true)
 
         viewModel.input.refresh.onNext(())
-        
+        viewModel.input.refreshReady.onNext(true)
+
         XCTAssertEqual(errorMessage.events.first?.value.element, APIError.serverError.message)
         XCTAssertTrue(stories.events.last?.value.element?.isEmpty ?? true)
     }
@@ -153,6 +155,7 @@ class TimelineCollectionViewModelTests: XCTestCase {
         XCTAssertTrue(stories.events.last?.value.element?.isEmpty ?? true)
 
         viewModel.input.refresh.onNext(())
+        viewModel.input.refreshReady.onNext(true)
 
         XCTAssertEqual(mockEnvironment.mockStore.mockStoreStoriesRequestsCalledCount, 1)
         XCTAssertEqual(mockEnvironment.mockStore.mockStoredStories, mockStories)

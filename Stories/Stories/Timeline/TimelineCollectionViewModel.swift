@@ -128,6 +128,7 @@ class TimelineCollectionViewModel: TimelineCollectionViewModelContract {
                 strongSelf.outputBind.errorBind.onNext(APIError.offline.message)
             } else {
                 strongSelf.inputBind.refreshBind.onNext(())
+                strongSelf.inputBind.refreshReady.onNext(true)
             }
         })
         .disposed(by: disposeBag)
