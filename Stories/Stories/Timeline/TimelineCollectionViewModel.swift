@@ -10,27 +10,73 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class TimelineCollectionViewModel: StoriesViewModel {
-    // MARK: Input
-    let input: Input
-    struct Input {
-        /// Triggered when the view did load.
-        let viewDidLoad: AnyObserver<Void>
-        /// Triggered when the stories timeline collection wants to refresh.
-        let refresh: AnyObserver<Void>
-        /// Triggered when the stories timeline collection wants to refresh offline.
-        let refreshOffline: AnyObserver<Void>
-        /// Triggered when the stories timeline collection wants to load the next page.
-        let loadNextPage: AnyObserver<Void>
-        /// Is the timeline scrolling state.
-        let isScrolling: AnyObserver<Bool>
-        /// Is the timeline at the top state.
-        let isTopOfPage: AnyObserver<Bool>
-        /// Triggered when the tab bar item has been tapped while the view is displayed.
-        let tabBarItemTapped: AnyObserver<Void>
-        /// Triggered when a story cell has been tapped.
-        let cellTapped: AnyObserver<Int>
-    }
+protocol TimelineCollectionViewModelContract: StoriesViewModel
+where Input == TimelineCollectionViewModelInput, Output == TimelineCollectionViewModelOutput {
+    var imageManager: ImageManagerContract { get }
+}
+
+// MARK: Input
+protocol TimelineCollectionViewModelInput {
+    /// Triggered when the view did load.
+    var viewDidLoad: AnyObserver<Void> { get }
+    /// Triggered when the stories timeline collection wants to refresh.
+    var refresh: AnyObserver<Void> { get }
+    /// Triggered when the stories timeline collection wants to refresh offline.
+    var refreshOffline: AnyObserver<Void> { get }
+    /// Triggered when the stories timeline collection wants to load the next page.
+    var loadNextPage: AnyObserver<Void> { get }
+    /// Is the timeline scrolling state.
+    var isScrolling: AnyObserver<Bool> { get }
+    /// Is the timeline at the top state.
+    var isTopOfPage: AnyObserver<Bool> { get }
+    /// Triggered when the tab bar item has been tapped while the view is displayed.
+    var tabBarItemTapped: AnyObserver<Void> { get }
+    /// Triggered when a story cell has been tapped.
+    var cellTapped: AnyObserver<Int> { get }
+}
+private struct InputBind: TimelineCollectionViewModelInput {
+    let viewDidLoad: AnyObserver<Void>
+    let refresh: AnyObserver<Void>
+    let refreshOffline: AnyObserver<Void>
+    let loadNextPage: AnyObserver<Void>
+    let isScrolling: AnyObserver<Bool>
+    let isTopOfPage: AnyObserver<Bool>
+    let tabBarItemTapped: AnyObserver<Void>
+    let cellTapped: AnyObserver<Int>
+}
+
+// MARK: Output
+protocol TimelineCollectionViewModelOutput {
+    /// The stories in the timeline collection.
+    var stories: Driver<[Story]> { get }
+    /// Is the timeline loading state.
+    var isLoading: Driver<Bool> { get }
+    /// Is the timeline loading the next page state.
+    var isLoadingNext: Driver<Bool> { get }
+    /// Is the timeline in offline mode state.
+    var isOffline: Driver<Bool> { get }
+    /// Show an error message with a message.
+    var error: Driver<String> { get }
+    /// Show a bubble message with a message.
+    var bubbleMessage: Driver<String> { get }
+    /// Scroll to the top of the timeline collection.
+    var scrollToTop: Driver<Void> { get }
+    /// Nativate to a story.
+    var navigateToStory: Driver<Story?> { get }
+}
+private struct OutputBind: TimelineCollectionViewModelOutput {
+    let stories: Driver<[Story]>
+    let isLoading: Driver<Bool>
+    let isLoadingNext: Driver<Bool>
+    let isOffline: Driver<Bool>
+    let error: Driver<String>
+    let bubbleMessage: Driver<String>
+    let scrollToTop: Driver<Void>
+    let navigateToStory: Driver<Story?>
+}
+
+class TimelineCollectionViewModel: TimelineCollectionViewModelContract {
+    let input: TimelineCollectionViewModelInput
     private let viewDidLoad = PublishSubject<Void>()
     private let refresh = PublishSubject<Void>()
     private let refreshOffline = PublishSubject<Void>()
@@ -40,27 +86,8 @@ class TimelineCollectionViewModel: StoriesViewModel {
     private let tabBarItemTapped = PublishSubject<Void>()
     private let cellTapped = PublishSubject<Int>()
     
-    // MARK: Output
-    let output: Output
-    struct Output {
-        /// The stories in the timeline collection.
-        let stories: Driver<[Story]>
-        /// Is the timeline loading state.
-        let isLoading: Driver<Bool>
-        /// Is the timeline loading the next page state.
-        let isLoadingNext: Driver<Bool>
-        /// Is the timeline in offline mode state.
-        let isOffline: Driver<Bool>
-        /// Show an error message with a message.
-        let error: Driver<String>
-        /// Show a bubble message with a message.
-        let bubbleMessage: Driver<String>
-        /// Scroll to the top of the timeline collection.
-        let scrollToTop: Driver<Void>
-        /// Nativate to a story.
-        let navigateToStory: Driver<Story?>
-    }
-    private let stories = PublishSubject<[Story]>()
+    let output: TimelineCollectionViewModelOutput
+    private let stories = BehaviorSubject<[Story]>(value: [])
     private let isLoading = PublishSubject<Bool>()
     private let isLoadingNext = PublishSubject<Bool>()
     private let isOffline = PublishSubject<Bool>()
@@ -78,22 +105,22 @@ class TimelineCollectionViewModel: StoriesViewModel {
     init(environment: EnvironmentContract) {
         self.environment = environment
         
-        self.input = Input(viewDidLoad: viewDidLoad.asObserver(),
-                           refresh: refresh.asObserver(),
-                           refreshOffline: refreshOffline.asObserver(),
-                           loadNextPage: loadNextPage.asObserver(),
-                           isScrolling: isScrolling.asObserver(),
-                           isTopOfPage: isTopOfPage.asObserver(),
-                           tabBarItemTapped: tabBarItemTapped.asObserver(),
-                           cellTapped: cellTapped.asObserver())
-        self.output = Output(stories: stories.asDriver(onErrorJustReturn: []),
-                             isLoading: isLoading.asDriver(onErrorJustReturn: false),
-                             isLoadingNext: isLoading.asDriver(onErrorJustReturn: false),
-                             isOffline: isOffline.asDriver(onErrorJustReturn: true),
-                             error: error.asDriver(onErrorJustReturn: ""),
-                             bubbleMessage: bubbleMessage.asDriver(onErrorJustReturn: ""),
-                             scrollToTop: scrollToTop.asDriver(onErrorJustReturn: ()),
-                             navigateToStory: navigateToStory.asDriver(onErrorJustReturn: nil))
+        self.input = InputBind(viewDidLoad: viewDidLoad.asObserver(),
+                               refresh: refresh.asObserver(),
+                               refreshOffline: refreshOffline.asObserver(),
+                               loadNextPage: loadNextPage.asObserver(),
+                               isScrolling: isScrolling.asObserver(),
+                               isTopOfPage: isTopOfPage.asObserver(),
+                               tabBarItemTapped: tabBarItemTapped.asObserver(),
+                               cellTapped: cellTapped.asObserver())
+        self.output = OutputBind(stories: stories.asDriver(onErrorJustReturn: []),
+                                 isLoading: isLoading.asDriver(onErrorJustReturn: false),
+                                 isLoadingNext: isLoading.asDriver(onErrorJustReturn: false),
+                                 isOffline: isOffline.asDriver(onErrorJustReturn: true),
+                                 error: error.asDriver(onErrorJustReturn: ""),
+                                 bubbleMessage: bubbleMessage.asDriver(onErrorJustReturn: ""),
+                                 scrollToTop: scrollToTop.asDriver(onErrorJustReturn: ()),
+                                 navigateToStory: navigateToStory.asDriver(onErrorJustReturn: nil))
         
         setViewDidLoad()
         setRefresh()
@@ -219,7 +246,7 @@ class TimelineCollectionViewModel: StoriesViewModel {
             strongSelf.error.onNext(error.message)
         }
     }
-
+    
     private func setCellTapped() {
         cellTapped.withLatestFrom(Observable.combineLatest(cellTapped, stories))
             .subscribe(onNext: { [weak self] row, stories in

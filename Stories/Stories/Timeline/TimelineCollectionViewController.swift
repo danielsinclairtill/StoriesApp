@@ -19,14 +19,14 @@ class TimelineCollectionViewController: UIViewController,
                                         UITabBarControllerDelegate,
                                         TabBarItemTapHandler {
     private let cellIdentifier = "TimelineCollectionViewCell"
-    private let viewModel: TimelineCollectionViewModel
+    private let viewModel: any TimelineCollectionViewModelContract
     @IBOutlet private weak var collectionView: UICollectionView!
     @IBOutlet private weak var loadingAnimationView: LottieAnimationView!
     @IBOutlet private weak var bubbleMessageViewContainer: UIView!
     private let refreshControl = UIRefreshControl()
     private let disposeBag = DisposeBag()
 
-    init(viewModel: TimelineCollectionViewModel = TimelineCollectionViewModel(environment: StoriesEnvironment.shared)) {
+    init(viewModel: any TimelineCollectionViewModelContract = TimelineCollectionViewModel(environment: StoriesEnvironment.shared)) {
         self.viewModel = viewModel
         super.init(nibName: String(describing: TimelineCollectionViewController.self), bundle: nil)
     }
