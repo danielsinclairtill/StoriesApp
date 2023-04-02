@@ -257,7 +257,6 @@ class TimelineCollectionViewController: UIViewController,
             if completed {
                 self?.loadingAnimationView.stop()
                 self?.loadingAnimationView.isHidden = true
-                self?.viewModel.input.refreshReady.onNext((false))
             }
         })
         AnimationController.fadeInView(collectionView) { [weak self] completed in
