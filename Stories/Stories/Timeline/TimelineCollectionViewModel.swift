@@ -127,8 +127,7 @@ class TimelineCollectionViewModel: TimelineCollectionViewModelContract {
             if !strongSelf.environment.api.isConnectedToInternet() {
                 strongSelf.outputBind.errorBind.onNext(APIError.offline.message)
             } else {
-                strongSelf.inputBind.refreshBind.onNext(())
-                strongSelf.inputBind.refreshReady.onNext(true)
+                strongSelf.updateData()
             }
         })
         .disposed(by: disposeBag)
