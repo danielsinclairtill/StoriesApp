@@ -48,9 +48,11 @@ class TimelineCollectionViewController: UIViewController,
         collectionView.alpha = 0.0
         
         // bubble view
+        bubbleMessageViewContainer.isHidden = true
         bubbleMessageViewContainer.alpha = 0.0
         
         // animation view
+        loadingAnimationView.isHidden = false
         loadingAnimationView.backgroundBehavior = .pauseAndRestore
         
         bindViewModel()
@@ -222,12 +224,14 @@ class TimelineCollectionViewController: UIViewController,
         guard bubbleMessageViewContainer.subviews.isEmpty else { return }
         let bubbleMessageView: BubbleMessageView = BubbleMessageView.instertInto(containerView: bubbleMessageViewContainer,
                                                                                  message: message)
+        bubbleMessageViewContainer.isHidden = false
         bubbleMessageViewContainer.addSubview(bubbleMessageView)
         AnimationController.fadeInView(bubbleMessageViewContainer, delay: 2.0) { [weak self] completed in
             guard let strongSelf = self else { return }
             AnimationController.fadeOutView(strongSelf.bubbleMessageViewContainer,
                                             delay: BubbleMessageView.displayTime,
                                             completion: { completed in
+                strongSelf.bubbleMessageViewContainer.isHidden = true
                 bubbleMessageView.removeFromSuperview()
             })
         }
@@ -235,6 +239,7 @@ class TimelineCollectionViewController: UIViewController,
     
     private func initiateLoadingTimeline() {
         collectionView.isScrollEnabled = false
+        loadingAnimationView.isHidden = false
         loadingAnimationView.loopMode = .loop
         loadingAnimationView.play()
         AnimationController.fadeOutView(collectionView) { [weak self] completed in
@@ -249,6 +254,7 @@ class TimelineCollectionViewController: UIViewController,
                                         completion: { [weak self] completed in
             if completed {
                 self?.loadingAnimationView.stop()
+                self?.loadingAnimationView.isHidden = true
             }
         })
         AnimationController.fadeInView(collectionView) { [weak self] completed in
