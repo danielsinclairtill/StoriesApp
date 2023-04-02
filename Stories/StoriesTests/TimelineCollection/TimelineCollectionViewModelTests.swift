@@ -25,7 +25,7 @@ class TimelineCollectionViewModelTests: XCTestCase {
     }
     
     // MARK: Online
-    func testRefreshStoriesOnRefresh() {
+    func testRefreshStories() {
         let mockStories: [Story] =  ModelMockData.makeMockStories(count: 10)
         mockEnvironment.mockApi.mockAPIResponses = [
             .success(StoriesRequests.StoriesTimelinePage.Response(stories: mockStories, nextUrl: URL(string: "test")!))
