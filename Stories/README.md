@@ -29,11 +29,11 @@ Views are represented by the view controllers. The view controller's responsibil
 We also use a design system singleton, [StoriesDesign](Stories/View/DesignSystem/StoriesDesign.swift) to retrieve any UI attributes we want use for our application (colors, fonts, etc.). The singleton retrieves the attributes from a created theme, which is based from the contract [ThemeContract](Stories/View/DesignSystem/Contracts/Theme.swift). We can create new themes that conform to this contract, to easily create new designs for the application. We can easily switch between themes and update any design attributes in any given view by subscribing to the `StoriesDesign.shared.output.theme` observable.
 
 ### ViewModel
-View models are defined and injected into the view controllers. Whenever a UI signals are made, we send those signals to the view model to handle any logic that must be called (populate or manipulate data, configure views, etc.). How the view model communicates with the view (view controller) is through RxSwift Observable Input and Output protocols ([example](https://github.com/danielsinclairtill/StoriesApp/blob/0e71b2a708876a23a6e5f049641a26b2653b6d50/Stories/Stories/StoryDetail/StoryDetailViewModel.swift#L30)).
+View models are defined and injected into the view controllers. Whenever UI signals from the view are made, we send those signals to the view model to handle any logic that must be called (populate or manipulate data, configure views, etc.). How the view model communicates with the view (view controller) is through RxSwift Observable Input and Output protocols ([example](https://github.com/danielsinclairtill/StoriesApp/blob/0e71b2a708876a23a6e5f049641a26b2653b6d50/Stories/Stories/StoryDetail/StoryDetailViewModel.swift#L30)).
 
 ## Testing
 ### View
-Since the views communicate between the view models through protocols / contracts, we can create mock view models to populate data and logic that we want to test, to confirm how a specific view will display with specific configurations or states. When the mock state is set, we can utilize screenshot testing to ensure the view displays consistently.
+Since the views communicate between the view models through protocols / contracts, we can easily create mock view models to populate any data and logic that we want to confirm how a specific view will display in specific states. When the mock state is set, we can utilize [snapshot testing](https://github.com/pointfreeco/swift-snapshot-testing) to ensure the view displays correctly and consistently in our tests.
 
 ### ViewModel
 Because we utilize the protocols / contracts between the view model to the model, and view model to the view, we are able to easily mock view manipulations through RxSwift Observable mock events, and mock model data during the tests.
@@ -45,6 +45,7 @@ Because we utilize the protocols / contracts between the view model to the model
 - [ViewAnimator](https://github.com/marcosgriselli/ViewAnimator): for custom animations on collection views
 - [TagListView](https://github.com/ElaWorkshop/TagListView): for using a custom tags list in the story details view
 - [lottie-ios](https://github.com/airbnb/lottie-ios): for json based animations
+- [swift-snapshot-testing](https://github.com/pointfreeco/swift-snapshot-testing): for snapshot testing on the views
 
 - All images were taken from https://icons8.com/animated-icons.
 - All lottie animations were taken from https://lottiefiles.com/
