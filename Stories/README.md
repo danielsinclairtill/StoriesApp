@@ -3,14 +3,13 @@
 ### Versions
 Below are the different implementations of the Stories app, using different technologies and coding practices to bind the architecture layers together:
 
-[Delegate MVVM](https://github.com/danielsinclairtill/StoriesApp/tree/master/Stories)
-```
-[View] <---delegate methods-----> [ViewModel] <-----> [Model]
-```
-
-[RxSwift MVVM](https://github.com/danielsinclairtill/StoriesApp/tree/RxSwift/Stories)
+[RxSwift MVVM](https://github.com/danielsinclairtill/StoriesApp/tree/master/Stories)
 ```
 [View] <---RxSwift Observables--> [ViewModel] <-----> [Model]
+```
+[Delegate MVVM](https://github.com/danielsinclairtill/StoriesApp/tree/Delegate/Stories) (in progress...)
+```
+[View] <---delegate methods-----> [ViewModel] <-----> [Model]
 ```
 
 ## Summary
@@ -23,19 +22,24 @@ Please open the file [Stories.xcworkspace](Stories.xcworkspace) in the Xcode app
 The architecture for this application is MVVM (model–view–viewmodel).
 
 ### Model
-The Model is what fetches, sorts, and handles all the data for this application. We use two contracts for the model;  [APIContract](Stories/Model/API/Contracts/APIContract.swift) and [StoreContract](Stories/Model/Store/Contracts/StoreContract.swift). These two contracts are protocols, which define what methods and members are needed to conform to within the model code for the application to recieve data correctly. Utilizing contracts or protocols for the model layer allows for easier refactoring and testing. We can easily switch out how our API or Store code operates, as long as it conforms to the defined contracts. We can also test easier because using a model defined from protocols makes it injectable, and therefore mockable.
+The Model is what fetches, sorts, and handles all the data for this application. We use two contracts for the model;  [APIContract](Stories/Model/API/Contracts/APIContract.swift) and [StoreContract](Stories/Model/Store/Contracts/StoreContract.swift). These two contracts are protocols, which define what methods and members are needed to conform to within the model code for the application to receive data correctly. Utilizing contracts or protocols for the model layer allows for easier refactoring and testing. We can easily switch out how our API or Store code operates, as long as it conforms to the defined contracts. We can also test easier because using a model defined from protocols makes it injectable, and therefore mockable.
 
 ### View
 Views are represented by the view controllers. The view controller's responsibility is to manipulate the screen displayed on the application, and send any signals of user interaction to the view model when we need to interact with the model layer.
-We also use a design system singleton, [StoriesDesign](Stories/View/DesignSystem/StoriesDesign.swift) to retrieve any UI attributes we want use for our application (colors, fonts, etc.). The singleton retrieves the attributes from a created theme, which is based from the contract [ThemeContract](Stories/View/DesignSystem/Contracts/Theme.swift). We can create new themes that conform to this contract, to easily create new designs for the application.
+We also use a design system singleton, [StoriesDesign](Stories/View/DesignSystem/StoriesDesign.swift) to retrieve any UI attributes we want use for our application (colors, fonts, etc.). The singleton retrieves the attributes from a created theme, which is based from the contract [ThemeContract](Stories/View/DesignSystem/Contracts/Theme.swift). We can create new themes that conform to this contract, to easily create new designs for the application. We can easily switch between themes and update any design attributes in any given view by subscribing to the `StoriesDesign.shared.output.theme` observable.
 
 ### ViewModel
-View models are defined and stored along with the view controllers themselves. Whenever a UI signal is made, we send signals the view model to handle any logic that must be called (populate or manipulate data, configure views, etc.). How the view model sends signals back to the view (view controller) is through either the [view model output contract](https://github.com/danielsinclairtill/StoriesApp/blob/9d112ebc27d7b8af08d6a2a32bdf4a588ef569eb/Stories/Stories/StoryDetail/StoryDetailViewModel.swift#L11) in the Delegate MVVM version, or through Rxswift Observables in the RxSwift MVVM version. The view controllers connection to these allows us to perform any view manipulations the view model requires.
+View models are defined and injected into the view controllers. Whenever a UI signals are made, we send those signals to the view model to handle any logic that must be called (populate or manipulate data, configure views, etc.). How the view model communicates with the view (view controller) is through RxSwift Observable Input and Output protocols ([example](https://github.com/danielsinclairtill/StoriesApp/blob/0e71b2a708876a23a6e5f049641a26b2653b6d50/Stories/Stories/StoryDetail/StoryDetailViewModel.swift#L30)).
 
 ## Testing
-The tests ensure that each view controller's view model logic and interaction between the view and model layers executes as intended. Because we utilize the protocols / contracts between the view model to the model, and view model to the view, we are able to easily mock view manipulations, and mock model data during the tests.
+### View
+Since the views communicate between the view models through protocols / contracts, we can create mock view models to populate data and logic that we want to test, to confirm how a specific view will display with specific configurations or states. When the mock state is set, we can utilize screenshot testing to ensure the view displays consistently.
+
+### ViewModel
+Because we utilize the protocols / contracts between the view model to the model, and view model to the view, we are able to easily mock view manipulations through RxSwift Observable mock events, and mock model data during the tests.
 
 ## Third Party Sources
+- [RxSwift](https://github.com/ReactiveX/RxSwift): for communicating between the architectural layers of this code by Observable signals
 - [Alamofire](https://github.com/Alamofire/Alamofire): for API requests in the model layer
 - [SDWebImage](https://github.com/SDWebImage/SDWebImage): for prefetching and downloading images
 - [ViewAnimator](https://github.com/marcosgriselli/ViewAnimator): for custom animations on collection views
@@ -46,7 +50,7 @@ The tests ensure that each view controller's view model logic and interaction be
 - All lottie animations were taken from https://lottiefiles.com/
 
 ## Tradeoffs
-- The connection made between the view and the viewmodel layer can be better served with Observables and RxSwift, however for now I decided to just implement the connection through delegate methods. An version of this app using MVVM-RxSwift is in progress [here](https://github.com/danielsinclairtill/StoriesApp/tree/RxSwift).
+- The connection made between the view and the viewmodel layer is with Observables through RxSwift, however we could improve on this in the future by using a more modern framework like Combine.
 - With the assumptions made, the store contract is not as verbose as the API contract. If we wish to add more request types to the store (for different data types), then we need to refactor the store contract to behave similarly to the api contract instead.
 - I decided to prefetch all images received once the stories timeline response is received, so the timeline has all images ready to display once the user scrolls through. This increases the amount of initial requests during the timeline refresh.
 - I used placeholders and fade animations to display the stories timeline and fill images in the collection view cells. It gives a more smooth appearance to the application in my opinion, but this will also slightly delay the time it takes for the data to be shown to the user.
