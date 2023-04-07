@@ -105,6 +105,7 @@ class TimelineCollectionViewModel: TimelineCollectionViewModelContract {
     var output: TimelineCollectionViewModelOutput { return outputBind }
     private let outputBind = TimelineCollectionViewModelOutputBind()
     
+    private let environment: EnvironmentContract
     var imageManager: ImageManagerContract {
         return environment.api.imageManager
     }
