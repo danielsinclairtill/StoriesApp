@@ -177,7 +177,7 @@ class TimelineCollectionViewModelTests: XCTestCase {
         mockEnvironment.mockApi.mockAPIResponses = [
             .success(StoriesRequests.StoriesTimelinePage.Response(stories: ModelMockData.makeMockStories(count: 10), nextUrl: URL(string: "test")!))
         ]
-        ApplicationManager.shared.hasSeenOfflineModeMessage = false
+        mockEnvironment.mockState.hasSeenOfflineModeMessage = false
         let viewModel = TimelineCollectionViewModel(environment: mockEnvironment)
         let bubbleMessage = scheduler.createObserver(String.self)
         viewModel.output.bubbleMessage.drive(bubbleMessage).disposed(by: disposeBag)
@@ -192,7 +192,7 @@ class TimelineCollectionViewModelTests: XCTestCase {
         mockEnvironment.mockApi.mockAPIResponses = [
             .success(StoriesRequests.StoriesTimelinePage.Response(stories: ModelMockData.makeMockStories(count: 10), nextUrl: URL(string: "test")!))
         ]
-        ApplicationManager.shared.hasSeenOfflineModeMessage = true
+        mockEnvironment.mockState.hasSeenOfflineModeMessage = true
         let viewModel = TimelineCollectionViewModel(environment: mockEnvironment)
         let bubbleMessage = scheduler.createObserver(String.self)
         viewModel.output.bubbleMessage.drive(bubbleMessage).disposed(by: disposeBag)

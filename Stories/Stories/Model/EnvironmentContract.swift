@@ -8,7 +8,8 @@
 
 import Foundation
 
-public protocol EnvironmentContract {
+protocol EnvironmentContract {
     var api: APIContract { get }
     var store: StoreContract { get }
+    var state: ApplicationStateManager { get }
 }

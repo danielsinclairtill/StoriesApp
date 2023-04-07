@@ -57,7 +57,7 @@ class ThemeSettingsViewController: UIViewController,
     }
     
     private func selectThemeRow() {
-        let selectedIndex = options.firstIndex(of: ApplicationManager.shared.theme) ?? 0
+        let selectedIndex = options.firstIndex(of: StoriesEnvironment.shared.state.theme) ?? 0
         tableView.selectRow(at: IndexPath(row: selectedIndex, section: 0), animated: false, scrollPosition: .none)
     }
     

@@ -1,5 +1,5 @@
 //
-//  ApplicationManager.swift
+//  ApplicationStateManager.swift
 //  Stories
 //
 //
@@ -8,8 +8,8 @@
 
 import Foundation
 
-class ApplicationManager {
-    static let shared: ApplicationManager = ApplicationManager()
+class ApplicationStateManager {
+    static let shared: ApplicationStateManager = ApplicationStateManager()
     private let defaults = UserDefaults.standard
 
     var hasSeenOfflineModeMessage: Bool {

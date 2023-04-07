@@ -25,7 +25,7 @@ class StoriesImageManagerMock: ImageManagerContract {
         mockPrefetchTaskURLs += urls
     }
 
-    func setImageView(imageView: UIImageView, placeholder: UIView, url: URL?) {
+    func setImageView(imageView: UIImageView, url: URL?) {
         return
     }
 }

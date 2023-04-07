@@ -40,7 +40,7 @@
 		65A3566C29CA1474001F9892 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 65A3566B29CA1474001F9892 /* SDWebImage */; };
 		65AABC6629C9FC9A0049AAA9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AABC6529C9FC9A0049AAA9 /* AppDelegate.swift */; };
 		65AABC7229C9FC9A0049AAA9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65AABC7129C9FC9A0049AAA9 /* Assets.xcassets */; };
-		65AABC9929C9FD590049AAA9 /* ApplicationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AABC9829C9FD590049AAA9 /* ApplicationManager.swift */; };
+		65AABC9929C9FD590049AAA9 /* ApplicationStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AABC9829C9FD590049AAA9 /* ApplicationStateManager.swift */; };
 		65AABCA329C9FD790049AAA9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 65AABCA129C9FD790049AAA9 /* Localizable.strings */; };
 		65AABCA829C9FDAB0049AAA9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65AABCA729C9FDAB0049AAA9 /* LaunchScreen.storyboard */; };
 		65AABCAA29C9FDFD0049AAA9 /* StoriesLoadingAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 65AABCA929C9FDFD0049AAA9 /* StoriesLoadingAnimation.json */; };
@@ -130,7 +130,7 @@
 		65AABC7129C9FC9A0049AAA9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		65AABC7629C9FC9A0049AAA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		65AABC7B29C9FC9B0049AAA9 /* StoriesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StoriesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		65AABC9829C9FD590049AAA9 /* ApplicationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationManager.swift; sourceTree = "<group>"; };
+		65AABC9829C9FD590049AAA9 /* ApplicationStateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationStateManager.swift; sourceTree = "<group>"; };
 		65AABCA229C9FD790049AAA9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		65AABCA729C9FDAB0049AAA9 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		65AABCA929C9FDFD0049AAA9 /* StoriesLoadingAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = StoriesLoadingAnimation.json; sourceTree = "<group>"; };
@@ -342,7 +342,6 @@
 				65AABCEC29C9FE390049AAA9 /* Timeline */,
 				65AABCE729C9FE340049AAA9 /* StoryDetail */,
 				65AABCE129C9FE2E0049AAA9 /* Settings */,
-				65AABC9829C9FD590049AAA9 /* ApplicationManager.swift */,
 				65AABC6529C9FC9A0049AAA9 /* AppDelegate.swift */,
 				65AABC7129C9FC9A0049AAA9 /* Assets.xcassets */,
 				65AABC7629C9FC9A0049AAA9 /* Info.plist */,
@@ -383,6 +382,7 @@
 				65AABCB429C9FE140049AAA9 /* API */,
 				65AABCC129C9FE140049AAA9 /* Data */,
 				65AABCC429C9FE140049AAA9 /* Store */,
+				65EB5B8729E0BA0B00114ADE /* State */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -502,6 +502,14 @@
 				65EDAC9E29CF639A00C6134E /* StoriesViewModel.swift */,
 			);
 			path = StoriesViewController;
+			sourceTree = "<group>";
+		};
+		65EB5B8729E0BA0B00114ADE /* State */ = {
+			isa = PBXGroup;
+			children = (
+				65AABC9829C9FD590049AAA9 /* ApplicationStateManager.swift */,
+			);
+			path = State;
 			sourceTree = "<group>";
 		};
 		9ED23200AF4BA5DC6CDCEC0F /* Frameworks */ = {
@@ -745,7 +753,7 @@
 				65AABCDA29C9FE150049AAA9 /* StoreError.swift in Sources */,
 				659FF38829CA050C00798CAB /* AvatarView.swift in Sources */,
 				659FF36529CA031300798CAB /* StoriesImageManager.swift in Sources */,
-				65AABC9929C9FD590049AAA9 /* ApplicationManager.swift in Sources */,
+				65AABC9929C9FD590049AAA9 /* ApplicationStateManager.swift in Sources */,
 				65AABCCC29C9FE150049AAA9 /* EnvironmentContract.swift in Sources */,
 				65AABCF529C9FE390049AAA9 /* TimelineCollectionViewCell.swift in Sources */,
 				659FF38929CA050C00798CAB /* StoriesAlertControllerFactory.swift in Sources */,
