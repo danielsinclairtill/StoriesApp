@@ -74,4 +74,8 @@ class AsyncImageView: UIView {
                                   placeholder: placeholder,
                                   url: url)
     }
+    
+    func clearImage() {
+        image.image = nil
+    }
 }

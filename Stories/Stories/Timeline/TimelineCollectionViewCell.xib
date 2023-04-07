@@ -18,32 +18,11 @@
                 <rect key="frame" x="0.0" y="0.0" width="350" height="175"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IYv-ku-7cj" userLabel="Cover Image Container View">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IYv-ku-7cj" userLabel="Cover Image Container">
                         <rect key="frame" x="8" y="8" width="102" height="159"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m9d-Zf-mxW" userLabel="Cover Image Placeholder View">
-                                <rect key="frame" x="0.0" y="0.0" width="102" height="159"/>
-                                <viewLayoutGuide key="safeArea" id="9Nb-ay-l0z"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </view>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="weK-UZ-Epm" userLabel="Cover Image View">
-                                <rect key="frame" x="0.0" y="0.0" width="102" height="159"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="weK-UZ-Epm" secondAttribute="height" multiplier="0.64" id="z8L-Gi-tDi"/>
-                                </constraints>
-                            </imageView>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="E6U-e3-luf"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="IYv-ku-7cj" secondAttribute="height" multiplier="0.64" id="1rp-sq-jig"/>
-                            <constraint firstItem="weK-UZ-Epm" firstAttribute="leading" secondItem="E6U-e3-luf" secondAttribute="leading" id="KN7-kT-aG9"/>
-                            <constraint firstAttribute="trailing" secondItem="m9d-Zf-mxW" secondAttribute="trailing" id="LOq-Eh-8H8"/>
-                            <constraint firstItem="weK-UZ-Epm" firstAttribute="bottom" secondItem="E6U-e3-luf" secondAttribute="bottom" id="PdU-tw-vhS"/>
-                            <constraint firstItem="weK-UZ-Epm" firstAttribute="trailing" secondItem="E6U-e3-luf" secondAttribute="trailing" id="UOC-X7-yw9"/>
-                            <constraint firstItem="m9d-Zf-mxW" firstAttribute="top" secondItem="IYv-ku-7cj" secondAttribute="top" id="Wm5-yy-I8c"/>
-                            <constraint firstAttribute="bottom" secondItem="m9d-Zf-mxW" secondAttribute="bottom" id="dkX-fd-kf4"/>
-                            <constraint firstItem="weK-UZ-Epm" firstAttribute="top" secondItem="IYv-ku-7cj" secondAttribute="top" id="s3S-fA-La6"/>
-                            <constraint firstItem="m9d-Zf-mxW" firstAttribute="leading" secondItem="IYv-ku-7cj" secondAttribute="leading" id="v3y-eW-CCC"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QQg-1A-c6B" userLabel="Descrition Content View">
@@ -51,26 +30,10 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GTk-k9-mVX" userLabel="Avatar View Container">
                                 <rect key="frame" x="8" y="42" width="32" height="32"/>
-                                <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="UnkownUser" translatesAutoresizingMaskIntoConstraints="NO" id="wJF-gq-DvE" userLabel="Avatar Placeholder Image View">
-                                        <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
-                                    </imageView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yH1-lO-qU2" userLabel="Avatar Image View">
-                                        <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
-                                    </imageView>
-                                </subviews>
                                 <viewLayoutGuide key="safeArea" id="415-y5-oL1"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="wJF-gq-DvE" secondAttribute="trailing" id="9ev-RG-wAt"/>
-                                    <constraint firstItem="wJF-gq-DvE" firstAttribute="top" secondItem="GTk-k9-mVX" secondAttribute="top" id="LM0-hz-y4j"/>
                                     <constraint firstAttribute="width" constant="32" id="MSr-xb-8Tg"/>
-                                    <constraint firstAttribute="trailing" secondItem="yH1-lO-qU2" secondAttribute="trailing" id="ctw-FB-gtP"/>
-                                    <constraint firstItem="yH1-lO-qU2" firstAttribute="top" secondItem="GTk-k9-mVX" secondAttribute="top" id="dnI-ej-42U"/>
                                     <constraint firstAttribute="height" constant="32" id="etj-sG-JCc"/>
-                                    <constraint firstItem="yH1-lO-qU2" firstAttribute="leading" secondItem="GTk-k9-mVX" secondAttribute="leading" id="frE-t8-k6d"/>
-                                    <constraint firstAttribute="bottom" secondItem="wJF-gq-DvE" secondAttribute="bottom" id="gWL-dk-Ztv"/>
-                                    <constraint firstAttribute="bottom" secondItem="yH1-lO-qU2" secondAttribute="bottom" id="qRX-j9-8iF"/>
-                                    <constraint firstItem="wJF-gq-DvE" firstAttribute="leading" secondItem="GTk-k9-mVX" secondAttribute="leading" id="z2h-kv-G3K"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sxC-OM-Sls" userLabel="Title Label">
@@ -113,11 +76,8 @@
             <size key="customSize" width="316" height="128"/>
             <connections>
                 <outlet property="authorTitle" destination="swv-Cr-OT8" id="yCl-tx-nh4"/>
-                <outlet property="avatarImage" destination="yH1-lO-qU2" id="qtP-DO-V8M"/>
-                <outlet property="avatarPlaceholderImageView" destination="wJF-gq-DvE" id="CEZ-r1-n68"/>
-                <outlet property="coverImage" destination="weK-UZ-Epm" id="ZNy-tE-kPt"/>
-                <outlet property="coverImageContainerView" destination="IYv-ku-7cj" id="cav-SQ-CIZ"/>
-                <outlet property="coverImagePlaceholderView" destination="m9d-Zf-mxW" id="9Vz-jA-Igh"/>
+                <outlet property="avatarImageContainer" destination="GTk-k9-mVX" id="CFk-Mn-jAA"/>
+                <outlet property="coverImageContainer" destination="IYv-ku-7cj" id="cbc-GB-LKD"/>
                 <outlet property="storyContentView" destination="QQg-1A-c6B" id="HIU-hO-v6C"/>
                 <outlet property="title" destination="sxC-OM-Sls" id="bpH-Lv-V5k"/>
             </connections>
@@ -125,7 +85,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="UnkownUser" width="33" height="33"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
