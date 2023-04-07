@@ -32,6 +32,9 @@ We also use a design system singleton, [StoriesDesign](Stories/View/DesignSystem
 View models are defined and injected into the view controllers. Whenever UI signals from the view are made, we send those signals to the view model to handle any logic that must be called (populate or manipulate data, configure views, etc.). How the view model communicates with the view (view controller) is through RxSwift Observable Input and Output protocols ([example](https://github.com/danielsinclairtill/StoriesApp/blob/0e71b2a708876a23a6e5f049641a26b2653b6d50/Stories/Stories/StoryDetail/StoryDetailViewModel.swift#L30)).
 
 ## Testing
+**Please run tests on simulator type: iPhone 14, OS 16.2.** 
+<br>This is to avoid discrepancies made between the simulator type and the reference snapshot test images.
+
 ### View
 Since the views communicate between the view models through protocols / contracts, we can easily create mock view models to populate any data and logic that we want to confirm how a specific view will display in specific states. When the mock state is set, we can utilize [snapshot testing](https://github.com/pointfreeco/swift-snapshot-testing) to ensure the view displays correctly and consistently in our tests.
 

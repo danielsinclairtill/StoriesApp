@@ -169,7 +169,9 @@ class TimelineCollectionViewController: UIViewController,
     }
     
     private func getCellSize() -> CGSize {
-        let width = UIDevice.current.iPad ? collectionView.bounds.width / 2 : collectionView.bounds.width
+        // large width class devices should show two columns in the collection view
+        let isLargeWidth = UITraitCollection.current.horizontalSizeClass == .regular
+        let width = isLargeWidth ? collectionView.bounds.width / 2 : collectionView.bounds.width
         let height = TimelineCollectionViewCell.cellHeightToWidthRatio * width
         
         return CGSize(width: width, height: height)

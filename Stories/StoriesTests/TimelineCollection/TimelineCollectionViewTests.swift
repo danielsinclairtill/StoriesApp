@@ -25,6 +25,38 @@ class TimelineCollectionViewTests: XCTestCase {
                        as: .image(traits: UITraitCollection(userInterfaceStyle: .dark)),
                        named: "dark mode")
     }
+    
+    func testTimelineCollectionSmallDevice() {
+        let stories = ModelMockData.makeMockStories(count: 20)
+        let viewModel = MockTimelineCollectionViewModel(stories: stories)
+        let view = TimelineCollectionViewController(viewModel: viewModel)
+        
+        isRecording = false
+        assertSnapshot(matching: view,
+                       as: .image(on: .iPhoneSe,
+                                  traits: UITraitCollection(userInterfaceStyle: .light)),
+                       named: "light mode")
+        assertSnapshot(matching: view,
+                       as: .image(on: .iPhoneSe,
+                                  traits: UITraitCollection(userInterfaceStyle: .dark)),
+                       named: "dark mode")
+    }
+    
+    func testTimelineCollectionIpad() {
+        let stories = ModelMockData.makeMockStories(count: 20)
+        let viewModel = MockTimelineCollectionViewModel(stories: stories)
+        let view = TimelineCollectionViewController(viewModel: viewModel)
+        
+        isRecording = false
+        assertSnapshot(matching: view,
+                       as: .image(on: .iPadPro11,
+                                  traits: UITraitCollection(userInterfaceStyle: .light)),
+                       named: "light mode")
+        assertSnapshot(matching: view,
+                       as: .image(on: .iPadPro11,
+                                  traits: UITraitCollection(userInterfaceStyle: .dark)),
+                       named: "dark mode")
+    }
 }
 
 private class MockTimelineCollectionViewModel: TimelineCollectionViewModelContract {
