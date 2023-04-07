@@ -71,11 +71,11 @@ class AsyncImageView: UIView {
     func setImage(url: URL,
                   imageManager: ImageManagerContract) {
         imageManager.setImageView(imageView: image,
-                                  placeholder: placeholder,
                                   url: url)
     }
     
     func clearImage() {
         image.image = nil
+        image.alpha = 0.0
     }
 }

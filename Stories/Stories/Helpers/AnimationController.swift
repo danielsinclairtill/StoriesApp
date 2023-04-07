@@ -21,7 +21,9 @@ class AnimationController {
     
     // MARK: Animations
     // MARK: Shrink
-    static func shrinkView(_ view: UIView, duration: TimeInterval, completion: ((Bool) -> Void)?) {
+    static func shrinkView(_ view: UIView,
+                           duration: TimeInterval,
+                           completion: ((Bool) -> Void)? = nil) {
         UIView.animate(
             withDuration: duration,
             delay: 0,
@@ -33,7 +35,9 @@ class AnimationController {
         )
     }
     
-    static func expandView(_ view: UIView, duration: TimeInterval, completion: ((Bool) -> Void)?) {
+    static func expandView(_ view: UIView,
+                           duration: TimeInterval,
+                           completion: ((Bool) -> Void)? = nil) {
         UIView.animate(
             withDuration: duration,
             delay: 0,
@@ -46,7 +50,9 @@ class AnimationController {
     }
     
     // MARK: Fade
-    static func fadeInView(_ view: UIView, delay: TimeInterval = 0.0, completion: ((Bool) -> Void)?) {
+    static func fadeInView(_ view: UIView,
+                           delay: TimeInterval = 0.0,
+                           completion: ((Bool) -> Void)? = nil) {
         UIView.animate(
             withDuration: AnimationController.fadeDuration,
             delay: delay,
@@ -56,7 +62,9 @@ class AnimationController {
         )
     }
     
-    static func fadeOutView(_ view: UIView,  delay: TimeInterval = 0.0, completion: ((Bool) -> Void)?) {
+    static func fadeOutView(_ view: UIView,
+                            delay: TimeInterval = 0.0,
+                            completion: ((Bool) -> Void)? = nil) {
         UIView.animate(
             withDuration: AnimationController.fadeDuration,
             delay: delay,

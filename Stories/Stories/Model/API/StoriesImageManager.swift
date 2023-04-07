@@ -37,7 +37,7 @@ class StoriesImageManager: ImageManagerContract {
         }
     }
     
-    func setImageView(imageView: UIImageView, placeholder: UIView, url: URL?) {
+    func setImageView(imageView: UIImageView, url: URL?) {
         guard let imageUrl = url else { return }
         let fetchTime = Date()
         
@@ -47,12 +47,9 @@ class StoriesImageManager: ImageManagerContract {
             
             imageView.image = image
             if imageFetchTime > 0.25 {
-                AnimationController.fadeInView(imageView, completion: { completion in
-                    placeholder.alpha = 0.0
-                })
+                AnimationController.fadeInView(imageView)
             } else {
                 imageView.alpha = 1.0
-                placeholder.alpha = 0.0
             }
         }
     }

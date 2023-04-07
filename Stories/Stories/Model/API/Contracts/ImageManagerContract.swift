@@ -20,12 +20,12 @@ public protocol ImageManagerContract {
 
     /**
      Set an image view with an image from a specified URL. This image could be downloaded or fetched from the cache.
-     While the url image is loading a placeholder image is displayed.
+     The image view should by set to alpha 0.0.
+     When the download is complete, the image from the url is set to the imageView, and alpha is set to 1.0 by this manager.
      This process is done asynchronously.
      - Parameters:
         - imageView: The UIImageView to set.
-        - placeholder: The UIImageView to use as a placeholder while the image is being set.
         - url: The URL of the image to be set to the imageView.
      */
-    func setImageView(imageView: UIImageView, placeholder: UIView, url: URL?)
+    func setImageView(imageView: UIImageView, url: URL?)
 }
