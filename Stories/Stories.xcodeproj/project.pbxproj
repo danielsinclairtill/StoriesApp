@@ -77,6 +77,8 @@
 		65AABD2529C9FEA20049AAA9 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 65AABD2429C9FEA20049AAA9 /* Lottie */; };
 		65AABD2A29C9FED30049AAA9 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 65AABD2929C9FED30049AAA9 /* Podfile */; };
 		65AB629929CA576C003FE82D /* RetroTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AB629829CA576C003FE82D /* RetroTheme.swift */; };
+		65EB5B8929E0C47300114ADE /* ApplicationStateContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EB5B8829E0C47300114ADE /* ApplicationStateContract.swift */; };
+		65EB5B8B29E0C52D00114ADE /* ApplicationStateManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EB5B8A29E0C52D00114ADE /* ApplicationStateManagerMock.swift */; };
 		65EDAC9F29CF639A00C6134E /* StoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EDAC9E29CF639A00C6134E /* StoriesViewModel.swift */; };
 		65EDACA129CFB6E800C6134E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 65EDACA029CFB6E800C6134E /* README.md */; };
 		99DA8AB8FC405BC5FBE3A0BB /* Pods_Stories.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E55D9003DA6B6D8A5C2542E7 /* Pods_Stories.framework */; };
@@ -165,6 +167,8 @@
 		65AABCF229C9FE390049AAA9 /* TimelineCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimelineCollectionViewCell.xib; sourceTree = "<group>"; };
 		65AABD2929C9FED30049AAA9 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		65AB629829CA576C003FE82D /* RetroTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetroTheme.swift; sourceTree = "<group>"; };
+		65EB5B8829E0C47300114ADE /* ApplicationStateContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationStateContract.swift; sourceTree = "<group>"; };
+		65EB5B8A29E0C52D00114ADE /* ApplicationStateManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationStateManagerMock.swift; sourceTree = "<group>"; };
 		65EDAC9E29CF639A00C6134E /* StoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesViewModel.swift; sourceTree = "<group>"; };
 		65EDACA029CFB6E800C6134E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		E55D9003DA6B6D8A5C2542E7 /* Pods_Stories.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Stories.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -305,6 +309,7 @@
 			children = (
 				659FF3AC29CA088200798CAB /* StoriesImageManagerMock.swift */,
 				659FF3AD29CA088200798CAB /* StoriesStoreMock.swift */,
+				65EB5B8A29E0C52D00114ADE /* ApplicationStateManagerMock.swift */,
 				659FF3AE29CA088200798CAB /* StoriesEnviromentMock.swift */,
 				659FF3AF29CA088200798CAB /* StoriesAPIMock.swift */,
 				659FF3B029CA088200798CAB /* ModelMockData.swift */,
@@ -507,6 +512,7 @@
 		65EB5B8729E0BA0B00114ADE /* State */ = {
 			isa = PBXGroup;
 			children = (
+				65EB5B8829E0C47300114ADE /* ApplicationStateContract.swift */,
 				65AABC9829C9FD590049AAA9 /* ApplicationStateManager.swift */,
 			);
 			path = State;
@@ -761,6 +767,7 @@
 				659FF38529CA050C00798CAB /* PlainTheme.swift in Sources */,
 				65AABCF429C9FE390049AAA9 /* TimelineCollectionViewModel.swift in Sources */,
 				65EDAC9F29CF639A00C6134E /* StoriesViewModel.swift in Sources */,
+				65EB5B8929E0C47300114ADE /* ApplicationStateContract.swift in Sources */,
 				659FF38C29CA050C00798CAB /* AsyncImageView.swift in Sources */,
 				65AABCD329C9FE150049AAA9 /* ImageManagerContract.swift in Sources */,
 				65AABCD429C9FE150049AAA9 /* StoriesRequests.swift in Sources */,
@@ -801,6 +808,7 @@
 				659FF3B229CA088200798CAB /* StoryDetailViewModelTests.swift in Sources */,
 				659FF3B529CA088200798CAB /* TimelineCollectionViewModelTests.swift in Sources */,
 				659FF3BA29CA088200798CAB /* ModelMockData.swift in Sources */,
+				65EB5B8B29E0C52D00114ADE /* ApplicationStateManagerMock.swift in Sources */,
 				6569097A29D76CA300B29E76 /* TimelineCollectionViewTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

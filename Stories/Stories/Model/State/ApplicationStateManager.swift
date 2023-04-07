@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ApplicationStateManager {
+class ApplicationStateManager: ApplicationStateContract {
     static let shared: ApplicationStateManager = ApplicationStateManager()
     private let defaults = UserDefaults.standard
 

@@ -105,7 +105,6 @@ class TimelineCollectionViewModel: TimelineCollectionViewModelContract {
     var output: TimelineCollectionViewModelOutput { return outputBind }
     private let outputBind = TimelineCollectionViewModelOutputBind()
     
-    private let environment: EnvironmentContract
     var imageManager: ImageManagerContract {
         return environment.api.imageManager
     }
@@ -208,9 +207,9 @@ class TimelineCollectionViewModel: TimelineCollectionViewModelContract {
     
     private func displayOfflineModeMessage() {
         // only show this bubble message once
-        if !ApplicationManager.shared.hasSeenOfflineModeMessage {
+        if !environment.state.hasSeenOfflineModeMessage {
             outputBind.bubbleMessageBind.onNext("com.test.Stories.stories.bubbleMessage.offlineAvailable".localized())
-            ApplicationManager.shared.hasSeenOfflineModeMessage = true
+            environment.state.hasSeenOfflineModeMessage = true
         }
     }
     

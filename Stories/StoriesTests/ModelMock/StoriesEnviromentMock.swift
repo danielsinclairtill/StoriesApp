@@ -12,11 +12,11 @@ import Foundation
 class StoriesEnvironmentMock: EnvironmentContract {
     var api: APIContract { return mockApi }
     var store: StoreContract { return mockStore }
-    var state: ApplicationStateManager { return mockState }
+    var state: ApplicationStateContract { return mockState }
     
     let mockApi: StoriesAPIMock = StoriesAPIMock()
     let mockStore: StoriesStoreMock = StoriesStoreMock()
-    let mockState: ApplicationStateManager = ApplicationStateManager()
+    let mockState: ApplicationStateManagerMock = ApplicationStateManagerMock()
     
     func reset() {
         mockApi.reset()

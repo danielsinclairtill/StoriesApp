@@ -17,5 +17,5 @@ class StoriesEnvironment: EnvironmentContract {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         return appDelegate.persistentContainer
     }())
-    let state: ApplicationStateManager = ApplicationStateManager()
+    let state: ApplicationStateContract = ApplicationStateManager()
 }
