@@ -2,7 +2,7 @@
 //  ApplicationStateContract.swift
 //  StoriesSwiftUI
 //
-//  Created by Daniel Till on 2023-05-07.
+//
 //
 
 import Foundation

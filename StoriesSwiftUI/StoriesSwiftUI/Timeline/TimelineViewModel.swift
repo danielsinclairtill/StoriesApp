@@ -2,7 +2,7 @@
 //  TimelineViewModel.swift
 //  StoriesSwiftUI
 //
-//  Created by Daniel Till on 2023-04-09.
+//
 //
 
 import Foundation
