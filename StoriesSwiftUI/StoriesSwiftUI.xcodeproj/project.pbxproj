@@ -47,6 +47,7 @@
 		658D6F1829CCE47800D73F45 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 658D6F1729CCE47800D73F45 /* Alamofire */; };
 		658D6F1F29CCE64100D73F45 /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658D6F1D29CCE64100D73F45 /* String+Localized.swift */; };
 		658D6F2029CCE64100D73F45 /* UIDevice+ScreenType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658D6F1E29CCE64100D73F45 /* UIDevice+ScreenType.swift */; };
+		65CD733A2A0856970081A369 /* TimelineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CD73392A0856970081A369 /* TimelineCell.swift */; };
 		65FB7A832A0826A900B87259 /* ApplicationStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FB7A822A0826A900B87259 /* ApplicationStateManager.swift */; };
 		65FB7A852A0826C400B87259 /* ApplicationStateContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FB7A842A0826C400B87259 /* ApplicationStateContract.swift */; };
 /* End PBXBuildFile section */
@@ -103,6 +104,7 @@
 		658D6F0229CCE44700D73F45 /* StoriesStoreConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesStoreConverter.swift; sourceTree = "<group>"; };
 		658D6F1D29CCE64100D73F45 /* String+Localized.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Localized.swift"; sourceTree = "<group>"; };
 		658D6F1E29CCE64100D73F45 /* UIDevice+ScreenType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+ScreenType.swift"; sourceTree = "<group>"; };
+		65CD73392A0856970081A369 /* TimelineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineCell.swift; sourceTree = "<group>"; };
 		65FB7A822A0826A900B87259 /* ApplicationStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationStateManager.swift; sourceTree = "<group>"; };
 		65FB7A842A0826C400B87259 /* ApplicationStateContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationStateContract.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -131,6 +133,7 @@
 			children = (
 				652CEED629E31BF900414703 /* Timeline.swift */,
 				652CEED829E31C4B00414703 /* TimelineViewModel.swift */,
+				65CD73392A0856970081A369 /* TimelineCell.swift */,
 			);
 			path = Timeline;
 			sourceTree = "<group>";
@@ -479,6 +482,7 @@
 				6586C97529CD3F6C00F46D2B /* Colors.swift in Sources */,
 				658D6F0B29CCE44700D73F45 /* StoriesRequests.swift in Sources */,
 				658D6F0529CCE44700D73F45 /* APIError.swift in Sources */,
+				65CD733A2A0856970081A369 /* TimelineCell.swift in Sources */,
 				658D6F1129CCE44700D73F45 /* StoriesStore.swift in Sources */,
 				652CEED929E31C4B00414703 /* TimelineViewModel.swift in Sources */,
 				658D6F0D29CCE44700D73F45 /* StoriesAPI.swift in Sources */,

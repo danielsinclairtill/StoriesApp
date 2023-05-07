@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Timeline: View {
-    @ObservedObject var viewModel: TimelineCollectionViewModel = TimelineCollectionViewModel(environment: StoriesEnvironment.shared)
+    @StateObject var viewModel: TimelineCollectionViewModel = TimelineCollectionViewModel(environment: StoriesEnvironment.shared)
     
     var body: some View {
         Group {
@@ -16,8 +16,9 @@ struct Timeline: View {
                 Text("Loading")
             } else {
                 List(viewModel.output.stories) { story in
-                    Text(story.title ?? "")
+                    TimelineCell(story: story)
                 }
+                .listStyle(.plain)
             }
         }
         .onAppear {
