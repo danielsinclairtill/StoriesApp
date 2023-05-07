@@ -9,46 +9,27 @@
 import Foundation
 import UIKit
 import RxSwift
+import RxCocoa
 
 class RootUITabBarController: UITabBarController, UITabBarControllerDelegate {
+    let tabBarItems: [UINavigationController]
+    var tabBarIndexTappedWhileDisplayed: Driver<Int> {
+        return tabBarIndexTappedWhileDisplayedBind.asDriver(onErrorJustReturn: 0)
+    }
+    private var tabBarIndexTappedWhileDisplayedBind = PublishSubject<Int>()
+
     private var lastSelectedIndex: Int = 0
     private let disposeBag = DisposeBag()
     
-    private func formatNavigationControllerUI<Controller: UINavigationController>(_ navigationController: Controller) -> Controller {
-        StoriesDesign.shared.output.theme
-            .drive { theme in
-                navigationController.navigationBar.barTintColor = theme.attributes.colors.primary()
-                let appearance = UINavigationBarAppearance()
-                appearance.configureWithOpaqueBackground()
-                appearance.backgroundColor = theme.attributes.colors.primary()
-                navigationController.navigationBar.standardAppearance = appearance
-                navigationController.navigationBar.scrollEdgeAppearance = appearance
-                navigationController.navigationBar.tintColor = theme.attributes.colors.primaryFill()
-            }
-            .disposed(by: disposeBag)
-
-        return navigationController
+    required init(tabBarItems: [UINavigationController]) {
+        self.tabBarItems = tabBarItems
+        
+        super.init(nibName: nil, bundle: nil)
     }
     
-    // timeline tab
-    private lazy var timelineNavigationController: StoriesNavigationController = {
-        let navigationController = StoriesNavigationController(rootViewController: TimelineCollectionViewController())
-        navigationController.tabBarItem = UITabBarItem(title: "com.test.Stories.stories.title".localized(),
-                                                       image: #imageLiteral(resourceName: "StoriesUnselected"),
-                                                       selectedImage: #imageLiteral(resourceName: "Stories"))
-        return formatNavigationControllerUI(navigationController)
-    }()
-    
-    // settings tab
-    private lazy var settingsNavigationController: StoriesNavigationController = {
-        let navigationController = StoriesNavigationController(rootViewController: SettingsViewController())
-        navigationController.tabBarItem = UITabBarItem(title: "com.test.Stories.settings.title".localized(),
-                                                       image: #imageLiteral(resourceName: "SettingsUnselected"),
-                                                       selectedImage: #imageLiteral(resourceName: "Settings"))
-        return formatNavigationControllerUI(navigationController)
-    }()
-    
-    private lazy var tabBarItems: [StoriesNavigationController] = [timelineNavigationController, settingsNavigationController]
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,14 +55,14 @@ class RootUITabBarController: UITabBarController, UITabBarControllerDelegate {
     }
     
     // MARK: UITabBarControllerDelegate
-    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+    func tabBarController(_ tabBarController: UITabBarController,
+                          didSelect viewController: UIViewController) {
         let tabBarIndex = tabBarController.selectedIndex
-        guard tabBarController.viewControllers?.indices.contains(tabBarIndex) ?? false,
-            let navigationController = tabBarController.viewControllers?[tabBarIndex] as? StoriesNavigationController else { return }
+        guard tabBarController.viewControllers?.indices.contains(tabBarIndex) ?? false else { return }
         
         // if the view controller tab icon has been tapped when it was already open, perform any required logic
         if lastSelectedIndex == tabBarIndex {
-            navigationController.tabBarItemTappedWhileDisplayed()
+            tabBarIndexTappedWhileDisplayedBind.onNext(tabBarIndex)
         }
     }
     

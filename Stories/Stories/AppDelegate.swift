@@ -12,12 +12,17 @@ import CoreData
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
+    var coordinator: StoriesCoordinator?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // set up root view controller
+        // set up root coordinator
+        let navigationController = UINavigationController.init()
+        let coordinator = TabCoordinator(navigationController: navigationController)
+        coordinator.start()
+        
+        // set up root view to root coordinator starting view
         window = UIWindow.init(frame: UIScreen.main.bounds)
-        let rootViewController = RootUITabBarController()
-        window?.rootViewController = rootViewController
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
         return true
     }

@@ -16,8 +16,7 @@ class TimelineCollectionViewController: UIViewController,
                                         UICollectionViewDelegateFlowLayout,
                                         UICollectionViewDelegate,
                                         UIScrollViewDelegate,
-                                        UITabBarControllerDelegate,
-                                        TabBarItemTapHandler {
+                                        UITabBarControllerDelegate {
     private let cellIdentifier = "TimelineCollectionViewCell"
     private let viewModel: any TimelineCollectionViewModelContract
     @IBOutlet private weak var collectionView: UICollectionView!
@@ -26,7 +25,7 @@ class TimelineCollectionViewController: UIViewController,
     private let refreshControl = UIRefreshControl()
     private let disposeBag = DisposeBag()
 
-    init(viewModel: any TimelineCollectionViewModelContract = TimelineCollectionViewModel(environment: StoriesEnvironment.shared)) {
+    init(viewModel: any TimelineCollectionViewModelContract) {
         self.viewModel = viewModel
         super.init(nibName: String(describing: TimelineCollectionViewController.self), bundle: nil)
     }
@@ -143,14 +142,6 @@ class TimelineCollectionViewController: UIViewController,
                 self?.viewModel.input.cellTapped.onNext(indexPath.row)
             })
             .disposed(by: disposeBag)
-        
-        // navigation
-        viewModel.output.navigateToStory
-            .drive(onNext: { [weak self] story in
-                guard let story = story else { return }
-                self?.navigateToStory(story)
-            })
-            .disposed(by: disposeBag)
     }
     
     private func setupDesign() {
@@ -197,14 +188,6 @@ class TimelineCollectionViewController: UIViewController,
     // MARK: UIScrollViewDelegate
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         viewModel.input.isScrolling.onNext(false)
-    }
-    
-    private func navigateToStory(_ story: Story) {
-        guard let id = story.id else { return }
-        navigationController?.pushViewController(
-            StoryDetailViewController(viewModel: StoryDetailViewModel(storyId: id,
-                                                                      environment: StoriesEnvironment.shared)),
-            animated: true)
     }
 
     private func presentOfflineAlert(message: String) {
@@ -264,10 +247,5 @@ class TimelineCollectionViewController: UIViewController,
         AnimationController.fadeInView(collectionView) { [weak self] completed in
             self?.collectionView.isScrollEnabled = true
         }
-    }
-    
-    // MARK: TabBarItemTapHandler
-    func tabBarItemTappedWhileDisplayed() {
-        viewModel.input.tabBarItemTapped.onNext(())
     }
 }

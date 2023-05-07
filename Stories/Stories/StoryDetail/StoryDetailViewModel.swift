@@ -48,14 +48,18 @@ class StoryDetailViewModel: StoryDetailViewModelContract {
     var output: StoryDetailViewModelOutput { return outputBind }
     private let outputBind = StoryDetailViewModelOutputBind()
     
+    var coordinator: StoriesCoordinator
+
     private let storyId: String
     private let environment: EnvironmentContract
     private let disposeBag = DisposeBag()
 
     required init(storyId: String,
-                  environment: EnvironmentContract) {
+                  environment: EnvironmentContract,
+                  coordinator: StoriesCoordinator) {
         self.storyId = storyId
         self.environment = environment
+        self.coordinator = coordinator
         
         stories()
     }

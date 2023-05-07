@@ -34,8 +34,6 @@ protocol TimelineCollectionViewModelInput {
     var isScrolling: AnyObserver<Bool> { get }
     /// Is the timeline at the top state.
     var isTopOfPage: AnyObserver<Bool> { get }
-    /// Triggered when the tab bar item has been tapped while the view is displayed.
-    var tabBarItemTapped: AnyObserver<Void> { get }
     /// Triggered when a story cell has been tapped.
     var cellTapped: AnyObserver<Int> { get }
 }
@@ -46,7 +44,6 @@ struct TimelineCollectionViewModelInputBind: TimelineCollectionViewModelInput {
     var loadNextPage: AnyObserver<Void> { return loadNextPageBind.asObserver() }
     var isScrolling: AnyObserver<Bool> { return isScrollingBind.asObserver() }
     var isTopOfPage: AnyObserver<Bool> { return isTopOfPageBind.asObserver() }
-    var tabBarItemTapped: AnyObserver<Void> { return tabBarItemTappedBind.asObserver() }
     var cellTapped: AnyObserver<Int> { return cellTappedBind.asObserver() }
     
     let viewDidLoadBind = PublishSubject<Void>()
@@ -55,7 +52,6 @@ struct TimelineCollectionViewModelInputBind: TimelineCollectionViewModelInput {
     let loadNextPageBind = PublishSubject<Void>()
     let isScrollingBind = BehaviorSubject<Bool>(value: false)
     let isTopOfPageBind = BehaviorSubject<Bool>(value: false)
-    let tabBarItemTappedBind = PublishSubject<Void>()
     let cellTappedBind = PublishSubject<Int>()
 }
 
@@ -75,8 +71,6 @@ protocol TimelineCollectionViewModelOutput {
     var bubbleMessage: Driver<String> { get }
     /// Scroll to the top of the timeline collection.
     var scrollToTop: Driver<Void> { get }
-    /// Nativate to a story.
-    var navigateToStory: Driver<Story?> { get }
 }
 struct TimelineCollectionViewModelOutputBind: TimelineCollectionViewModelOutput {
     var stories: Driver<[Story]> { return storiesBind.asDriver(onErrorJustReturn: []) }
@@ -86,7 +80,6 @@ struct TimelineCollectionViewModelOutputBind: TimelineCollectionViewModelOutput 
     var error: Driver<String> { return errorBind.asDriver(onErrorJustReturn: "") }
     var bubbleMessage: Driver<String> { return bubbleMessageBind.asDriver(onErrorJustReturn: "") }
     var scrollToTop: Driver<Void> { return scrollToTopBind.asDriver(onErrorJustReturn: ()) }
-    var navigateToStory: Driver<Story?> { return navigateToStoryBind.asDriver(onErrorJustReturn: nil) }
     
     var storiesBind = BehaviorSubject<[Story]>(value: [])
     var isLoadingBind = BehaviorSubject<Bool>(value: true)
@@ -95,7 +88,6 @@ struct TimelineCollectionViewModelOutputBind: TimelineCollectionViewModelOutput 
     var errorBind = PublishSubject<String>()
     var bubbleMessageBind = PublishSubject<String>()
     var scrollToTopBind = PublishSubject<Void>()
-    var navigateToStoryBind = PublishSubject<Story?>()
 }
 
 // MARK: ViewModel
@@ -106,13 +98,16 @@ class TimelineCollectionViewModel: TimelineCollectionViewModelContract {
     private let outputBind = TimelineCollectionViewModelOutputBind()
     
     private let environment: EnvironmentContract
+    private let coordinator: StoriesCoordinator
     var imageManager: ImageManagerContract {
         return environment.api.imageManager
     }
     private let disposeBag = DisposeBag()
     
-    init(environment: EnvironmentContract) {
+    init(environment: EnvironmentContract,
+         coordinator: StoriesCoordinator) {
         self.environment = environment
+        self.coordinator = coordinator
         
         setViewDidLoad()
         setRefresh()
@@ -251,14 +246,15 @@ class TimelineCollectionViewModel: TimelineCollectionViewModelContract {
         inputBind.cellTappedBind.withLatestFrom(Observable.combineLatest(inputBind.cellTappedBind,
                                                                          outputBind.storiesBind))
         .subscribe(onNext: { [weak self] row, stories in
-            guard stories.indices.contains(row) else { return }
-            self?.outputBind.navigateToStoryBind.onNext(stories[row])
+            guard stories.indices.contains(row),
+                    let id = stories[row].id else { return }
+            self?.coordinator.storyDetail(id: id)
         })
         .disposed(by: disposeBag)
     }
     
     private func setTabBarItemTappedWhileDisplayed() {
-        inputBind.tabBarItemTappedBind.withLatestFrom(Observable.combineLatest(inputBind.isTopOfPageBind,
+        coordinator.tabBarItemTappedWhileDisplayed.withLatestFrom(Observable.combineLatest(inputBind.isTopOfPageBind,
                                                                                inputBind.isScrollingBind))
         .filter { isTopOfPage, isScrolling in !isTopOfPage && !isScrolling}
         .subscribe { [weak self] _, _ in
