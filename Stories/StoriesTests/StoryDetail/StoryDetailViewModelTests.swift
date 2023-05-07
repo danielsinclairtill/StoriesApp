@@ -38,7 +38,8 @@ class StoryDetailViewModelTests: XCTestCase {
             .success(story)
         ]
         let viewModel = StoryDetailViewModel(storyId: storyId,
-                                             environment: mockEnvironment)
+                                             environment: mockEnvironment,
+                                             coordinator: StoriesCoordinator(navigationController: UINavigationController()))
         let actualStory = scheduler.createObserver(Story?.self)
         viewModel.output.story.drive(actualStory).disposed(by: disposeBag)
         
@@ -56,7 +57,8 @@ class StoryDetailViewModelTests: XCTestCase {
             .failure(APIError.serverError)
         ]
         let viewModel = StoryDetailViewModel(storyId: storyId,
-                                             environment: mockEnvironment)
+                                             environment: mockEnvironment,
+                                             coordinator: StoriesCoordinator(navigationController: UINavigationController()))
         let actualStory = scheduler.createObserver(Story?.self)
         viewModel.output.story.drive(actualStory).disposed(by: disposeBag)
         let errorMessage = scheduler.createObserver(String.self)

@@ -30,7 +30,8 @@ class TimelineCollectionViewModelTests: XCTestCase {
         mockEnvironment.mockApi.mockAPIResponses = [
             .success(StoriesRequests.StoriesTimelinePage.Response(stories: mockStories, nextUrl: URL(string: "test")!))
         ]
-        let viewModel = TimelineCollectionViewModel(environment: mockEnvironment)
+        let viewModel = TimelineCollectionViewModel(environment: mockEnvironment,
+                                                    coordinator: StoriesCoordinator(navigationController: UINavigationController()))
         let stories = scheduler.createObserver(Array<Story>.self)
         viewModel.output.stories.drive(stories).disposed(by: disposeBag)
 
@@ -47,7 +48,8 @@ class TimelineCollectionViewModelTests: XCTestCase {
     
     func testViewDidLoadShowsErrorIfOffline() {
         mockEnvironment.mockApi.mockIsConnectedToInternet = false
-        let viewModel = TimelineCollectionViewModel(environment: mockEnvironment)
+        let viewModel = TimelineCollectionViewModel(environment: mockEnvironment,
+                                                    coordinator: StoriesCoordinator(navigationController: UINavigationController()))
         let errorMessage = scheduler.createObserver(String.self)
         viewModel.output.error.drive(errorMessage).disposed(by: disposeBag)
                 
@@ -61,7 +63,8 @@ class TimelineCollectionViewModelTests: XCTestCase {
         mockEnvironment.mockApi.mockAPIResponses = [
             .success(StoriesRequests.StoriesTimelinePage.Response(stories: mockStories, nextUrl: URL(string: "test")!))
         ]
-        let viewModel = TimelineCollectionViewModel(environment: mockEnvironment)
+        let viewModel = TimelineCollectionViewModel(environment: mockEnvironment,
+                                                    coordinator: StoriesCoordinator(navigationController: UINavigationController()))
         let stories = scheduler.createObserver(Array<Story>.self)
         viewModel.output.stories.drive(stories).disposed(by: disposeBag)
 
@@ -85,7 +88,8 @@ class TimelineCollectionViewModelTests: XCTestCase {
         mockEnvironment.mockApi.mockAPIResponses = [
             .failure(.offline)
         ]
-        let viewModel = TimelineCollectionViewModel(environment: mockEnvironment)
+        let viewModel = TimelineCollectionViewModel(environment: mockEnvironment,
+                                                    coordinator: StoriesCoordinator(navigationController: UINavigationController()))
         let stories = scheduler.createObserver(Array<Story>.self)
         viewModel.output.stories.drive(stories).disposed(by: disposeBag)
         let errorMessage = scheduler.createObserver(String.self)
@@ -104,7 +108,8 @@ class TimelineCollectionViewModelTests: XCTestCase {
         mockEnvironment.mockApi.mockAPIResponses = [
             .failure(.serverError)
         ]
-        let viewModel = TimelineCollectionViewModel(environment: mockEnvironment)
+        let viewModel = TimelineCollectionViewModel(environment: mockEnvironment,
+                                                    coordinator: StoriesCoordinator(navigationController: UINavigationController()))
         let stories = scheduler.createObserver(Array<Story>.self)
         viewModel.output.stories.drive(stories).disposed(by: disposeBag)
         let errorMessage = scheduler.createObserver(String.self)
@@ -123,7 +128,8 @@ class TimelineCollectionViewModelTests: XCTestCase {
         mockEnvironment.mockApi.mockAPIResponses = [
             .success(StoriesRequests.StoriesTimelinePage.Response(stories: [], nextUrl: URL(string: "test")!))
         ]
-        let viewModel = TimelineCollectionViewModel(environment: mockEnvironment)
+        let viewModel = TimelineCollectionViewModel(environment: mockEnvironment,
+                                                    coordinator: StoriesCoordinator(navigationController: UINavigationController()))
         let stories = scheduler.createObserver(Array<Story>.self)
         viewModel.output.stories.drive(stories).disposed(by: disposeBag)
         let errorMessage = scheduler.createObserver(String.self)
@@ -142,7 +148,8 @@ class TimelineCollectionViewModelTests: XCTestCase {
             .success(StoriesRequests.StoriesTimelinePage.Response(stories: ModelMockData.makeMockStories(count: 10), nextUrl: URL(string: "test")!)),
             .success(StoriesRequests.StoriesTimelinePage.Response(stories: ModelMockData.makeMockStories(count: 10), nextUrl: URL(string: "test")!))
         ]
-        let viewModel = TimelineCollectionViewModel(environment: mockEnvironment)
+        let viewModel = TimelineCollectionViewModel(environment: mockEnvironment,
+                                                    coordinator: StoriesCoordinator(navigationController: UINavigationController()))
         let stories = scheduler.createObserver(Array<Story>.self)
         viewModel.output.stories.drive(stories).disposed(by: disposeBag)
         viewModel.input.refreshBegin.onNext(.online)
@@ -161,7 +168,8 @@ class TimelineCollectionViewModelTests: XCTestCase {
         mockEnvironment.mockApi.mockAPIResponses = [
             .success(StoriesRequests.StoriesTimelinePage.Response(stories: mockStories, nextUrl: URL(string: "test")!))
         ]
-        let viewModel = TimelineCollectionViewModel(environment: mockEnvironment)
+        let viewModel = TimelineCollectionViewModel(environment: mockEnvironment,
+                                                    coordinator: StoriesCoordinator(navigationController: UINavigationController()))
         let stories = scheduler.createObserver(Array<Story>.self)
         viewModel.output.stories.drive(stories).disposed(by: disposeBag)
 
@@ -178,7 +186,8 @@ class TimelineCollectionViewModelTests: XCTestCase {
             .success(StoriesRequests.StoriesTimelinePage.Response(stories: ModelMockData.makeMockStories(count: 10), nextUrl: URL(string: "test")!))
         ]
         mockEnvironment.mockState.hasSeenOfflineModeMessage = false
-        let viewModel = TimelineCollectionViewModel(environment: mockEnvironment)
+        let viewModel = TimelineCollectionViewModel(environment: mockEnvironment,
+                                                    coordinator: StoriesCoordinator(navigationController: UINavigationController()))
         let bubbleMessage = scheduler.createObserver(String.self)
         viewModel.output.bubbleMessage.drive(bubbleMessage).disposed(by: disposeBag)
         
@@ -193,7 +202,8 @@ class TimelineCollectionViewModelTests: XCTestCase {
             .success(StoriesRequests.StoriesTimelinePage.Response(stories: ModelMockData.makeMockStories(count: 10), nextUrl: URL(string: "test")!))
         ]
         mockEnvironment.mockState.hasSeenOfflineModeMessage = true
-        let viewModel = TimelineCollectionViewModel(environment: mockEnvironment)
+        let viewModel = TimelineCollectionViewModel(environment: mockEnvironment,
+                                                    coordinator: StoriesCoordinator(navigationController: UINavigationController()))
         let bubbleMessage = scheduler.createObserver(String.self)
         viewModel.output.bubbleMessage.drive(bubbleMessage).disposed(by: disposeBag)
         
@@ -205,7 +215,8 @@ class TimelineCollectionViewModelTests: XCTestCase {
     func testGetStoredStoriesOffline() {
         let mockStories = ModelMockData.makeMockStories(count: 10)
         mockEnvironment.mockStore.mockStoredStories = mockStories
-        let viewModel = TimelineCollectionViewModel(environment: mockEnvironment)
+        let viewModel = TimelineCollectionViewModel(environment: mockEnvironment,
+                                                    coordinator: StoriesCoordinator(navigationController: UINavigationController()))
         let stories = scheduler.createObserver(Array<Story>.self)
         viewModel.output.stories.drive(stories).disposed(by: disposeBag)
 
@@ -222,7 +233,8 @@ class TimelineCollectionViewModelTests: XCTestCase {
         let mockStories: [Story] = ModelMockData.makeMockStories(count: 10)
         mockEnvironment.mockStore.mockStoredStories = mockStories
         mockEnvironment.mockStore.mockStoreReadError = StoreError.readError
-        let viewModel = TimelineCollectionViewModel(environment: mockEnvironment)
+        let viewModel = TimelineCollectionViewModel(environment: mockEnvironment,
+                                                    coordinator: StoriesCoordinator(navigationController: UINavigationController()))
         let stories = scheduler.createObserver(Array<Story>.self)
         viewModel.output.stories.drive(stories).disposed(by: disposeBag)
         let errorMessage = scheduler.createObserver(String.self)
@@ -241,7 +253,8 @@ class TimelineCollectionViewModelTests: XCTestCase {
     
     func testGetStoredStoriesPresentsErrorIfEmpty() {
         mockEnvironment.mockStore.mockStoredStories = []
-        let viewModel = TimelineCollectionViewModel(environment: mockEnvironment)
+        let viewModel = TimelineCollectionViewModel(environment: mockEnvironment,
+                                                    coordinator: StoriesCoordinator(navigationController: UINavigationController()))
         let stories = scheduler.createObserver(Array<Story>.self)
         viewModel.output.stories.drive(stories).disposed(by: disposeBag)
         let errorMessage = scheduler.createObserver(String.self)
@@ -260,12 +273,14 @@ class TimelineCollectionViewModelTests: XCTestCase {
     
     // MARK: TabBarItem
     func testTapTabBarItemDoesNotScrollsToTopWhileScrolling() {
-        let viewModel = TimelineCollectionViewModel(environment: mockEnvironment)
+        let coordinator = StoriesCoordinator(navigationController: UINavigationController())
+        let viewModel = TimelineCollectionViewModel(environment: mockEnvironment,
+                                                    coordinator: coordinator)
         let scrollToTop = scheduler.createObserver(Void.self)
         viewModel.output.scrollToTop.drive(scrollToTop).disposed(by: disposeBag)
     
         viewModel.input.isScrolling.onNext(true)
-        viewModel.input.tabBarItemTapped.onNext(())
+        coordinator.tabBarItemTappedWhileDisplayed.onNext(())
         
         XCTAssertTrue(scrollToTop.events.isEmpty)
     }
