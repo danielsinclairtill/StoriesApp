@@ -14,4 +14,5 @@ class StoriesEnvironment: EnvironmentContract {
     
     let api: APIContract = StoriesAPI()
     let store: StoreContract = StoriesStore(container: PersistenceController.shared.container)
+    let state: ApplicationStateContract = ApplicationStateManager()
 }

@@ -17,8 +17,7 @@ struct ContentView: View {
     var body: some View {
         TabView(selection: $selection) {
             NavigationView {
-                Text("Stories")
-                    .foregroundColor(design.attributes.colors.primaryFill())
+                Timeline()
             }
             .tabItem {
                 Label("Stories", image: selection == 0 ? "Stories" : "StoriesUnselected")
@@ -32,7 +31,7 @@ struct ContentView: View {
             }
             .tag(1)
         }
-        .tint(design.attributes.colors.primaryFill())
+        .tint(design.theme.attributes.colors.primaryFill())
     }
 }
 

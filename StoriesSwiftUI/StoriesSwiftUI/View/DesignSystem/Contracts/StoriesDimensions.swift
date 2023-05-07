@@ -1,5 +1,5 @@
 //
-//  StoriesDimensions.swift
+//  Dimensions.swift
 //  Stories
 //
 //
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol StoriesDimensions {
+public protocol Dimensions {
     func coverCornerRadius() -> CGFloat
     func tagCornerRadius() -> CGFloat
 }

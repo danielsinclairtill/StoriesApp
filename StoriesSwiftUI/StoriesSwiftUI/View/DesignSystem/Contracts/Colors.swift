@@ -1,5 +1,5 @@
 //
-//  StoriesColors.swift
+//  Colors.swift
 //  Stories
 //
 //
@@ -9,7 +9,7 @@
 import Foundation
 import SwiftUI
 
-public protocol StoriesColors {
+public protocol Colors {
     func primary() -> Color
     func primaryFill() -> Color
     func secondary() -> Color

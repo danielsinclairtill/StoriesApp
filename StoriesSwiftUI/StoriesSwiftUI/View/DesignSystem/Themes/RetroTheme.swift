@@ -1,6 +1,6 @@
 //
 //  RetroTheme.swift
-//  Stories
+//
 //
 //
 //
@@ -8,12 +8,12 @@
 import Foundation
 import SwiftUI
 
-class RetroTheme: Theme, Attributes {
-    var colors: StoriesColors = RetroTheme.StoriesColor()
-    var dimensions: StoriesDimensions = RetroTheme.StoriesDimension()
-    var fonts: StoriesFonts = RetroTheme.StoriesFont()
+class RetroTheme: Attributes {
+    var colors: Colors = RetroTheme.RetroColor()
+    var dimensions: Dimensions = RetroTheme.Dimension()
+    var fonts: Fonts = RetroTheme.RetroFont()
 
-    class StoriesColor: StoriesColors {
+    class RetroColor: Colors {
         func primary() -> Color {
             return Color("RetroPrimary")
         }
@@ -35,7 +35,7 @@ class RetroTheme: Theme, Attributes {
         }
     }
     
-    class StoriesFont: StoriesFonts {
+    class RetroFont: Fonts {
         func primaryTitleLarge() -> Font {
             switch UIDevice.current.screenType {
             case .iPhones_4_4S, .iPhones_5_5s_5c_SE:
@@ -64,7 +64,7 @@ class RetroTheme: Theme, Attributes {
         }
     }
     
-    class StoriesDimension: StoriesDimensions {
+    class Dimension: Dimensions {
         func coverCornerRadius() -> CGFloat {
             return 4.0
         }

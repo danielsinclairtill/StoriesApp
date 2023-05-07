@@ -8,7 +8,7 @@
 
 import UIKit
 
-public struct Story: Decodable, Equatable {
+public struct Story: Identifiable, Decodable, Equatable {
     public let id: String?
     public let title: String?
     public let user: User?

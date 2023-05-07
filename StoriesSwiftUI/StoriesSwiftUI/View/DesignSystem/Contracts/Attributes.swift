@@ -9,7 +9,7 @@
 import Foundation
 
 public protocol Attributes {
-    var colors: StoriesColors { get }
-    var fonts: StoriesFonts { get }
-    var dimensions: StoriesDimensions { get }
+    var colors: Colors { get }
+    var fonts: Fonts { get }
+    var dimensions: Dimensions { get }
 }

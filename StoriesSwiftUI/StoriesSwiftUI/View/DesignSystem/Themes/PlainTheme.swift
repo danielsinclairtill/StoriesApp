@@ -9,12 +9,12 @@
 import Foundation
 import SwiftUI
 
-class PlainTheme: Theme, Attributes {
-    var colors: StoriesColors = PlainTheme.StoriesColor()
-    var dimensions: StoriesDimensions = PlainTheme.StoriesDimension()
-    var fonts: StoriesFonts = PlainTheme.StoriesFont()
+class PlainTheme: Attributes {
+    var colors: Colors = PlainTheme.PlainColors()
+    var dimensions: Dimensions = PlainTheme.Dimension()
+    var fonts: Fonts = PlainTheme.PlainFont()
 
-    class StoriesColor: StoriesColors {
+    class PlainColors: Colors {
         func primary() -> Color {
             return Color("PlainPrimary")
         }
@@ -36,7 +36,7 @@ class PlainTheme: Theme, Attributes {
         }
     }
     
-    class StoriesFont: StoriesFonts {
+    class PlainFont: Fonts {
         func primaryTitleLarge() -> Font {
             switch UIDevice.current.screenType {
             case .iPhones_4_4S, .iPhones_5_5s_5c_SE:
@@ -65,7 +65,7 @@ class PlainTheme: Theme, Attributes {
         }
     }
     
-    class StoriesDimension: StoriesDimensions {
+    class Dimension: Dimensions {
         func coverCornerRadius() -> CGFloat {
             return 4.0
         }
