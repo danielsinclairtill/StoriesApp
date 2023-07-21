@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C391F56BCBCF1AD98D09B3A /* Pods_StoriesTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 418609FEC6668B4BF4F59EB7 /* Pods_StoriesTests.framework */; };
 		65201AED2A05A007009D1241 /* StoriesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65201AEC2A05A007009D1241 /* StoriesCoordinator.swift */; };
 		6569097A29D76CA300B29E76 /* TimelineCollectionViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6569097929D76CA300B29E76 /* TimelineCollectionViewTests.swift */; };
 		6569097E29D770CF00B29E76 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 6569097D29D770CF00B29E76 /* SDWebImage */; };
@@ -97,7 +98,10 @@
 
 /* Begin PBXFileReference section */
 		0B94D8EDB9C56EF5EE259D00 /* Pods-Stories.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stories.release.xcconfig"; path = "Target Support Files/Pods-Stories/Pods-Stories.release.xcconfig"; sourceTree = "<group>"; };
+		0BDAC2A145EAF8A2F3D47F09 /* Pods-StoriesTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StoriesTests.debug.xcconfig"; path = "Target Support Files/Pods-StoriesTests/Pods-StoriesTests.debug.xcconfig"; sourceTree = "<group>"; };
 		325BB81D63DE8804C9865859 /* Pods-Stories.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stories.debug.xcconfig"; path = "Target Support Files/Pods-Stories/Pods-Stories.debug.xcconfig"; sourceTree = "<group>"; };
+		418609FEC6668B4BF4F59EB7 /* Pods_StoriesTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StoriesTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B7220F9A5688DBC0EEB35B1 /* Pods-StoriesTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StoriesTests.release.xcconfig"; path = "Target Support Files/Pods-StoriesTests/Pods-StoriesTests.release.xcconfig"; sourceTree = "<group>"; };
 		65201AEC2A05A007009D1241 /* StoriesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesCoordinator.swift; sourceTree = "<group>"; };
 		6569097929D76CA300B29E76 /* TimelineCollectionViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineCollectionViewTests.swift; sourceTree = "<group>"; };
 		6569098229D7750000B29E76 /* StoryDetailViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryDetailViewTests.swift; sourceTree = "<group>"; };
@@ -192,6 +196,7 @@
 			files = (
 				6569098129D770FE00B29E76 /* SnapshotTesting in Frameworks */,
 				6569097E29D770CF00B29E76 /* SDWebImage in Frameworks */,
+				0C391F56BCBCF1AD98D09B3A /* Pods_StoriesTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -523,6 +528,7 @@
 			isa = PBXGroup;
 			children = (
 				E55D9003DA6B6D8A5C2542E7 /* Pods_Stories.framework */,
+				418609FEC6668B4BF4F59EB7 /* Pods_StoriesTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -532,6 +538,8 @@
 			children = (
 				325BB81D63DE8804C9865859 /* Pods-Stories.debug.xcconfig */,
 				0B94D8EDB9C56EF5EE259D00 /* Pods-Stories.release.xcconfig */,
+				0BDAC2A145EAF8A2F3D47F09 /* Pods-StoriesTests.debug.xcconfig */,
+				5B7220F9A5688DBC0EEB35B1 /* Pods-StoriesTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -567,9 +575,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 65AABC9229C9FC9B0049AAA9 /* Build configuration list for PBXNativeTarget "StoriesTests" */;
 			buildPhases = (
+				6ED14EA4FA1FB0E20DF04927 /* [CP] Check Pods Manifest.lock */,
 				65AABC7729C9FC9B0049AAA9 /* Sources */,
 				65AABC7829C9FC9B0049AAA9 /* Frameworks */,
 				65AABC7929C9FC9B0049AAA9 /* Resources */,
+				529E918C998BF04AAD9DBC38 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -613,9 +623,9 @@
 			);
 			mainGroup = 65AABC5929C9FC9A0049AAA9;
 			packageReferences = (
-				65AABD2029C9FE930049AAA9 /* XCRemoteSwiftPackageReference "Alamofire.git" */,
-				65AABD2329C9FEA20049AAA9 /* XCRemoteSwiftPackageReference "lottie-ios.git" */,
-				65A3566A29CA1474001F9892 /* XCRemoteSwiftPackageReference "SDWebImage.git" */,
+				65AABD2029C9FE930049AAA9 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				65AABD2329C9FEA20049AAA9 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				65A3566A29CA1474001F9892 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				6569097F29D770FE00B29E76 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
 			);
 			productRefGroup = 65AABC6329C9FC9A0049AAA9 /* Products */;
@@ -671,6 +681,45 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-Stories-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		529E918C998BF04AAD9DBC38 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-StoriesTests/Pods-StoriesTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-StoriesTests/Pods-StoriesTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-StoriesTests/Pods-StoriesTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6ED14EA4FA1FB0E20DF04927 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-StoriesTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -974,6 +1023,7 @@
 		};
 		65AABC9329C9FC9B0049AAA9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0BDAC2A145EAF8A2F3D47F09 /* Pods-StoriesTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -995,6 +1045,7 @@
 		};
 		65AABC9429C9FC9B0049AAA9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5B7220F9A5688DBC0EEB35B1 /* Pods-StoriesTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1055,7 +1106,7 @@
 				minimumVersion = 1.0.0;
 			};
 		};
-		65A3566A29CA1474001F9892 /* XCRemoteSwiftPackageReference "SDWebImage.git" */ = {
+		65A3566A29CA1474001F9892 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
 			requirement = {
@@ -1063,7 +1114,7 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		65AABD2029C9FE930049AAA9 /* XCRemoteSwiftPackageReference "Alamofire.git" */ = {
+		65AABD2029C9FE930049AAA9 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
 			requirement = {
@@ -1071,7 +1122,7 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		65AABD2329C9FEA20049AAA9 /* XCRemoteSwiftPackageReference "lottie-ios.git" */ = {
+		65AABD2329C9FEA20049AAA9 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
 			requirement = {
@@ -1084,7 +1135,7 @@
 /* Begin XCSwiftPackageProductDependency section */
 		6569097D29D770CF00B29E76 /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 65A3566A29CA1474001F9892 /* XCRemoteSwiftPackageReference "SDWebImage.git" */;
+			package = 65A3566A29CA1474001F9892 /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImage;
 		};
 		6569098029D770FE00B29E76 /* SnapshotTesting */ = {
@@ -1094,17 +1145,17 @@
 		};
 		65A3566B29CA1474001F9892 /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 65A3566A29CA1474001F9892 /* XCRemoteSwiftPackageReference "SDWebImage.git" */;
+			package = 65A3566A29CA1474001F9892 /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImage;
 		};
 		65AABD2129C9FE930049AAA9 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 65AABD2029C9FE930049AAA9 /* XCRemoteSwiftPackageReference "Alamofire.git" */;
+			package = 65AABD2029C9FE930049AAA9 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
 		};
 		65AABD2429C9FEA20049AAA9 /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 65AABD2329C9FEA20049AAA9 /* XCRemoteSwiftPackageReference "lottie-ios.git" */;
+			package = 65AABD2329C9FEA20049AAA9 /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
