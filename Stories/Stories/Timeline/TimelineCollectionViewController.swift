@@ -9,8 +9,7 @@
 import UIKit
 import ViewAnimator
 import Lottie
-import RxSwift
-import RxCocoa
+import Combine
 
 class TimelineCollectionViewController: UIViewController,
                                         UICollectionViewDelegateFlowLayout,
@@ -19,11 +18,20 @@ class TimelineCollectionViewController: UIViewController,
                                         UITabBarControllerDelegate {
     private let cellIdentifier = "TimelineCollectionViewCell"
     private let viewModel: any TimelineCollectionViewModelContract
+
+    enum SectionKind: Int, CaseIterable {
+      case main
+    }
     @IBOutlet private weak var collectionView: UICollectionView!
+    typealias DataSource = UICollectionViewDiffableDataSource<SectionKind, Story>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<SectionKind, Story>
+    private var dataSource: DataSource?
+
     @IBOutlet private weak var loadingAnimationView: LottieAnimationView!
     @IBOutlet private weak var bubbleMessageViewContainer: UIView!
     private let refreshControl = UIRefreshControl()
-    private let disposeBag = DisposeBag()
+    private var observation: NSKeyValueObservation?
+    private var cancelBag = Set<AnyCancellable>()
 
     init(viewModel: any TimelineCollectionViewModelContract) {
         self.viewModel = viewModel
@@ -57,100 +65,108 @@ class TimelineCollectionViewController: UIViewController,
         bindViewModel()
         setupDesign()
 
-        viewModel.input.viewDidLoad.onNext(())
+        viewModel.input.viewDidLoad.send(())
+    }
+    
+    @objc
+    func didPullRefresh(_ sender: AnyObject) {
+        viewModel.input.refreshBegin.send(.online)
     }
     
     private func bindViewModel() {
         // refresh control
-        refreshControl.rx.controlEvent(.valueChanged)
-            .subscribe(onNext: { [weak self] in
-                self?.viewModel.input.refreshBegin.onNext(.online)
+        refreshControl.addTarget(self, action: #selector(self.didPullRefresh(_:)), for: .valueChanged)
+        viewModel.output.$isLoading
+            .sink(receiveValue: { [weak self] isLoading in
+                if isLoading {
+                    self?.collectionView.refreshControl?.beginRefreshing()
+                } else {
+                    self?.collectionView.refreshControl?.endRefreshing()
+                }
             })
-            .disposed(by: disposeBag)
-        viewModel.output.isLoading
-            .drive(collectionView.refreshControl!.rx.isRefreshing)
-            .disposed(by: disposeBag)
+            .store(in: &cancelBag)
         
         // loading timeline animation
-        viewModel.output.isLoading
-            .distinctUntilChanged()
+        viewModel.output.$isLoading
             // make sure animating between loading states is buffered by at least 0.8 seconds
-            .throttle(.milliseconds(800))
-            .drive(onNext: { [weak self] isLoading in
+            .removeDuplicates()
+            .throttle(for: 0.8,
+                      scheduler: DispatchQueue.main,
+                      latest: false)
+            .sink(receiveValue: { [weak self] isLoading in
                 if isLoading {
                     self?.initiateLoadingTimeline()
                 } else {
                     self?.finishLoadingTimeline()
                 }
             })
-            .disposed(by: disposeBag)
-
+            .store(in: &cancelBag)
+        
         // stories collection
-        viewModel.output.stories
-            .drive(collectionView.rx.items(cellIdentifier: cellIdentifier, cellType: TimelineCollectionViewCell.self)) { [weak self] collectionView, story, cell in
-                guard let strongSelf = self else { return }
-                cell.setUpWith(story: story, imageManager: strongSelf.viewModel.imageManager)
+        dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { [weak self] collectionView, indexPath, story in
+            guard let strongSelf = self else { return UICollectionViewCell() }
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: strongSelf.cellIdentifier,
+                                                                for: indexPath) as? TimelineCollectionViewCell else {
+                assertionFailure("could not dequeue an cell")
+                return UICollectionViewCell()
             }
-            .disposed(by: disposeBag)
+            
+            cell.setUpWith(story: story, imageManager: strongSelf.viewModel.imageManager)
+            
+            return cell
+        })
+        viewModel.output.$stories
+            .sink { [weak self] stories in
+                var snapshot = Snapshot()
+                snapshot.appendSections([.main])
+                snapshot.appendItems(stories)
+                self?.dataSource?.apply(snapshot, animatingDifferences: true)
+            }
+            .store(in: &cancelBag)
         
-        // loading next page
-        collectionView.rx.contentOffset
-            .flatMap({ [weak self] contentOffset in
-                guard let strongSelf = self else { return Signal<Void>.empty() }
-                return strongSelf.collectionView.contentOffset.y + strongSelf.collectionView.frame.size.height + strongSelf.getCellSize().height > strongSelf.collectionView.contentSize.height ?
-                    Signal.just(()) : Signal.empty()
-            })
-            .bind(to: viewModel.input.loadNextPage)
-            .disposed(by: disposeBag)
-        
-        // scrolling to top
-        collectionView.rx.contentOffset
-            .map({ [weak self] contentOffset in
-                guard let strongSelf = self else { return false }
-                return strongSelf.collectionView.contentOffset == .zero
-            })
-            .distinctUntilChanged()
-            .subscribe(onNext: { [weak self] isTopOfPage in
-                guard let strongSelf = self else { return }
-                strongSelf.viewModel.input.isTopOfPage.onNext(isTopOfPage)
-            })
-            .disposed(by: disposeBag)
-        viewModel.output.scrollToTop
-            .drive(onNext: { [weak self] in
-                self?.viewModel.input.isScrolling.onNext(true)
+        observation = collectionView.observe(\.contentOffset, options: .new) { [weak self] collectionView, change in
+            guard let strongSelf = self else { return }
+            
+            // loading next page
+            if strongSelf.collectionView.contentOffset.y + strongSelf.collectionView.frame.size.height + strongSelf.getCellSize().height > strongSelf.collectionView.contentSize.height {
+                strongSelf.viewModel.input.loadNextPage.send(())
+            }
+            
+            // scrolling to top
+            strongSelf.viewModel.input.isTopOfPage = strongSelf.collectionView.contentOffset == .zero
+        }
+
+        viewModel.output.$scrollToTop
+            .sink(receiveValue: { [weak self] in
+                self?.viewModel.input.isScrolling = true
                 self?.collectionView.setContentOffset(.zero, animated: true)
             })
-            .disposed(by: disposeBag)
-        
+            .store(in: &cancelBag)
+
         // error message
-        viewModel.output.error
-            .drive(onNext: { [weak self] message in
+        viewModel.output.$error
+            .filter { !$0.isEmpty }
+            .sink(receiveValue: { [weak self] message in
                 self?.presentError(message: message)
             })
-            .disposed(by: disposeBag)
-        
+            .store(in: &cancelBag)
+
         // bubble message
-        viewModel.output.bubbleMessage
-            .drive(onNext: { [weak self] message in
+        viewModel.output.$bubbleMessage
+            .filter { !$0.isEmpty }
+            .sink(receiveValue: { [weak self] message in
                 self?.presentBubbleMessage(message: message)
             })
-            .disposed(by: disposeBag)
-        
-        // story selection
-        collectionView.rx.itemSelected
-            .subscribe(onNext: { [weak self] indexPath in
-                self?.viewModel.input.cellTapped.onNext(indexPath.row)
-            })
-            .disposed(by: disposeBag)
+            .store(in: &cancelBag)
     }
     
     private func setupDesign() {
-        StoriesDesign.shared.output.theme
-            .drive { [weak self] theme in
-                guard let strongSelf = self else { return }
-                strongSelf.view.backgroundColor = theme.attributes.colors.primary()
-            }
-            .disposed(by: disposeBag)
+//        StoriesDesign.shared.output.theme
+//            .drive { [weak self] theme in
+//                guard let strongSelf = self else { return }
+//                strongSelf.view.backgroundColor = theme.attributes.colors.primary()
+//            }
+//            .store(in: &cancelBag)
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -166,6 +182,11 @@ class TimelineCollectionViewController: UIViewController,
         let height = TimelineCollectionViewCell.cellHeightToWidthRatio * width
         
         return CGSize(width: width, height: height)
+    }
+    
+    // MARK: UICollectionViewDelegate
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        viewModel.input.cellTapped.send(indexPath.row)
     }
     
     // MARK: UICollectionViewDelegateFlowLayout
@@ -187,21 +208,21 @@ class TimelineCollectionViewController: UIViewController,
     
     // MARK: UIScrollViewDelegate
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        viewModel.input.isScrolling.onNext(false)
+        viewModel.input.isScrolling = false
     }
 
     private func presentOfflineAlert(message: String) {
         let alert = StoriesAlertControllerFactory.createOfflineAlert(message: message, closeHandler: { [weak self] _ in
-            self?.viewModel.input.refreshBegin.onNext(.offline)
+            self?.viewModel.input.refreshBegin.send(.offline)
         })
         present(alert, animated: true, completion: nil)
     }
     
     private func presentError(message: String) {
         let alert = StoriesAlertControllerFactory.createAPIError(message: message, offlineHandler: { [weak self] _ in
-            self?.viewModel.input.refreshBegin.onNext(.offline)
+            self?.viewModel.input.refreshBegin.send(.offline)
             }, refreshHandler: { [weak self] _ in
-                self?.viewModel.input.refreshBegin.onNext(.online)
+                self?.viewModel.input.refreshBegin.send(.online)
         })
         present(alert, animated: true, completion: nil)
     }
@@ -231,7 +252,7 @@ class TimelineCollectionViewController: UIViewController,
         loadingAnimationView.play()
         AnimationController.fadeOutView(collectionView) { [weak self] completed in
             self?.refreshControl.endRefreshing()
-            self?.viewModel.input.refresh.onNext(())
+            self?.viewModel.input.refresh.send(())
         }
         AnimationController.fadeInView(loadingAnimationView, completion: nil)
     }

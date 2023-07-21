@@ -8,7 +8,8 @@
 
 import UIKit
 
-public struct Story: Codable, Equatable {
+public struct Story: Codable, Equatable, Hashable {
+    public var hashId = UUID().uuidString
     public let id: String?
     public let title: String?
     public let user: User?
@@ -16,7 +17,15 @@ public struct Story: Codable, Equatable {
     public let description: String?
     public let tags: [String]?
     
+    var identifier: String {
+        return hashId
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        return hasher.combine(identifier)
+    }
+    
     public static func == (lhs: Story, rhs: Story) -> Bool {
-        return lhs.id == rhs.id
+        return lhs.hashId == rhs.hashId
     }
 }
