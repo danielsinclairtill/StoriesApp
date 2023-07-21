@@ -1,44 +1,20 @@
 PODS:
-  - RxBlocking (6.5.0):
-    - RxSwift (= 6.5.0)
-  - RxCocoa (6.5.0):
-    - RxRelay (= 6.5.0)
-    - RxSwift (= 6.5.0)
-  - RxRelay (6.5.0):
-    - RxSwift (= 6.5.0)
-  - RxSwift (6.5.0)
-  - RxTest (6.5.0):
-    - RxSwift (= 6.5.0)
   - TagListView (1.4.1)
   - ViewAnimator (3.1.0)
 
 DEPENDENCIES:
-  - RxBlocking (= 6.5.0)
-  - RxCocoa (= 6.5.0)
-  - RxSwift (= 6.5.0)
-  - RxTest (= 6.5.0)
   - TagListView (~> 1.0)
   - ViewAnimator (= 3.1.0)
 
 SPEC REPOS:
   trunk:
-    - RxBlocking
-    - RxCocoa
-    - RxRelay
-    - RxSwift
-    - RxTest
     - TagListView
     - ViewAnimator
 
 SPEC CHECKSUMS:
-  RxBlocking: 04b5fd28bb5ea49f7d64b80db8bbfe50d9cc1c7d
-  RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
-  RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
-  RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
-  RxTest: eb2d23adefc5a5ebf5779c7792fa3edfe6ebcc17
   TagListView: a1c236d17960a0cf64156725a76ce6d73ebce2be
   ViewAnimator: a9ceed80266e00fd435ec4fb99b2df64d580d0e4
 
-PODFILE CHECKSUM: fc0780f0feca208ddf6562ebcd5275aeea31ff1a
+PODFILE CHECKSUM: 7547bb5a3eb031ff6c0849ce12d5f5452592b836
 
 COCOAPODS: 1.12.0
