@@ -15,7 +15,7 @@ public protocol APIContract {
     /// Bool determining if the device is currently connected to internet or not.
     func isConnectedToInternet() -> Bool
     
-    /// Manager used to download, prefetch, and cache images for employees.
+    /// Manager used to download, prefetch, and cache images for stories.
     var imageManager: ImageManagerContract { get }
     
     /// Function to handle a GET request for a certain API request, which must conform to the APIRequestContract.

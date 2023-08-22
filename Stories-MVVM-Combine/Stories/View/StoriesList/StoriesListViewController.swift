@@ -19,8 +19,8 @@ class EmployeeListViewController: UIViewController,
     private enum SectionKind: Int, CaseIterable {
         case main
     }
-    private typealias DataSource = UICollectionViewDiffableDataSource<SectionKind, Employee>
-    private typealias Snapshot = NSDiffableDataSourceSnapshot<SectionKind, Employee>
+    private typealias DataSource = UICollectionViewDiffableDataSource<SectionKind, Story>
+    private typealias Snapshot = NSDiffableDataSourceSnapshot<SectionKind, Story>
     private var dataSource: DataSource?
     
     private enum Sizes {
@@ -149,7 +149,7 @@ class EmployeeListViewController: UIViewController,
         
         // employees collection
         dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView,
-                                                        cellProvider: { [weak self] collectionView, indexPath, employee in
+                                                        cellProvider: { [weak self] collectionView, indexPath, story in
             guard let strongSelf = self else { return UICollectionViewCell() }
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: strongSelf.cellIdentifier,
                                                                 for: indexPath) as? EmployeeListCell else {
@@ -157,17 +157,17 @@ class EmployeeListViewController: UIViewController,
                 return UICollectionViewCell()
             }
             
-            cell.setUpWith(employee: employee,
+            cell.setUpWith(story: story,
                            imageManager: strongSelf.viewModel.imageManager)
             
             return cell
         })
         collectionView.dataSource = dataSource
-        viewModel.output.$employees
-            .sink { [weak self] employees in
+        viewModel.output.$stories
+            .sink { [weak self] stories in
                 var snapshot = Snapshot()
                 snapshot.appendSections([.main])
-                snapshot.appendItems(employees)
+                snapshot.appendItems(stories)
                 self?.dataSource?.apply(snapshot, animatingDifferences: false)
             }
             .store(in: &cancelBag)
@@ -270,7 +270,7 @@ class EmployeeListViewController: UIViewController,
         AnimationController.fadeInView(collectionView) { [weak self] completed in
             self?.collectionView.isScrollEnabled = true
         }
-        if viewModel.output.employees.isEmpty {
+        if viewModel.output.stories.isEmpty {
             AnimationController.fadeInView(emptyView)
         }
     }

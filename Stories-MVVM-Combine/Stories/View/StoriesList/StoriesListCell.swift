@@ -10,7 +10,10 @@ import UIKit
 import Combine
 
 class EmployeeListCell: UICollectionViewCell {
-    static let cellHeight: CGFloat = 160
+    static let cellHeight: CGFloat = 180
+    private enum Sizes {
+        static let avatar: CGFloat = 32
+    }
     private var cancelBag = Set<AnyCancellable>()
     
     private lazy var horizontalStack: UIStackView = {
@@ -25,31 +28,44 @@ class EmployeeListCell: UICollectionViewCell {
         let stackView = UIStackView()
         stackView.alignment = .leading
         stackView.axis = .vertical
-        stackView.spacing = 4.0
+        stackView.spacing = 8.0
         stackView.distribution = .fill
         return stackView
     }()
     
-    private lazy var photoView: AsyncImageView = {
+    private lazy var userStack: UIStackView = {
+        let stackView = UIStackView()
+        stackView.alignment = .center
+        stackView.axis = .horizontal
+        stackView.spacing = 4.0
+        return stackView
+    }()
+    
+    private lazy var avatarView: AsyncImageView = {
         return AsyncImageView(placeholderImage: UIImage(named: "UnkownUser"),
+                              cornerRadius: Sizes.avatar / 2.0)
+    }()
+    
+    private lazy var username: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.adjustsFontForContentSizeCategory = true
+        return label
+    }()
+    
+    private lazy var photoView: AsyncImageView = {
+        return AsyncImageView(placeholderImage: nil,
                               cornerRadius: StoriesDesign.shared.theme.attributes.dimensions.photoCornerRadius())
     }()
     
     private lazy var name: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 0
+        label.numberOfLines = 1
         label.adjustsFontForContentSizeCategory = true
         return label
     }()
     
-    private lazy var team: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.adjustsFontForContentSizeCategory = true
-        return label
-    }()
-    
-    private lazy var biography: UILabel = {
+    private lazy var descriptionText: UILabel = {
         let label = UILabel()
         label.numberOfLines = 2
         label.adjustsFontForContentSizeCategory = true
@@ -81,7 +97,7 @@ class EmployeeListCell: UICollectionViewCell {
         photoView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             photoView.widthAnchor.constraint(equalToConstant: 100),
-            photoView.heightAnchor.constraint(equalToConstant: 100),
+            photoView.heightAnchor.constraint(equalToConstant: 150),
         ])
         
         horizontalStack.addArrangedSubview(photoView)
@@ -92,13 +108,21 @@ class EmployeeListCell: UICollectionViewCell {
         // name
         detailStack.addArrangedSubview(name)
         
-        // team
-        team.setContentHuggingPriority(.defaultLow, for: .vertical)
-        detailStack.addArrangedSubview(team)
+        // user
+        detailStack.addArrangedSubview(userStack)
         
-        // biography
-        biography.setContentHuggingPriority(.defaultLow, for: .vertical)
-        detailStack.addArrangedSubview(biography)
+        // avatar
+        userStack.addArrangedSubview(avatarView)
+        avatarView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            avatarView.widthAnchor.constraint(equalToConstant: Sizes.avatar),
+            avatarView.heightAnchor.constraint(equalToConstant: Sizes.avatar),
+        ])
+        userStack.addArrangedSubview(username)
+                
+        // descriptionText
+        descriptionText.setContentHuggingPriority(.defaultLow, for: .vertical)
+        detailStack.addArrangedSubview(descriptionText)
     }
     
     private func setupDesign() {
@@ -111,10 +135,10 @@ class EmployeeListCell: UICollectionViewCell {
                 
                 strongSelf.name.font = theme.attributes.fonts.primaryTitle()
                 strongSelf.name.textColor = theme.attributes.colors.primaryFill()
-                strongSelf.team.font = theme.attributes.fonts.primaryTitle()
-                strongSelf.team.textColor = theme.attributes.colors.primaryFill()
-                strongSelf.biography.font = theme.attributes.fonts.body()
-                strongSelf.biography.textColor = theme.attributes.colors.primaryFill()
+                strongSelf.username.font = theme.attributes.fonts.primaryTitle()
+                strongSelf.username.textColor = theme.attributes.colors.primaryFill()
+                strongSelf.descriptionText.font = theme.attributes.fonts.body()
+                strongSelf.descriptionText.textColor = theme.attributes.colors.primaryFill()
             }
             .store(in: &cancelBag)
     }
@@ -123,22 +147,27 @@ class EmployeeListCell: UICollectionViewCell {
         super.prepareForReuse()
         
         name.text = ""
-        team.text = ""
-        biography.text = ""
+        username.text = ""
+        descriptionText.text = ""
         photoView.clearImage()
+        avatarView.clearImage()
         
         cancelBag = Set<AnyCancellable>()
     }
     
-    func setUpWith(employee: Employee,
+    func setUpWith(story: Story,
                    imageManager: ImageManagerContract) {
-        name.text = employee.fullName
-        team.text = "#\(employee.team)"
-        biography.text = employee.biography ?? ""
+        name.text = story.title
+        username.text = story.user?.name
+        descriptionText.text = story.description
         
-        if let photoUrl = employee.photoUrlSmall {
+        if let photoUrl = story.cover {
             photoView.setImage(url: photoUrl,
                                imageManager: imageManager)
+        }
+        if let avatarUrl = story.user?.avatar {
+            avatarView.setImage(url: avatarUrl,
+                                imageManager: imageManager)
         }
         
         setupDesign()

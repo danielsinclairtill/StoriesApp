@@ -10,7 +10,7 @@ import Network
 import Alamofire
 
 class StoriesAPI: APIContract {
-    let baseUrl = "https://s3.amazonaws.com/sq-mobile-interview/"
+    let baseUrl = "https://www.wattpad.com/api/v3/"
     let imageManager: ImageManagerContract = StoriesAPIImageManager()
     
     func isConnectedToInternet() -> Bool {

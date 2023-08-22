@@ -31,8 +31,8 @@ class EmployeeListViewModelInput: ObservableObject {
 
 // MARK: Output
 class EmployeeListViewModelOutput: ObservableObject {
-    /// The employees list to display.
-    @Published fileprivate(set) var employees: [Employee] = []
+    /// The stories list to display.
+    @Published fileprivate(set) var stories: [Story] = []
     /// Show the employee list in a loading and refreshing state.
     @Published fileprivate(set) var isLoading: Bool = false
     /// Show an error message to display over the employee list.
@@ -100,21 +100,21 @@ class EmployeeListViewModel: EmployeeListViewModelContract, ObservableObject {
     }
 
     private func updateData() {
-        environment.api.get(request: EmployeesRequests.EmployeeList()) { [weak self] result in
+        environment.api.get(request: StoriesRequests.StoriesTimelinePage()) { [weak self] result in
             guard let strongSelf = self else { return }
             switch result {
             case .success(let data):
-                guard !data.employees.isEmpty else {
+                guard !data.stories.isEmpty else {
                     // if no employees were recieved, assume there is an issue with the API
                     // keep whatever the previous state of the employees list was, and send an error
                     strongSelf.output.error = APIError.serverError.message
                     break
                 }
 
-                let newEmployees = data.employees
-                strongSelf.output.employees = newEmployees
+                let newStories = data.stories
+                strongSelf.output.stories = newStories
                 // prefetch the first 10 employee images required for the cells
-                strongSelf.prefetchImages(employees: Array(newEmployees.prefix(10)))
+                strongSelf.prefetchImages(employees: Array(newStories.prefix(10)))
             case .failure(let error):
                 // keep whatever the previous state of the employees list was, and send an error
                 strongSelf.output.error = error.message
@@ -123,14 +123,14 @@ class EmployeeListViewModel: EmployeeListViewModelContract, ObservableObject {
         }
     }
 
-    private func prefetchImages(employees: [Employee]) {
-        let prefetchImageURLs = employees.compactMap { $0.photoUrlSmall }
+    private func prefetchImages(employees: [Story]) {
+        let prefetchImageURLs = employees.compactMap { $0.cover }
         environment.api.imageManager.prefetchImages(prefetchImageURLs, reset: true)
     }
 
     private func setCellTapped() {
-        input.cellTapped.map { ($0, self.output.employees) }
-            .sink { (row, employees) in
+        input.cellTapped.map { ($0, self.output.stories) }
+            .sink { (row, stories) in
                 // no op
             }
             .store(in: &cancelBag)
