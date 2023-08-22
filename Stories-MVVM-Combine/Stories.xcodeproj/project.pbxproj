@@ -62,6 +62,7 @@
 		658F844B2A9502AB00AB1938 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 658F844A2A9502AB00AB1938 /* SDWebImage */; };
 		658F844E2A9502BE00AB1938 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 658F844D2A9502BE00AB1938 /* Alamofire */; };
 		65BCCFAA2A95296600917DE6 /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BCCFA92A95296600917DE6 /* AvatarView.swift */; };
+		65BCCFAD2A952DF000917DE6 /* StoryDetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BCCFAC2A952DF000917DE6 /* StoryDetailViewModelTests.swift */; };
 		A130913ADDB117C59513A1C5 /* Pods_StoriesTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5778ABF2A25D44F412C671D0 /* Pods_StoriesTests.framework */; };
 		D19C61A7BA2763EDAB8117F5 /* Pods_Stories.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4246F7CAAB6B69AF275DB23 /* Pods_Stories.framework */; };
 /* End PBXBuildFile section */
@@ -134,6 +135,7 @@
 		658F843E2A9501CF00AB1938 /* ModelMockData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelMockData.swift; sourceTree = "<group>"; };
 		658F843F2A9501CF00AB1938 /* StoriesStateManagerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesStateManagerMock.swift; sourceTree = "<group>"; };
 		65BCCFA92A95296600917DE6 /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
+		65BCCFAC2A952DF000917DE6 /* StoryDetailViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryDetailViewModelTests.swift; sourceTree = "<group>"; };
 		A89D5617034057D03C4C98D9 /* Pods-StoriesTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StoriesTests.debug.xcconfig"; path = "Target Support Files/Pods-StoriesTests/Pods-StoriesTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C1B85C6487F258BACA90053F /* Pods-Stories.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stories.release.xcconfig"; path = "Target Support Files/Pods-Stories/Pods-Stories.release.xcconfig"; sourceTree = "<group>"; };
 		D4246F7CAAB6B69AF275DB23 /* Pods_Stories.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Stories.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -222,8 +224,9 @@
 		658F83562A9500FF00AB1938 /* StoriesTests */ = {
 			isa = PBXGroup;
 			children = (
-				658F84382A9501CF00AB1938 /* StoriesList */,
 				658F843A2A9501CF00AB1938 /* MockModel */,
+				658F84382A9501CF00AB1938 /* StoriesList */,
+				65BCCFAB2A952DD900917DE6 /* StoryDetail */,
 			);
 			path = StoriesTests;
 			sourceTree = "<group>";
@@ -424,6 +427,14 @@
 				658F843F2A9501CF00AB1938 /* StoriesStateManagerMock.swift */,
 			);
 			path = MockModel;
+			sourceTree = "<group>";
+		};
+		65BCCFAB2A952DD900917DE6 /* StoryDetail */ = {
+			isa = PBXGroup;
+			children = (
+				65BCCFAC2A952DF000917DE6 /* StoryDetailViewModelTests.swift */,
+			);
+			path = StoryDetail;
 			sourceTree = "<group>";
 		};
 		C772D47CD1D0C98EDA8A6D61 /* Pods */ = {
@@ -671,6 +682,7 @@
 				658F84432A9501CF00AB1938 /* StoriesAPIMock.swift in Sources */,
 				658F84452A9501CF00AB1938 /* StoriesStateManagerMock.swift in Sources */,
 				658F84422A9501CF00AB1938 /* StoriesImageManagerMock.swift in Sources */,
+				65BCCFAD2A952DF000917DE6 /* StoryDetailViewModelTests.swift in Sources */,
 				658F84402A9501CF00AB1938 /* StoriesListViewModelTests.swift in Sources */,
 				658F84442A9501CF00AB1938 /* ModelMockData.swift in Sources */,
 			);
