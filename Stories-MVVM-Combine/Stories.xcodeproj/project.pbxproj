@@ -827,7 +827,7 @@
 			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
 			requirement = {
 				kind = exactVersion;
-				version = 5.9.5;
+				version = 5.17.0;
 			};
 		};
 		658F844C2A9502BE00AB1938 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
