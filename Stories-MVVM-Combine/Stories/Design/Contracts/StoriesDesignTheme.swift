@@ -1,6 +1,6 @@
 //
-//  SquareTakeHomeDesignTheme.swift
-//  SquareTakeHome
+//  StoriesDesignTheme.swift
+//  Stories
 //
 //
 //
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum SquareTakeHomeDesignTheme: String, CaseIterable {
+public enum StoriesDesignTheme: String, CaseIterable {
     case plain
     
     var attributes: Attributes {

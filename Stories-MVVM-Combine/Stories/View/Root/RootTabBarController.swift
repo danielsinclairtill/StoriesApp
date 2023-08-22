@@ -1,6 +1,6 @@
 //
 //  RootTabBarController.swift
-//  SquareTakeHome
+//  Stories
 //
 //
 //
@@ -35,7 +35,7 @@ class RootUITabBarController: UITabBarController, UITabBarControllerDelegate {
     }
     
     private func setupDesign() {
-        SquareTakeHomeDesign.shared.$theme
+        StoriesDesign.shared.$theme
             .sink { [weak self] theme in
                 guard let strongSelf = self else { return }
                 let appearance = UITabBarAppearance()

@@ -1,6 +1,6 @@
 //
 //  String+Localized.swift
-//  SquareTakeHome
+//  Stories
 //
 //
 //

@@ -1,6 +1,6 @@
 //
 //  ImageManagerContract.swift
-//  SquareTakeHome
+//  Stories
 //
 //
 //

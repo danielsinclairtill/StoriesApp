@@ -1,6 +1,6 @@
 //
 //  EmployeeListCoordinator.swift
-//  SquareTakeHome
+//  Stories
 //
 //
 //
@@ -27,7 +27,7 @@ class EmployeeListCoordinator: TabItemCoordinator {
     }
     
     func employeeList() {
-        let vm = EmployeeListViewModel(environment: SquareTakeHomeEnvironment.shared,
+        let vm = EmployeeListViewModel(environment: StoriesEnvironment.shared,
                                        coordinator: self)
         let vc = EmployeeListViewController(viewModel: vm)
         navigationController.viewControllers = [vc]

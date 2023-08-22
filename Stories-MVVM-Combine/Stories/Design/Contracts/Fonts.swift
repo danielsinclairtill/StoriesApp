@@ -1,6 +1,6 @@
 //
 //  Fonts.swift
-//  SquareTakeHome
+//  Stories
 //
 //
 //

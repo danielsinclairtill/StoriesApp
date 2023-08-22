@@ -1,6 +1,6 @@
 //
-//  SquareTakeHomeAPI.swift
-//  SquareTakeHome
+//  StoriesAPI.swift
+//  Stories
 //
 //
 //
@@ -9,9 +9,9 @@ import Foundation
 import Network
 import Alamofire
 
-class SquareTakeHomeAPI: APIContract {
+class StoriesAPI: APIContract {
     let baseUrl = "https://s3.amazonaws.com/sq-mobile-interview/"
-    let imageManager: ImageManagerContract = SquareTakeHomeAPIImageManager()
+    let imageManager: ImageManagerContract = StoriesAPIImageManager()
     
     func isConnectedToInternet() -> Bool {
         NetworkReachabilityManager()?.isReachable ?? false

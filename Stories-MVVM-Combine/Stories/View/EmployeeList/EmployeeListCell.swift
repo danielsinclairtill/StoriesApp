@@ -1,6 +1,6 @@
 //
 //  EmployeeListCell.swift
-//  SquareTakeHome
+//  Stories
 //
 //
 //
@@ -32,7 +32,7 @@ class EmployeeListCell: UICollectionViewCell {
     
     private lazy var photoView: AsyncImageView = {
         return AsyncImageView(placeholderImage: UIImage(named: "UnkownUser"),
-                              cornerRadius: SquareTakeHomeDesign.shared.theme.attributes.dimensions.photoCornerRadius())
+                              cornerRadius: StoriesDesign.shared.theme.attributes.dimensions.photoCornerRadius())
     }()
     
     private lazy var name: UILabel = {
@@ -102,7 +102,7 @@ class EmployeeListCell: UICollectionViewCell {
     }
     
     private func setupDesign() {
-        SquareTakeHomeDesign.shared.$theme
+        StoriesDesign.shared.$theme
             .sink { [weak self] theme in
                 guard let strongSelf = self else { return }
                 strongSelf.backgroundColor = theme.attributes.colors.primary()

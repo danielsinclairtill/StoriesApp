@@ -1,6 +1,6 @@
 //
 //  EmployeeListViewController.swift
-//  SquareTakeHome
+//  Stories
 //
 //
 //
@@ -68,7 +68,7 @@ class EmployeeListViewController: UIViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "com.danielsinclairtill.SquareTakeHome.employeeList.title".localized()
+        title = "com.danielsinclairtill.Stories.employeeList.title".localized()
         
         // empty view
         view.addSubview(emptyView)
@@ -196,7 +196,7 @@ class EmployeeListViewController: UIViewController,
     }
     
     private func setupDesign() {
-        SquareTakeHomeDesign.shared.$theme
+        StoriesDesign.shared.$theme
             .sink { [weak self] theme in
                 guard let strongSelf = self else { return }
                 strongSelf.emptyView.tintColor = theme.attributes.colors.primaryFill()

@@ -1,15 +1,15 @@
 //
-//  SquareTakeHomeAPI.swift
-//  SquareTakeHomeTests
+//  StoriesAPI.swift
+//  StoriesTests
 //
 //
 //
 //
 
 import Foundation
-@testable import SquareTakeHome
+@testable import Stories
 
-class SquareTakeHomeAPIMock: APIContract {
+class StoriesAPIMock: APIContract {
     /// Boolean value to mock an API session with or without internet connnection.
     var mockIsConnectedToInternet: Bool = true
     /// List of mock responses to occur during an API session in order. Can be a success or error response.
@@ -28,7 +28,7 @@ class SquareTakeHomeAPIMock: APIContract {
     let baseUrl = "https://www.test.com/"
 
     var imageManager: ImageManagerContract { return mockImageManager }
-    let mockImageManager: SquareTakeHomeImageManagerMock = SquareTakeHomeImageManagerMock()
+    let mockImageManager: StoriesImageManagerMock = StoriesImageManagerMock()
 
     func isConnectedToInternet() -> Bool {
         return mockIsConnectedToInternet

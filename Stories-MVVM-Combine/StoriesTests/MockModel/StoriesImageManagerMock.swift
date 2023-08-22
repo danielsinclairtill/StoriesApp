@@ -1,16 +1,16 @@
 //
-//  SquareTakeHomeImageManagerMock.swift
-//  SquareTakeHomeTests
+//  StoriesImageManagerMock.swift
+//  StoriesTests
 //
 //
 //
 //
 
 import Foundation
-@testable import SquareTakeHome
+@testable import Stories
 import UIKit
 
-class SquareTakeHomeImageManagerMock: ImageManagerContract {
+class StoriesImageManagerMock: ImageManagerContract {
     /// List of mock prefetch taks called during this API session in order.
     var mockPrefetchTaskURLs: [URL] = []
     

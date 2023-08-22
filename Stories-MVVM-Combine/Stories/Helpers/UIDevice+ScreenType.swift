@@ -1,6 +1,6 @@
 //
 //  UIDevice+ScreenType.swift
-//  SquareTakeHome
+//  Stories
 //
 //
 //

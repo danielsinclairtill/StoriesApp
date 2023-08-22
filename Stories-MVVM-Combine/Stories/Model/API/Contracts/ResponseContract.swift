@@ -1,6 +1,6 @@
 //
 //  ResponseContract.swift
-//  SquareTakeHome
+//  Stories
 //
 //
 //

@@ -1,6 +1,6 @@
 //
 //  APIError.swift
-//  SquareTakeHome
+//  Stories
 //
 //
 //
@@ -19,11 +19,11 @@ public enum APIError: Error {
     var message: String {
         switch self {
         case .offline:
-            return "com.danielsinclairtill.SquareTakeHome.apiError.message.offlineMode".localized()
+            return "com.danielsinclairtill.Stories.apiError.message.offlineMode".localized()
         case .lostConnection:
-            return "com.danielsinclairtill.SquareTakeHome.apiError.message.noConnection".localized()
+            return "com.danielsinclairtill.Stories.apiError.message.noConnection".localized()
         case .serverError:
-            return "com.danielsinclairtill.SquareTakeHome.apiError.message.serverError".localized()
+            return "com.danielsinclairtill.Stories.apiError.message.serverError".localized()
         }
     }
 }

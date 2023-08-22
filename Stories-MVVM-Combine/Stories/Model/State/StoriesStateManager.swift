@@ -1,6 +1,6 @@
 //
-//  SquareTakeHomeStateManager.swift
-//  SquareTakeHome
+//  StoriesStateManager.swift
+//  Stories
 //
 //
 //
@@ -8,14 +8,14 @@
 
 import Foundation
 
-class SquareTakeHomeStateManager: SquareTakeHomeStateContract {
-    static let shared: SquareTakeHomeStateManager = SquareTakeHomeStateManager()
+class StoriesStateManager: StoriesStateContract {
+    static let shared: StoriesStateManager = StoriesStateManager()
     private let defaults = UserDefaults.standard
 
-    var theme: SquareTakeHomeDesignTheme {
+    var theme: StoriesDesignTheme {
         get {
             guard let themeString = defaults.string(forKey: "theme"),
-                    let theme = SquareTakeHomeDesignTheme(rawValue: themeString) else {
+                    let theme = StoriesDesignTheme(rawValue: themeString) else {
                 return .plain
             }
             return theme

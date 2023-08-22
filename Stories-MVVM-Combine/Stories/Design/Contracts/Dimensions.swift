@@ -1,6 +1,6 @@
 //
 //  Dimensions.swift
-//  SquareTakeHome
+//  Stories
 //
 //
 //

@@ -1,6 +1,6 @@
 //
 //  Coordinator.swift
-//  SquareTakeHome
+//  Stories
 //
 //
 //

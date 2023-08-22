@@ -11,8 +11,8 @@
 		658F84112A95016900AB1938 /* loading_animation.json in Resources */ = {isa = PBXBuildFile; fileRef = 658F83D52A95016800AB1938 /* loading_animation.json */; };
 		658F84122A95016900AB1938 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F83D62A95016800AB1938 /* AppDelegate.swift */; };
 		658F84142A95016A00AB1938 /* EnvironmentContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F83D92A95016900AB1938 /* EnvironmentContract.swift */; };
-		658F84152A95016A00AB1938 /* SquareTakeHomeStateContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F83DB2A95016900AB1938 /* SquareTakeHomeStateContract.swift */; };
-		658F84162A95016A00AB1938 /* SquareTakeHomeStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F83DC2A95016900AB1938 /* SquareTakeHomeStateManager.swift */; };
+		658F84152A95016A00AB1938 /* StoriesStateContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F83DB2A95016900AB1938 /* StoriesStateContract.swift */; };
+		658F84162A95016A00AB1938 /* StoriesStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F83DC2A95016900AB1938 /* StoriesStateManager.swift */; };
 		658F84172A95016A00AB1938 /* RequestContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F83DF2A95016900AB1938 /* RequestContract.swift */; };
 		658F84182A95016A00AB1938 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F83E02A95016900AB1938 /* APIError.swift */; };
 		658F84192A95016A00AB1938 /* APIContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F83E12A95016900AB1938 /* APIContract.swift */; };
@@ -20,15 +20,15 @@
 		658F841B2A95016A00AB1938 /* ResponseContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F83E32A95016900AB1938 /* ResponseContract.swift */; };
 		658F841C2A95016A00AB1938 /* ImageManagerContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F83E42A95016900AB1938 /* ImageManagerContract.swift */; };
 		658F841D2A95016A00AB1938 /* EmployeesRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F83E62A95016900AB1938 /* EmployeesRequests.swift */; };
-		658F841E2A95016A00AB1938 /* SquareTakeHomeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F83E72A95016900AB1938 /* SquareTakeHomeAPI.swift */; };
-		658F841F2A95016A00AB1938 /* SquareTakeHomeImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F83E82A95016900AB1938 /* SquareTakeHomeImageManager.swift */; };
-		658F84202A95016A00AB1938 /* SquareTakeHomeEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F83E92A95016900AB1938 /* SquareTakeHomeEnvironment.swift */; };
+		658F841E2A95016A00AB1938 /* StoriesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F83E72A95016900AB1938 /* StoriesAPI.swift */; };
+		658F841F2A95016A00AB1938 /* StoriesImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F83E82A95016900AB1938 /* StoriesImageManager.swift */; };
+		658F84202A95016A00AB1938 /* StoriesEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F83E92A95016900AB1938 /* StoriesEnvironment.swift */; };
 		658F84212A95016A00AB1938 /* Employee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F83EB2A95016900AB1938 /* Employee.swift */; };
 		658F84222A95016A00AB1938 /* EmployeeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F83EE2A95016900AB1938 /* EmployeeListViewController.swift */; };
 		658F84232A95016A00AB1938 /* EmployeeListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F83EF2A95016900AB1938 /* EmployeeListViewModel.swift */; };
 		658F84242A95016A00AB1938 /* EmployeeListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F83F02A95016900AB1938 /* EmployeeListCell.swift */; };
 		658F84252A95016A00AB1938 /* RootTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F83F22A95016900AB1938 /* RootTabBarController.swift */; };
-		658F84262A95016A00AB1938 /* SquareTakeHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F83F42A95016900AB1938 /* SquareTakeHomeViewModel.swift */; };
+		658F84262A95016A00AB1938 /* StoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F83F42A95016900AB1938 /* StoriesViewModel.swift */; };
 		658F84272A95016A00AB1938 /* AlertFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F83F62A95016900AB1938 /* AlertFactory.swift */; };
 		658F84282A95016A00AB1938 /* AsyncImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F83F72A95016900AB1938 /* AsyncImageView.swift */; };
 		658F84292A95016A00AB1938 /* AnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F83F92A95016900AB1938 /* AnimationController.swift */; };
@@ -38,8 +38,8 @@
 		658F842D2A95016A00AB1938 /* Dimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F84002A95016900AB1938 /* Dimensions.swift */; };
 		658F842E2A95016A00AB1938 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F84012A95016900AB1938 /* Fonts.swift */; };
 		658F842F2A95016A00AB1938 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F84022A95016900AB1938 /* Colors.swift */; };
-		658F84302A95016A00AB1938 /* SquareTakeHomeDesignTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F84032A95016900AB1938 /* SquareTakeHomeDesignTheme.swift */; };
-		658F84312A95016A00AB1938 /* SquareTakeHomeDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F84042A95016900AB1938 /* SquareTakeHomeDesign.swift */; };
+		658F84302A95016A00AB1938 /* StoriesDesignTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F84032A95016900AB1938 /* StoriesDesignTheme.swift */; };
+		658F84312A95016A00AB1938 /* StoriesDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F84042A95016900AB1938 /* StoriesDesign.swift */; };
 		658F84322A95016A00AB1938 /* PlainTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F84062A95016900AB1938 /* PlainTheme.swift */; };
 		658F84332A95016A00AB1938 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 658F84082A95016900AB1938 /* LaunchScreen.storyboard */; };
 		658F84342A95016A00AB1938 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 658F840A2A95016900AB1938 /* Localizable.strings */; };
@@ -47,11 +47,11 @@
 		658F84362A95016A00AB1938 /* TabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F840E2A95016900AB1938 /* TabCoordinator.swift */; };
 		658F84372A95016A00AB1938 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F840F2A95016900AB1938 /* Coordinator.swift */; };
 		658F84402A9501CF00AB1938 /* EmployeeListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F84392A9501CF00AB1938 /* EmployeeListViewModelTests.swift */; };
-		658F84412A9501CF00AB1938 /* SquareTakeHomeEnvironmentMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F843B2A9501CF00AB1938 /* SquareTakeHomeEnvironmentMock.swift */; };
-		658F84422A9501CF00AB1938 /* SquareTakeHomeImageManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F843C2A9501CF00AB1938 /* SquareTakeHomeImageManagerMock.swift */; };
-		658F84432A9501CF00AB1938 /* SquareTakeHomeAPIMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F843D2A9501CF00AB1938 /* SquareTakeHomeAPIMock.swift */; };
+		658F84412A9501CF00AB1938 /* StoriesEnvironmentMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F843B2A9501CF00AB1938 /* StoriesEnvironmentMock.swift */; };
+		658F84422A9501CF00AB1938 /* StoriesImageManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F843C2A9501CF00AB1938 /* StoriesImageManagerMock.swift */; };
+		658F84432A9501CF00AB1938 /* StoriesAPIMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F843D2A9501CF00AB1938 /* StoriesAPIMock.swift */; };
 		658F84442A9501CF00AB1938 /* ModelMockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F843E2A9501CF00AB1938 /* ModelMockData.swift */; };
-		658F84452A9501CF00AB1938 /* SquareTakeHomeStateManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F843F2A9501CF00AB1938 /* SquareTakeHomeStateManagerMock.swift */; };
+		658F84452A9501CF00AB1938 /* StoriesStateManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F843F2A9501CF00AB1938 /* StoriesStateManagerMock.swift */; };
 		658F84482A95028300AB1938 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 658F84472A95028300AB1938 /* Lottie */; };
 		658F844B2A9502AB00AB1938 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 658F844A2A9502AB00AB1938 /* SDWebImage */; };
 		658F844E2A9502BE00AB1938 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 658F844D2A9502BE00AB1938 /* Alamofire */; };
@@ -75,8 +75,8 @@
 		658F83D62A95016800AB1938 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		658F83D72A95016800AB1938 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		658F83D92A95016900AB1938 /* EnvironmentContract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentContract.swift; sourceTree = "<group>"; };
-		658F83DB2A95016900AB1938 /* SquareTakeHomeStateContract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquareTakeHomeStateContract.swift; sourceTree = "<group>"; };
-		658F83DC2A95016900AB1938 /* SquareTakeHomeStateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquareTakeHomeStateManager.swift; sourceTree = "<group>"; };
+		658F83DB2A95016900AB1938 /* StoriesStateContract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesStateContract.swift; sourceTree = "<group>"; };
+		658F83DC2A95016900AB1938 /* StoriesStateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesStateManager.swift; sourceTree = "<group>"; };
 		658F83DF2A95016900AB1938 /* RequestContract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestContract.swift; sourceTree = "<group>"; };
 		658F83E02A95016900AB1938 /* APIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		658F83E12A95016900AB1938 /* APIContract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIContract.swift; sourceTree = "<group>"; };
@@ -84,15 +84,15 @@
 		658F83E32A95016900AB1938 /* ResponseContract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseContract.swift; sourceTree = "<group>"; };
 		658F83E42A95016900AB1938 /* ImageManagerContract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageManagerContract.swift; sourceTree = "<group>"; };
 		658F83E62A95016900AB1938 /* EmployeesRequests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmployeesRequests.swift; sourceTree = "<group>"; };
-		658F83E72A95016900AB1938 /* SquareTakeHomeAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquareTakeHomeAPI.swift; sourceTree = "<group>"; };
-		658F83E82A95016900AB1938 /* SquareTakeHomeImageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquareTakeHomeImageManager.swift; sourceTree = "<group>"; };
-		658F83E92A95016900AB1938 /* SquareTakeHomeEnvironment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquareTakeHomeEnvironment.swift; sourceTree = "<group>"; };
+		658F83E72A95016900AB1938 /* StoriesAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesAPI.swift; sourceTree = "<group>"; };
+		658F83E82A95016900AB1938 /* StoriesImageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesImageManager.swift; sourceTree = "<group>"; };
+		658F83E92A95016900AB1938 /* StoriesEnvironment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesEnvironment.swift; sourceTree = "<group>"; };
 		658F83EB2A95016900AB1938 /* Employee.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Employee.swift; sourceTree = "<group>"; };
 		658F83EE2A95016900AB1938 /* EmployeeListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmployeeListViewController.swift; sourceTree = "<group>"; };
 		658F83EF2A95016900AB1938 /* EmployeeListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmployeeListViewModel.swift; sourceTree = "<group>"; };
 		658F83F02A95016900AB1938 /* EmployeeListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmployeeListCell.swift; sourceTree = "<group>"; };
 		658F83F22A95016900AB1938 /* RootTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootTabBarController.swift; sourceTree = "<group>"; };
-		658F83F42A95016900AB1938 /* SquareTakeHomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquareTakeHomeViewModel.swift; sourceTree = "<group>"; };
+		658F83F42A95016900AB1938 /* StoriesViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesViewModel.swift; sourceTree = "<group>"; };
 		658F83F62A95016900AB1938 /* AlertFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertFactory.swift; sourceTree = "<group>"; };
 		658F83F72A95016900AB1938 /* AsyncImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncImageView.swift; sourceTree = "<group>"; };
 		658F83F92A95016900AB1938 /* AnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationController.swift; sourceTree = "<group>"; };
@@ -102,8 +102,8 @@
 		658F84002A95016900AB1938 /* Dimensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dimensions.swift; sourceTree = "<group>"; };
 		658F84012A95016900AB1938 /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		658F84022A95016900AB1938 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
-		658F84032A95016900AB1938 /* SquareTakeHomeDesignTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquareTakeHomeDesignTheme.swift; sourceTree = "<group>"; };
-		658F84042A95016900AB1938 /* SquareTakeHomeDesign.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquareTakeHomeDesign.swift; sourceTree = "<group>"; };
+		658F84032A95016900AB1938 /* StoriesDesignTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesDesignTheme.swift; sourceTree = "<group>"; };
+		658F84042A95016900AB1938 /* StoriesDesign.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesDesign.swift; sourceTree = "<group>"; };
 		658F84062A95016900AB1938 /* PlainTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlainTheme.swift; sourceTree = "<group>"; };
 		658F84092A95016900AB1938 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		658F840B2A95016900AB1938 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localizable.strings; sourceTree = "<group>"; };
@@ -111,11 +111,11 @@
 		658F840E2A95016900AB1938 /* TabCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabCoordinator.swift; sourceTree = "<group>"; };
 		658F840F2A95016900AB1938 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		658F84392A9501CF00AB1938 /* EmployeeListViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmployeeListViewModelTests.swift; sourceTree = "<group>"; };
-		658F843B2A9501CF00AB1938 /* SquareTakeHomeEnvironmentMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquareTakeHomeEnvironmentMock.swift; sourceTree = "<group>"; };
-		658F843C2A9501CF00AB1938 /* SquareTakeHomeImageManagerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquareTakeHomeImageManagerMock.swift; sourceTree = "<group>"; };
-		658F843D2A9501CF00AB1938 /* SquareTakeHomeAPIMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquareTakeHomeAPIMock.swift; sourceTree = "<group>"; };
+		658F843B2A9501CF00AB1938 /* StoriesEnvironmentMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesEnvironmentMock.swift; sourceTree = "<group>"; };
+		658F843C2A9501CF00AB1938 /* StoriesImageManagerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesImageManagerMock.swift; sourceTree = "<group>"; };
+		658F843D2A9501CF00AB1938 /* StoriesAPIMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesAPIMock.swift; sourceTree = "<group>"; };
 		658F843E2A9501CF00AB1938 /* ModelMockData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelMockData.swift; sourceTree = "<group>"; };
-		658F843F2A9501CF00AB1938 /* SquareTakeHomeStateManagerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquareTakeHomeStateManagerMock.swift; sourceTree = "<group>"; };
+		658F843F2A9501CF00AB1938 /* StoriesStateManagerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesStateManagerMock.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,7 +189,7 @@
 				658F83D92A95016900AB1938 /* EnvironmentContract.swift */,
 				658F83DA2A95016900AB1938 /* State */,
 				658F83DD2A95016900AB1938 /* API */,
-				658F83E92A95016900AB1938 /* SquareTakeHomeEnvironment.swift */,
+				658F83E92A95016900AB1938 /* StoriesEnvironment.swift */,
 				658F83EA2A95016900AB1938 /* Data */,
 			);
 			path = Model;
@@ -198,8 +198,8 @@
 		658F83DA2A95016900AB1938 /* State */ = {
 			isa = PBXGroup;
 			children = (
-				658F83DB2A95016900AB1938 /* SquareTakeHomeStateContract.swift */,
-				658F83DC2A95016900AB1938 /* SquareTakeHomeStateManager.swift */,
+				658F83DB2A95016900AB1938 /* StoriesStateContract.swift */,
+				658F83DC2A95016900AB1938 /* StoriesStateManager.swift */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -209,8 +209,8 @@
 			children = (
 				658F83DE2A95016900AB1938 /* Contracts */,
 				658F83E52A95016900AB1938 /* Requests */,
-				658F83E72A95016900AB1938 /* SquareTakeHomeAPI.swift */,
-				658F83E82A95016900AB1938 /* SquareTakeHomeImageManager.swift */,
+				658F83E72A95016900AB1938 /* StoriesAPI.swift */,
+				658F83E82A95016900AB1938 /* StoriesImageManager.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -276,7 +276,7 @@
 		658F83F32A95016900AB1938 /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				658F83F42A95016900AB1938 /* SquareTakeHomeViewModel.swift */,
+				658F83F42A95016900AB1938 /* StoriesViewModel.swift */,
 				658F83F52A95016900AB1938 /* Components */,
 			);
 			path = Base;
@@ -312,7 +312,7 @@
 			isa = PBXGroup;
 			children = (
 				658F83FE2A95016900AB1938 /* Contracts */,
-				658F84042A95016900AB1938 /* SquareTakeHomeDesign.swift */,
+				658F84042A95016900AB1938 /* StoriesDesign.swift */,
 				658F84052A95016900AB1938 /* Themes */,
 			);
 			path = Design;
@@ -325,7 +325,7 @@
 				658F84002A95016900AB1938 /* Dimensions.swift */,
 				658F84012A95016900AB1938 /* Fonts.swift */,
 				658F84022A95016900AB1938 /* Colors.swift */,
-				658F84032A95016900AB1938 /* SquareTakeHomeDesignTheme.swift */,
+				658F84032A95016900AB1938 /* StoriesDesignTheme.swift */,
 			);
 			path = Contracts;
 			sourceTree = "<group>";
@@ -368,11 +368,11 @@
 		658F843A2A9501CF00AB1938 /* MockModel */ = {
 			isa = PBXGroup;
 			children = (
-				658F843B2A9501CF00AB1938 /* SquareTakeHomeEnvironmentMock.swift */,
-				658F843C2A9501CF00AB1938 /* SquareTakeHomeImageManagerMock.swift */,
-				658F843D2A9501CF00AB1938 /* SquareTakeHomeAPIMock.swift */,
 				658F843E2A9501CF00AB1938 /* ModelMockData.swift */,
-				658F843F2A9501CF00AB1938 /* SquareTakeHomeStateManagerMock.swift */,
+				658F843B2A9501CF00AB1938 /* StoriesEnvironmentMock.swift */,
+				658F843C2A9501CF00AB1938 /* StoriesImageManagerMock.swift */,
+				658F843D2A9501CF00AB1938 /* StoriesAPIMock.swift */,
+				658F843F2A9501CF00AB1938 /* StoriesStateManagerMock.swift */,
 			);
 			path = MockModel;
 			sourceTree = "<group>";
@@ -490,29 +490,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				658F842E2A95016A00AB1938 /* Fonts.swift in Sources */,
-				658F841F2A95016A00AB1938 /* SquareTakeHomeImageManager.swift in Sources */,
+				658F841F2A95016A00AB1938 /* StoriesImageManager.swift in Sources */,
 				658F841B2A95016A00AB1938 /* ResponseContract.swift in Sources */,
-				658F84162A95016A00AB1938 /* SquareTakeHomeStateManager.swift in Sources */,
+				658F84162A95016A00AB1938 /* StoriesStateManager.swift in Sources */,
 				658F84362A95016A00AB1938 /* TabCoordinator.swift in Sources */,
 				658F841D2A95016A00AB1938 /* EmployeesRequests.swift in Sources */,
-				658F84312A95016A00AB1938 /* SquareTakeHomeDesign.swift in Sources */,
-				658F841E2A95016A00AB1938 /* SquareTakeHomeAPI.swift in Sources */,
+				658F84312A95016A00AB1938 /* StoriesDesign.swift in Sources */,
+				658F841E2A95016A00AB1938 /* StoriesAPI.swift in Sources */,
 				658F84282A95016A00AB1938 /* AsyncImageView.swift in Sources */,
 				658F84122A95016900AB1938 /* AppDelegate.swift in Sources */,
 				658F84192A95016A00AB1938 /* APIContract.swift in Sources */,
-				658F84152A95016A00AB1938 /* SquareTakeHomeStateContract.swift in Sources */,
+				658F84152A95016A00AB1938 /* StoriesStateContract.swift in Sources */,
 				658F84352A95016A00AB1938 /* EmployeeListCoordinator.swift in Sources */,
 				658F841A2A95016A00AB1938 /* APIRequestContract.swift in Sources */,
 				658F84252A95016A00AB1938 /* RootTabBarController.swift in Sources */,
 				658F84142A95016A00AB1938 /* EnvironmentContract.swift in Sources */,
 				658F84272A95016A00AB1938 /* AlertFactory.swift in Sources */,
-				658F84202A95016A00AB1938 /* SquareTakeHomeEnvironment.swift in Sources */,
+				658F84202A95016A00AB1938 /* StoriesEnvironment.swift in Sources */,
 				658F84172A95016A00AB1938 /* RequestContract.swift in Sources */,
 				658F84222A95016A00AB1938 /* EmployeeListViewController.swift in Sources */,
 				658F84322A95016A00AB1938 /* PlainTheme.swift in Sources */,
 				658F84242A95016A00AB1938 /* EmployeeListCell.swift in Sources */,
 				658F842D2A95016A00AB1938 /* Dimensions.swift in Sources */,
-				658F84262A95016A00AB1938 /* SquareTakeHomeViewModel.swift in Sources */,
+				658F84262A95016A00AB1938 /* StoriesViewModel.swift in Sources */,
 				658F842F2A95016A00AB1938 /* Colors.swift in Sources */,
 				658F842A2A95016A00AB1938 /* String+Localized.swift in Sources */,
 				658F84292A95016A00AB1938 /* AnimationController.swift in Sources */,
@@ -520,7 +520,7 @@
 				658F842C2A95016A00AB1938 /* Attributes.swift in Sources */,
 				658F84182A95016A00AB1938 /* APIError.swift in Sources */,
 				658F842B2A95016A00AB1938 /* UIDevice+ScreenType.swift in Sources */,
-				658F84302A95016A00AB1938 /* SquareTakeHomeDesignTheme.swift in Sources */,
+				658F84302A95016A00AB1938 /* StoriesDesignTheme.swift in Sources */,
 				658F84212A95016A00AB1938 /* Employee.swift in Sources */,
 				658F841C2A95016A00AB1938 /* ImageManagerContract.swift in Sources */,
 				658F84232A95016A00AB1938 /* EmployeeListViewModel.swift in Sources */,
@@ -531,10 +531,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				658F84412A9501CF00AB1938 /* SquareTakeHomeEnvironmentMock.swift in Sources */,
-				658F84432A9501CF00AB1938 /* SquareTakeHomeAPIMock.swift in Sources */,
-				658F84452A9501CF00AB1938 /* SquareTakeHomeStateManagerMock.swift in Sources */,
-				658F84422A9501CF00AB1938 /* SquareTakeHomeImageManagerMock.swift in Sources */,
+				658F84412A9501CF00AB1938 /* StoriesEnvironmentMock.swift in Sources */,
+				658F84432A9501CF00AB1938 /* StoriesAPIMock.swift in Sources */,
+				658F84452A9501CF00AB1938 /* StoriesStateManagerMock.swift in Sources */,
+				658F84422A9501CF00AB1938 /* StoriesImageManagerMock.swift in Sources */,
 				658F84402A9501CF00AB1938 /* EmployeeListViewModelTests.swift in Sources */,
 				658F84442A9501CF00AB1938 /* ModelMockData.swift in Sources */,
 			);

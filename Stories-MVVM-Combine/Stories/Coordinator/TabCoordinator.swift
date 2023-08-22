@@ -1,6 +1,6 @@
 //
 //  TabCoordinator.swift
-//  SquareTakeHome
+//  Stories
 //
 //
 //
@@ -44,7 +44,7 @@ class TabCoordinator: Coordinator {
     }
     
     private func formatNavigationControllerUI<Controller: UINavigationController>(_ navigationController: Controller) -> Controller {
-        SquareTakeHomeDesign.shared.$theme
+        StoriesDesign.shared.$theme
             .sink(receiveValue: { theme in
                 navigationController.navigationBar.barTintColor = theme.attributes.colors.primary()
                 let appearance = UINavigationBarAppearance()
@@ -61,7 +61,7 @@ class TabCoordinator: Coordinator {
     
     private func employeeListTab() -> EmployeeListCoordinator {
         let navigationController = formatNavigationControllerUI(UINavigationController())
-        navigationController.tabBarItem = UITabBarItem(title: "com.danielsinclairtill.SquareTakeHome.employeeList.title".localized(),
+        navigationController.tabBarItem = UITabBarItem(title: "com.danielsinclairtill.Stories.employeeList.title".localized(),
                                                        image: #imageLiteral(resourceName: "ListUnselected"),
                                                        selectedImage: #imageLiteral(resourceName: "List"))
         let coordinator = EmployeeListCoordinator(parentCoordinator: self,

@@ -1,6 +1,6 @@
 //
-//  SquareTakeHomeAPIImageManager.swift
-//  SquareTakeHome
+//  StoriesAPIImageManager.swift
+//  Stories
 //
 //
 //
@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import SDWebImage
 
-class SquareTakeHomeAPIImageManager: ImageManagerContract {
+class StoriesAPIImageManager: ImageManagerContract {
     private var prefetchTask: SDWebImagePrefetchToken?
     
     func prefetchImages(_ urls: [URL], reset: Bool) {

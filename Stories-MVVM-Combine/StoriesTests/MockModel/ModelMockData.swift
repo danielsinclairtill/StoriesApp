@@ -1,13 +1,13 @@
 //
 //  ModelMockData.swift
-//  SquareTakeHomeTests
+//  StoriesTests
 //
 //
 //
 //
 
 import Foundation
-@testable import SquareTakeHome
+@testable import Stories
 
 class ModelMockData {
     /// Make a count of employee objects.

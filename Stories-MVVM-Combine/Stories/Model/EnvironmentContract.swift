@@ -1,6 +1,6 @@
 //
 //  EnvironmentContract.swift
-//  SquareTakeHome
+//  Stories
 //
 //
 //
@@ -9,5 +9,5 @@ import Foundation
 
 protocol EnvironmentContract {
     var api: APIContract { get }
-    var state: SquareTakeHomeStateContract { get }
+    var state: StoriesStateContract { get }
 }

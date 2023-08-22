@@ -1,6 +1,6 @@
 //
 //  AsyncImageView.swift
-//  SquareTakeHome
+//  Stories
 //
 //
 //
@@ -20,7 +20,7 @@ class AsyncImageView: UIView {
         let placeholder = UIImageView()
         placeholder.image = placeholderImage
         placeholder.alpha = 1.0
-        placeholder.backgroundColor = SquareTakeHomeDesign.shared.theme.attributes.colors.temporary()
+        placeholder.backgroundColor = StoriesDesign.shared.theme.attributes.colors.temporary()
         placeholder.layer.cornerRadius = cornerRadius
         placeholder.clipsToBounds = true
         
@@ -79,7 +79,7 @@ class AsyncImageView: UIView {
     }
     
     private func setDesign() {
-        SquareTakeHomeDesign.shared.$theme
+        StoriesDesign.shared.$theme
             .sink { [weak self] theme in
                 self?.placeholder.backgroundColor = theme.attributes.colors.temporary()
             }

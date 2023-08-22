@@ -1,13 +1,13 @@
 //
-//  SquareTakeHomeViewModel.swift
-//  SquareTakeHome
+//  StoriesViewModel.swift
+//  Stories
 //
 //
 //
 
 import Foundation
 
-protocol SquareTakeHomeViewModel {
+protocol StoriesViewModel {
     associatedtype Input
     associatedtype Output
 

@@ -1,6 +1,6 @@
 //
 //  EmployeeListViewModelTests.swift
-//  SquareTakeHome
+//  Stories
 //
 //
 //
@@ -8,10 +8,10 @@
 
 import XCTest
 import Combine
-@testable import SquareTakeHome
+@testable import Stories
 
 class EmployeeListViewModelTests: XCTestCase {
-    private let mockEnvironment: SquareTakeHomeEnvironmentMock = SquareTakeHomeEnvironmentMock()
+    private let mockEnvironment: StoriesEnvironmentMock = StoriesEnvironmentMock()
     private let mockCoordinator = EmployeeListCoordinator(parentCoordinator: nil,
                                                           navigationController: UINavigationController())
     private var cancelBag = Set<AnyCancellable>()

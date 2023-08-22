@@ -1,6 +1,6 @@
 //
 //  Colors.swift
-//  SquareTakeHome
+//  Stories
 //
 //
 //

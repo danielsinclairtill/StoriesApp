@@ -1,6 +1,6 @@
 //
 //  PlainTheme.swift
-//  SquareTakeHome
+//  Stories
 //
 //
 //

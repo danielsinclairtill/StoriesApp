@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  SquareTakeHome
+//  Stories
 //
 //
 //

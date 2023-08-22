@@ -1,20 +1,20 @@
 /* 
   Localizable.strings
-  SquareTakeHome
+  Stories
 
 
   
 */
 
 // MARK: EmployeeList
-"com.danielsinclairtill.SquareTakeHome.employeeList.title" = "Employees";
+"com.danielsinclairtill.Stories.employeeList.title" = "Employees";
 
 // MARK: APIErorr
-"com.danielsinclairtill.SquareTakeHome.apiError.message.offlineMode" = "There seems to be no internet connection.";
-"com.danielsinclairtill.SquareTakeHome.apiError.message.noConnection" = "Lost internet connection.";
-"com.danielsinclairtill.SquareTakeHome.apiError.message.serverError" = "There seems to be a problem with our servers at the moment.";
+"com.danielsinclairtill.Stories.apiError.message.offlineMode" = "There seems to be no internet connection.";
+"com.danielsinclairtill.Stories.apiError.message.noConnection" = "Lost internet connection.";
+"com.danielsinclairtill.Stories.apiError.message.serverError" = "There seems to be a problem with our servers at the moment.";
 
 // MARK: Alert
-"com.danielsinclairtill.SquareTakeHome.alert.title" = "Oops!";
-"com.danielsinclairtill.SquareTakeHome.alert.apiError.action.refresh" = "Refresh";
-"com.danielsinclairtill.SquareTakeHome.alert.apiError.action.okay" = "Okay";
+"com.danielsinclairtill.Stories.alert.title" = "Oops!";
+"com.danielsinclairtill.Stories.alert.apiError.action.refresh" = "Refresh";
+"com.danielsinclairtill.Stories.alert.apiError.action.okay" = "Okay";

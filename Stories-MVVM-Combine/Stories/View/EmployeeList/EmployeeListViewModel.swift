@@ -1,6 +1,6 @@
 //
 //  EmployeeListViewModel.swift
-//  SquareTakeHome
+//  Stories
 //
 //
 //
@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-protocol EmployeeListViewModelContract: SquareTakeHomeViewModel
+protocol EmployeeListViewModelContract: StoriesViewModel
 where Input == EmployeeListViewModelInput, Output == EmployeeListViewModelOutput {
     var imageManager: ImageManagerContract { get }
 }
