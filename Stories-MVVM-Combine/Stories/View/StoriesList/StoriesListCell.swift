@@ -11,9 +11,7 @@ import Combine
 
 class StoriesListCell: UICollectionViewCell {
     static let cellHeight: CGFloat = 180
-    private enum Sizes {
-        static let avatar: CGFloat = 32
-    }
+    private let animationController = AnimationController()
     private var cancelBag = Set<AnyCancellable>()
     
     private lazy var horizontalStack: UIStackView = {
@@ -43,7 +41,7 @@ class StoriesListCell: UICollectionViewCell {
     
     private lazy var avatarView: AsyncImageView = {
         return AsyncImageView(placeholderImage: UIImage(named: "UnkownUser"),
-                              cornerRadius: Sizes.avatar / 2.0)
+                              cornerRadius: StoriesDesign.shared.theme.attributes.dimensions.avatarSizeSmall() / 2.0)
     }()
     
     private lazy var username: UILabel = {
@@ -54,8 +52,7 @@ class StoriesListCell: UICollectionViewCell {
     }()
     
     private lazy var photoView: AsyncImageView = {
-        return AsyncImageView(placeholderImage: nil,
-                              cornerRadius: StoriesDesign.shared.theme.attributes.dimensions.photoCornerRadius())
+        return AsyncImageView(placeholderImage: nil)
     }()
     
     private lazy var name: UILabel = {
@@ -115,8 +112,8 @@ class StoriesListCell: UICollectionViewCell {
         userStack.addArrangedSubview(avatarView)
         avatarView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            avatarView.widthAnchor.constraint(equalToConstant: Sizes.avatar),
-            avatarView.heightAnchor.constraint(equalToConstant: Sizes.avatar),
+            avatarView.widthAnchor.constraint(equalToConstant: StoriesDesign.shared.theme.attributes.dimensions.avatarSizeSmall()),
+            avatarView.heightAnchor.constraint(equalToConstant: StoriesDesign.shared.theme.attributes.dimensions.avatarSizeSmall()),
         ])
         userStack.addArrangedSubview(username)
                 
@@ -171,5 +168,21 @@ class StoriesListCell: UICollectionViewCell {
         }
         
         setupDesign()
+    }
+    
+    // MARK:- Animations
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        animationController.createTapBounceAnitmationOnTouchBeganTo(view: photoView)
+    }
+
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        animationController.createTapBounceAnitmationOnTouchEndedTo(view: photoView)
+    }
+
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesCancelled(touches, with: event)
+        animationController.createTapBounceAnitmationOnTouchCancelledTo(view: photoView)
     }
 }

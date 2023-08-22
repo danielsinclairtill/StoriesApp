@@ -80,5 +80,9 @@ class PlainTheme: Attributes {
         func tagCornerRadius() -> CGFloat {
             return 4.0
         }
+        
+        func avatarSizeSmall() -> CGFloat {
+            return 30.0
+        }
     }
 }

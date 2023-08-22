@@ -39,7 +39,7 @@ class StoryDetailViewController: UIViewController {
     
     private lazy var avatarView: AvatarView = {
         let avatar = AvatarView(placeholderImage: UIImage(named: "UnkownUser"),
-                                size: 30.0)
+                                size: StoriesDesign.shared.theme.attributes.dimensions.avatarSizeSmall())
         avatar.translatesAutoresizingMaskIntoConstraints = false
         
         return avatar
