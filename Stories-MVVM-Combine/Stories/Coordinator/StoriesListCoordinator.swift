@@ -32,4 +32,12 @@ class StoriesListCoordinator: TabItemCoordinator {
         let vc = StoriesListViewController(viewModel: vm)
         navigationController.viewControllers = [vc]
     }
+    
+    func storyDetail(id: String) {
+        let vm = StoryDetailViewModel(storyId: id,
+                                      environment: StoriesEnvironment.shared,
+                                      coordinator: self)
+        let vc = StoryDetailViewController(viewModel: vm)
+        navigationController.pushViewController(vc, animated: true)
+    }
 }

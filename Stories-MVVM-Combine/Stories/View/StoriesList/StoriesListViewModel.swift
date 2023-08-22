@@ -130,8 +130,11 @@ class StoriesListViewModel: StoriesListViewModelContract, ObservableObject {
 
     private func setCellTapped() {
         input.cellTapped.map { ($0, self.output.stories) }
-            .sink { (row, stories) in
-                // no op
+            .sink { [weak self] (row, stories) in
+                if stories.indices.contains(row),
+                   let id = stories[row].id {
+                    self?.coordinator.storyDetail(id: id)
+                }
             }
             .store(in: &cancelBag)
     }

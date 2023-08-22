@@ -11,4 +11,5 @@ import UIKit
 
 public protocol Dimensions {
     func photoCornerRadius() -> CGFloat
+    func tagCornerRadius() -> CGFloat
 }

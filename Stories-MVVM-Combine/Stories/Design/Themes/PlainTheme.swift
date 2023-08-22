@@ -76,5 +76,9 @@ class PlainTheme: Attributes {
         func photoCornerRadius() -> CGFloat {
             return 4.0
         }
+        
+        func tagCornerRadius() -> CGFloat {
+            return 4.0
+        }
     }
 }
