@@ -1,5 +1,5 @@
 //
-//  EmployeeListCoordinator.swift
+//  StoriesListCoordinator.swift
 //  Stories
 //
 //
@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import Combine
 
-class EmployeeListCoordinator: TabItemCoordinator {
+class StoriesListCoordinator: TabItemCoordinator {
     private(set) var parentCoordinator: Coordinator?
     private(set) var children: [Coordinator] = []
     private(set) var navigationController: UINavigationController
@@ -23,13 +23,13 @@ class EmployeeListCoordinator: TabItemCoordinator {
     }
     
     func start() {
-        employeeList()
+        storiesList()
     }
     
-    func employeeList() {
-        let vm = EmployeeListViewModel(environment: StoriesEnvironment.shared,
+    func storiesList() {
+        let vm = StoriesListViewModel(environment: StoriesEnvironment.shared,
                                        coordinator: self)
-        let vc = EmployeeListViewController(viewModel: vm)
+        let vc = StoriesListViewController(viewModel: vm)
         navigationController.viewControllers = [vc]
     }
 }

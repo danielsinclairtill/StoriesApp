@@ -6,8 +6,8 @@
   
 */
 
-// MARK: EmployeeList
-"com.danielsinclairtill.Stories.employeeList.title" = "Employees";
+// MARK: StoriesList
+"com.danielsinclairtill.Stories.storiesList.title" = "Stories";
 
 // MARK: APIErorr
 "com.danielsinclairtill.Stories.apiError.message.offlineMode" = "There seems to be no internet connection.";

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6500D0A42A9507D400E171D1 /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6500D0A22A9507D400E171D1 /* Story.swift */; };
 		6500D0A52A9507D400E171D1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6500D0A32A9507D400E171D1 /* User.swift */; };
+		6500D0A82A950EE400E171D1 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 6500D0A72A950EE400E171D1 /* SDWebImage */; };
 		658F84102A95016900AB1938 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 658F83D42A95016800AB1938 /* Assets.xcassets */; };
 		658F84112A95016900AB1938 /* loading_animation.json in Resources */ = {isa = PBXBuildFile; fileRef = 658F83D52A95016800AB1938 /* loading_animation.json */; };
 		658F84122A95016900AB1938 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658F83D62A95016800AB1938 /* AppDelegate.swift */; };
@@ -135,18 +136,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6500D0A82A950EE400E171D1 /* SDWebImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6500D0A62A950EE400E171D1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		658F83312A9500FE00AB1938 = {
 			isa = PBXGroup;
 			children = (
 				658F833C2A9500FE00AB1938 /* Stories */,
 				658F83562A9500FF00AB1938 /* StoriesTests */,
 				658F833B2A9500FE00AB1938 /* Products */,
+				6500D0A62A950EE400E171D1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -419,6 +429,9 @@
 				658F83552A9500FF00AB1938 /* PBXTargetDependency */,
 			);
 			name = StoriesTests;
+			packageProductDependencies = (
+				6500D0A72A950EE400E171D1 /* SDWebImage */,
+			);
 			productName = StoriesTests;
 			productReference = 658F83532A9500FF00AB1938 /* StoriesTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -845,6 +858,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		6500D0A72A950EE400E171D1 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 658F84492A9502AB00AB1938 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
 		658F84472A95028300AB1938 /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 658F84462A95028300AB1938 /* XCRemoteSwiftPackageReference "lottie-ios" */;

@@ -1,5 +1,5 @@
 //
-//  EmployeeListCell.swift
+//  StoriesListCell.swift
 //  Stories
 //
 //
@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import Combine
 
-class EmployeeListCell: UICollectionViewCell {
+class StoriesListCell: UICollectionViewCell {
     static let cellHeight: CGFloat = 180
     private enum Sizes {
         static let avatar: CGFloat = 32

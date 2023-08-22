@@ -25,7 +25,7 @@ class TabCoordinator: Coordinator {
     
     // MARK: Tabs
     private func setupRootUITabBarController() {
-        children = [employeeListTab()]
+        children = [storiesListTab()]
         let rootViewController = RootUITabBarController(tabBarItems:children.map { $0.navigationController })
         navigationController.setNavigationBarHidden(true, animated: false)
         navigationController.viewControllers = [rootViewController]
@@ -59,12 +59,12 @@ class TabCoordinator: Coordinator {
         return navigationController
     }
     
-    private func employeeListTab() -> EmployeeListCoordinator {
+    private func storiesListTab() -> StoriesListCoordinator {
         let navigationController = formatNavigationControllerUI(UINavigationController())
-        navigationController.tabBarItem = UITabBarItem(title: "com.danielsinclairtill.Stories.employeeList.title".localized(),
+        navigationController.tabBarItem = UITabBarItem(title: "com.danielsinclairtill.Stories.storiesList.title".localized(),
                                                        image: #imageLiteral(resourceName: "ListUnselected"),
                                                        selectedImage: #imageLiteral(resourceName: "List"))
-        let coordinator = EmployeeListCoordinator(parentCoordinator: self,
+        let coordinator = StoriesListCoordinator(parentCoordinator: self,
                                                   navigationController: navigationController)
         coordinator.start()
         return coordinator

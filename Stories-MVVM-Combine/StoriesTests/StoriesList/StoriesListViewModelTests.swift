@@ -1,5 +1,5 @@
 //
-//  EmployeeListViewModelTests.swift
+//  StoriesListViewModelTests.swift
 //  Stories
 //
 //
@@ -10,10 +10,10 @@ import XCTest
 import Combine
 @testable import Stories
 
-class EmployeeListViewModelTests: XCTestCase {
+class StoriesListViewModelTests: XCTestCase {
     private let mockEnvironment: StoriesEnvironmentMock = StoriesEnvironmentMock()
-    private let mockCoordinator = EmployeeListCoordinator(parentCoordinator: nil,
-                                                          navigationController: UINavigationController())
+    private let mockCoordinator = StoriesListCoordinator(parentCoordinator: nil,
+                                                         navigationController: UINavigationController())
     private var cancelBag = Set<AnyCancellable>()
     
     override func setUp() {
@@ -23,15 +23,15 @@ class EmployeeListViewModelTests: XCTestCase {
     }
     
     // MARK: Online
-    func testRefreshEmployees() {
-        let mockEmployees: [Employee] = ModelMockData.makeMockEmployees(count: 10)
+    func testRefreshStories() {
+        let mockStories: [Story] = ModelMockData.makeMockStories(count: 10)
         mockEnvironment.mockApi.mockAPIResponses = [
-            .success(EmployeesRequests.EmployeeList.Response(employees: mockEmployees))
+            .success(StoriesRequests.StoriesTimelinePage.Response(stories: mockStories, nextUrl: URL(string: "test")!))
         ]
-        let viewModel = EmployeeListViewModel(environment: mockEnvironment,
-                                              coordinator: mockCoordinator)
+        let viewModel = StoriesListViewModel(environment: mockEnvironment,
+                                             coordinator: mockCoordinator)
         
-        XCTAssertTrue(viewModel.output.employees.isEmpty)
+        XCTAssertTrue(viewModel.output.stories.isEmpty)
         
         viewModel.input.refreshBegin.send(())
         
@@ -39,21 +39,21 @@ class EmployeeListViewModelTests: XCTestCase {
         
         viewModel.input.refresh.send(())
         
-        let expectedRequest = EmployeesRequests.EmployeeList()
+        let expectedRequest = StoriesRequests.StoriesTimelinePage()
         XCTAssertFalse(viewModel.output.isLoading)
         XCTAssertEqual(mockEnvironment.mockApi.mockAPIRequestsCalled.count, 1)
         XCTAssertTrue(mockEnvironment.mockApi.mockAPIRequestsCalled.contains { $0.path == expectedRequest.path })
-        XCTAssertEqual(viewModel.output.employees, mockEmployees)
+        XCTAssertEqual(viewModel.output.stories, mockStories)
     }
     
-    func testRefreshEmployeesServerError() {
+    func testRefreshStoriesServerError() {
         mockEnvironment.mockApi.mockAPIResponses = [
             .failure(.serverError)
         ]
-        let viewModel = EmployeeListViewModel(environment: mockEnvironment,
-                                              coordinator: mockCoordinator)
+        let viewModel = StoriesListViewModel(environment: mockEnvironment,
+                                             coordinator: mockCoordinator)
         
-        XCTAssertTrue(viewModel.output.employees.isEmpty)
+        XCTAssertTrue(viewModel.output.stories.isEmpty)
         
         viewModel.input.refresh.send(())
         
@@ -61,14 +61,14 @@ class EmployeeListViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.output.error, APIError.serverError.message)
     }
     
-    func testRefreshEmployeesEmptyError() {
+    func testRefreshStoriesEmptyError() {
         mockEnvironment.mockApi.mockAPIResponses = [
-            .success(EmployeesRequests.EmployeeList.Response(employees: []))
+            .success(StoriesRequests.StoriesTimelinePage.Response(stories: [], nextUrl: URL(string: "test")!))
         ]
-        let viewModel = EmployeeListViewModel(environment: mockEnvironment,
-                                              coordinator: mockCoordinator)
+        let viewModel = StoriesListViewModel(environment: mockEnvironment,
+                                             coordinator: mockCoordinator)
         
-        XCTAssertTrue(viewModel.output.employees.isEmpty)
+        XCTAssertTrue(viewModel.output.stories.isEmpty)
         
         viewModel.input.refresh.send(())
         
@@ -76,14 +76,14 @@ class EmployeeListViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.output.error, APIError.serverError.message)
     }
     
-    func testRefreshEmployeesLostConnectionError() {
+    func testRefreshStoriesLostConnectionError() {
         mockEnvironment.mockApi.mockAPIResponses = [
             .failure(.lostConnection)
         ]
-        let viewModel = EmployeeListViewModel(environment: mockEnvironment,
-                                              coordinator: mockCoordinator)
+        let viewModel = StoriesListViewModel(environment: mockEnvironment,
+                                             coordinator: mockCoordinator)
         
-        XCTAssertTrue(viewModel.output.employees.isEmpty)
+        XCTAssertTrue(viewModel.output.stories.isEmpty)
         
         viewModel.input.refresh.send(())
         
@@ -91,15 +91,15 @@ class EmployeeListViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.output.error, APIError.lostConnection.message)
     }
     
-    func testRefreshEmployeesOfflineError() {
+    func testRefreshStoriesOfflineError() {
         mockEnvironment.mockApi.mockIsConnectedToInternet = false
         mockEnvironment.mockApi.mockAPIResponses = [
             .failure(.lostConnection)
         ]
-        let viewModel = EmployeeListViewModel(environment: mockEnvironment,
-                                              coordinator: mockCoordinator)
+        let viewModel = StoriesListViewModel(environment: mockEnvironment,
+                                             coordinator: mockCoordinator)
         
-        XCTAssertTrue(viewModel.output.employees.isEmpty)
+        XCTAssertTrue(viewModel.output.stories.isEmpty)
         
         viewModel.input.refresh.send(())
         
@@ -109,10 +109,10 @@ class EmployeeListViewModelTests: XCTestCase {
     
     func testViewDidLoadShowsErrorIfOffline() {
         mockEnvironment.mockApi.mockIsConnectedToInternet = false
-        let viewModel = EmployeeListViewModel(environment: mockEnvironment,
-                                              coordinator: mockCoordinator)
+        let viewModel = StoriesListViewModel(environment: mockEnvironment,
+                                             coordinator: mockCoordinator)
         
-        XCTAssertTrue(viewModel.output.employees.isEmpty)
+        XCTAssertTrue(viewModel.output.stories.isEmpty)
         
         viewModel.input.viewDidLoad.send(())
         
@@ -120,27 +120,27 @@ class EmployeeListViewModelTests: XCTestCase {
         XCTAssertEqual(mockEnvironment.mockApi.mockAPIRequestsCalled.count, 0)
     }
     
-    func testRefreshEmployeesImagesArePrefetched() {
-        let mockEmployees: [Employee] = ModelMockData.makeMockEmployees(count: 20)
+    func testRefreshStoriesImagesArePrefetched() {
+        let mockStories: [Story] = ModelMockData.makeMockStories(count: 20)
         mockEnvironment.mockApi.mockAPIResponses = [
-            .success(EmployeesRequests.EmployeeList.Response(employees: mockEmployees))
+            .success(StoriesRequests.StoriesTimelinePage.Response(stories: mockStories, nextUrl: URL(string: "test")!))
         ]
-        let viewModel = EmployeeListViewModel(environment: mockEnvironment,
-                                              coordinator: mockCoordinator)
+        let viewModel = StoriesListViewModel(environment: mockEnvironment,
+                                             coordinator: mockCoordinator)
         
         XCTAssertTrue(mockEnvironment.mockApi.mockImageManager.mockPrefetchTaskURLs.isEmpty)
         
         viewModel.input.refresh.send(())
         
         // prefetches only the first 10 images
-        let prefetchImageURLs: [URL] = Array(mockEmployees.prefix(upTo: 10)).compactMap { $0.photoUrlSmall }
+        let prefetchImageURLs: [URL] = Array(mockStories.prefix(upTo: 10)).compactMap { $0.cover }
         XCTAssertEqual(mockEnvironment.mockApi.mockImageManager.mockPrefetchTaskURLs, prefetchImageURLs)
     }
     
     // MARK: TabBarItem
     func testTapTabBarItemDoesScrollToTop() {
-        let viewModel = EmployeeListViewModel(environment: mockEnvironment,
-                                              coordinator: mockCoordinator)
+        let viewModel = StoriesListViewModel(environment: mockEnvironment,
+                                             coordinator: mockCoordinator)
         var scrollToTopCount = 0
         viewModel.input.isTopOfPage = false
         viewModel.input.isScrolling = false
@@ -157,8 +157,8 @@ class EmployeeListViewModelTests: XCTestCase {
     }
     
     func testTapTabBarItemDoesNotScrollsToTopWhileScrolling() {
-        let viewModel = EmployeeListViewModel(environment: mockEnvironment,
-                                              coordinator: mockCoordinator)
+        let viewModel = StoriesListViewModel(environment: mockEnvironment,
+                                             coordinator: mockCoordinator)
         viewModel.input.isTopOfPage = false
         viewModel.input.isScrolling = true
         

@@ -10,24 +10,21 @@ import Foundation
 @testable import Stories
 
 class ModelMockData {
-    /// Make a count of employee objects.
-    static func makeMockEmployees(count: Int) -> [Employee] {
-        var employees: [Employee] = []
-        for _ in 0..<count {
-            guard let url1 = URL(string: "testurl.com/small"),
-                  let url2 = URL(string: "testurl.com/large") else { continue }
-            
-            let employee = Employee(uuid: UUID(),
-                                    fullName: "test name",
-                                    phoneNumber: "1234",
-                                    email: "test@test.com",
-                                    biography: "test description",
-                                    photoUrlSmall: url1,
-                                    photoUrlLarge: url2,
-                                    team: "test team",
-                                    type: .unknown)
-            employees.append(employee)
+    /// Make a count of stories objects.
+    static func makeMockStories(count: Int) -> [Story] {
+        var stories: [Story] = []
+        for index in 0..<count {
+            let story = Story(id: String(index),
+                              title: "title \(index)",
+                              user: User(name: "user \(index)",
+                                         avatar: URL(string: "avatar_url_\(index)"),
+                                         fullname: nil),
+                              cover: URL(string: "cover_url_\(index)"),
+                              description: "test",
+                              tags: ["tag1"])
+
+            stories.append(story)
         }
-        return employees
+        return stories
     }
 }

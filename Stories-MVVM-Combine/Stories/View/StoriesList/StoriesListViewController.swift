@@ -1,5 +1,5 @@
 //
-//  EmployeeListViewController.swift
+//  StoriesListViewController.swift
 //  Stories
 //
 //
@@ -9,12 +9,12 @@ import UIKit
 import Lottie
 import Combine
 
-class EmployeeListViewController: UIViewController,
+class StoriesListViewController: UIViewController,
                                   UICollectionViewDelegateFlowLayout,
                                   UICollectionViewDelegate,
                                   UIScrollViewDelegate {
-    private let cellIdentifier = "EmployeeListViewControllerCell"
-    private let viewModel: any EmployeeListViewModelContract
+    private let cellIdentifier = "StoriesListViewControllerCell"
+    private let viewModel: any StoriesListViewModelContract
     
     private enum SectionKind: Int, CaseIterable {
         case main
@@ -34,7 +34,7 @@ class EmployeeListViewController: UIViewController,
         collectionView.refreshControl = refreshControl
         collectionView.backgroundColor = .clear
         collectionView.alpha = 0.0
-        collectionView.register(EmployeeListCell.self,
+        collectionView.register(StoriesListCell.self,
                                 forCellWithReuseIdentifier: cellIdentifier)
         return collectionView
     }()
@@ -56,7 +56,7 @@ class EmployeeListViewController: UIViewController,
     private var observation: NSKeyValueObservation?
     private var cancelBag = Set<AnyCancellable>()
 
-    init(viewModel: any EmployeeListViewModelContract) {
+    init(viewModel: any StoriesListViewModelContract) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -68,7 +68,7 @@ class EmployeeListViewController: UIViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "com.danielsinclairtill.Stories.employeeList.title".localized()
+        title = "com.danielsinclairtill.Stories.storiesList.title".localized()
         
         // empty view
         view.addSubview(emptyView)
@@ -147,12 +147,12 @@ class EmployeeListViewController: UIViewController,
             })
             .store(in: &cancelBag)
         
-        // employees collection
+        // stories collection
         dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView,
                                                         cellProvider: { [weak self] collectionView, indexPath, story in
             guard let strongSelf = self else { return UICollectionViewCell() }
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: strongSelf.cellIdentifier,
-                                                                for: indexPath) as? EmployeeListCell else {
+                                                                for: indexPath) as? StoriesListCell else {
                 assertionFailure("could not dequeue cell")
                 return UICollectionViewCell()
             }
@@ -216,7 +216,7 @@ class EmployeeListViewController: UIViewController,
         // large width class devices (ex. iPad) should show two columns in the collection view
         let isLargeWidth = UITraitCollection.current.horizontalSizeClass == .regular
         let width = isLargeWidth ? collectionView.bounds.width / 2 : collectionView.bounds.width
-        let height = EmployeeListCell.cellHeight
+        let height = StoriesListCell.cellHeight
         
         return CGSize(width: width, height: height)
     }
