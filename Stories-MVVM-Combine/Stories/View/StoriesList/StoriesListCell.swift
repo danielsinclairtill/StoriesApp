@@ -40,8 +40,8 @@ class StoriesListCell: UICollectionViewCell {
     }()
     
     private lazy var avatarView: AsyncImageView = {
-        return AsyncImageView(placeholderImage: UIImage(named: "UnkownUser"),
-                              cornerRadius: StoriesDesign.shared.theme.attributes.dimensions.avatarSizeSmall() / 2.0)
+        return AvatarView(placeholderImage: UIImage(named: "UnkownUser"),
+                          size: StoriesDesign.shared.theme.attributes.dimensions.avatarSizeSmall())
     }()
     
     private lazy var username: UILabel = {

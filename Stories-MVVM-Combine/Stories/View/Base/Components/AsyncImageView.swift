@@ -96,6 +96,7 @@ class AsyncImageView: UIView {
     func setCornerRadius(_ radius: CGFloat) {
         cornerRadius = radius
         image.layer.cornerRadius = radius
+        placeholder.layer.cornerRadius = radius
     }
     
     /// Remove and clear the image from the view.
