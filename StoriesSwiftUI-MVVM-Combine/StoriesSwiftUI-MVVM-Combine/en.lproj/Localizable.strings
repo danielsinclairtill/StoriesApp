@@ -1,0 +1,29 @@
+/* 
+  Localizable.strings
+  Stories
+*/
+
+// MARK: Stories
+"com.test.Stories.stories.title" = "Stories";
+"com.test.Stories.stories.bubbleMessage.offlineAvailable" = "The latest stories displayed on this feed will be available when you are offline!";
+
+// MARK: Settings
+"com.test.Stories.settings.title" = "Settings";
+"com.test.Stories.settings.theme.title" = "Theme";
+"com.test.Stories.settings.theme.plain" = "Plain";
+"com.test.Stories.settings.theme.retro" = "Retro";
+
+// MARK: APIErorr
+"com.test.Stories.apiError.message.offlineMode" = "There seems to be no interenet connection. For now we will put you in offline mode.\n\nIf you want to try to connect to the internet again please refresh the timeline!";
+"com.test.Stories.apiError.message.noConnection" = "There seems to be no interenet connection.";
+"com.test.Stories.apiError.message.serverError" = "There seems to be a problem with our servers at the moment.";
+
+// MARK: StoreError
+"com.test.Stories.storeError.message.readError" = "There seems to be no stories stored for offline.";
+"com.test.Stories.storeError.message.writeError" = "Seems we could not store any stories for you offline.";
+
+// MARK: Alert
+"com.test.Stories.alert.title" = "Oops!";
+"com.test.Stories.alert.offline.action.goOffline" = "Go Offline";
+"com.test.Stories.alert.apiError.action.refresh" = "Refresh";
+"com.test.Stories.alert.apiError.action.okay" = "Okay";
