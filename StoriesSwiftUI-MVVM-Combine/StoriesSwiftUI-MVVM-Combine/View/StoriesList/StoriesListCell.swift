@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct StoriesListCell: View {
     @EnvironmentObject var environment: StoriesSwiftUIEnvironment
@@ -14,13 +15,24 @@ struct StoriesListCell: View {
     
     var body: some View {
         HStack(spacing: 8.0) {
-            Spacer().frame(width: 80)
+            WebImage(url: story.cover)
+                .resizable()
+                .placeholder {
+                    Rectangle().foregroundColor(.gray)
+                }
+                .transition(.fade)
+                .aspectRatio(2/3, contentMode: .fit)
+                .frame(maxWidth: 100)
             VStack(alignment: .leading, spacing: 8.0) {
                 Text(story.title ?? "...")
+                    .font(environment.design.theme.attributes.fonts.primaryTitle())
                 Text(story.user?.name ?? "...")
+                    .font(environment.design.theme.attributes.fonts.body())
+                Spacer()
             }
             Spacer()
         }
+        .padding(8)
     }
 }
 
@@ -34,5 +46,7 @@ struct StoriesListCell_Previews: PreviewProvider {
                                      cover: nil,
                                      description: nil,
                                      tags: nil))
+        .environmentObject(StoriesSwiftUIEnvironment())
+        .frame(height: 180)
     }
 }

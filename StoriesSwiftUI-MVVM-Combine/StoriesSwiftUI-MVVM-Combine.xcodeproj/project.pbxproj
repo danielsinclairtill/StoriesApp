@@ -50,6 +50,7 @@
 		655566D02B61BB2F0071E46C /* StoriesListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655566CD2B61BB2F0071E46C /* StoriesListCoordinator.swift */; };
 		655566D12B61BB2F0071E46C /* TabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655566CE2B61BB2F0071E46C /* TabCoordinator.swift */; };
 		655566D22B61BB2F0071E46C /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655566CF2B61BB2F0071E46C /* Coordinator.swift */; };
+		658C72302B641AA5005A56DB /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 658C722F2B641AA5005A56DB /* SDWebImageSwiftUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,6 +124,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				658C72302B641AA5005A56DB /* SDWebImageSwiftUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -387,6 +389,9 @@
 			dependencies = (
 			);
 			name = "StoriesSwiftUI-MVVM-Combine";
+			packageProductDependencies = (
+				658C722F2B641AA5005A56DB /* SDWebImageSwiftUI */,
+			);
 			productName = "StoriesSwiftUI-MVVM-Combine";
 			productReference = 655566422B61B84D0071E46C /* StoriesSwiftUI-MVVM-Combine.app */;
 			productType = "com.apple.product-type.application";
@@ -459,6 +464,9 @@
 				Base,
 			);
 			mainGroup = 655566392B61B84D0071E46C;
+			packageReferences = (
+				658C722E2B641AA5005A56DB /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+			);
 			productRefGroup = 655566432B61B84D0071E46C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -874,6 +882,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		658C722E2B641AA5005A56DB /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.2.6;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		658C722F2B641AA5005A56DB /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 658C722E2B641AA5005A56DB /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		6555668F2B61B92C0071E46C /* StoriesModel.xcdatamodeld */ = {

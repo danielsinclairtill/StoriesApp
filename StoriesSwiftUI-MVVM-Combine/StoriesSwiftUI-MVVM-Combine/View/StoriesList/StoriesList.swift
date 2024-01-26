@@ -24,6 +24,7 @@ struct StoriesList: View {
                 List(viewModel.output.stories) { story in
                     NavigationLink(value: story) {
                         StoriesListCell(story: story)
+                            .frame(height: 180)
                     }
                 }
                 .listStyle(.plain)
@@ -33,7 +34,9 @@ struct StoriesList: View {
             }
         }
         .onAppear {
-            viewModel.input.viewDidLoad.send(())
+            if viewModel.output.stories.isEmpty {
+                viewModel.input.viewDidLoad.send(())
+            }
         }
         .navigationDestination(for: Story.self) { story in
             Text("test")
