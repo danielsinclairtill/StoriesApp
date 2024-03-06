@@ -10,7 +10,6 @@
 		655566462B61B84D0071E46C /* StoriesSwiftUI_MVVM_CombineApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655566452B61B84D0071E46C /* StoriesSwiftUI_MVVM_CombineApp.swift */; };
 		6555664A2B61B84E0071E46C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 655566492B61B84E0071E46C /* Assets.xcassets */; };
 		6555664D2B61B84E0071E46C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6555664C2B61B84E0071E46C /* Preview Assets.xcassets */; };
-		655566572B61B84E0071E46C /* StoriesSwiftUI_MVVM_CombineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655566562B61B84E0071E46C /* StoriesSwiftUI_MVVM_CombineTests.swift */; };
 		655566722B61B90E0071E46C /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655566702B61B90E0071E46C /* String+Localized.swift */; };
 		655566732B61B90E0071E46C /* UIDevice+ScreenType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655566712B61B90E0071E46C /* UIDevice+ScreenType.swift */; };
 		655566922B61B92C0071E46C /* EnvironmentContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655566752B61B92C0071E46C /* EnvironmentContract.swift */; };
@@ -51,6 +50,12 @@
 		655566D12B61BB2F0071E46C /* TabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655566CE2B61BB2F0071E46C /* TabCoordinator.swift */; };
 		655566D22B61BB2F0071E46C /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655566CF2B61BB2F0071E46C /* Coordinator.swift */; };
 		658C72302B641AA5005A56DB /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 658C722F2B641AA5005A56DB /* SDWebImageSwiftUI */; };
+		65FABF132B98FF840031CCE8 /* StoriesListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FABF122B98FF840031CCE8 /* StoriesListViewModelTests.swift */; };
+		65FABF1A2B98FFA80031CCE8 /* StoriesImageManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FABF152B98FFA80031CCE8 /* StoriesImageManagerMock.swift */; };
+		65FABF1B2B98FFA80031CCE8 /* StoriesAPIMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FABF162B98FFA80031CCE8 /* StoriesAPIMock.swift */; };
+		65FABF1C2B98FFA80031CCE8 /* StoriesEnvironmentMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FABF172B98FFA80031CCE8 /* StoriesEnvironmentMock.swift */; };
+		65FABF1D2B98FFA80031CCE8 /* ModelMockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FABF182B98FFA80031CCE8 /* ModelMockData.swift */; };
+		65FABF1E2B98FFA80031CCE8 /* StoriesStateManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FABF192B98FFA80031CCE8 /* StoriesStateManagerMock.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,7 +81,6 @@
 		655566492B61B84E0071E46C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6555664C2B61B84E0071E46C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		655566522B61B84E0071E46C /* StoriesSwiftUI-MVVM-CombineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "StoriesSwiftUI-MVVM-CombineTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		655566562B61B84E0071E46C /* StoriesSwiftUI_MVVM_CombineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesSwiftUI_MVVM_CombineTests.swift; sourceTree = "<group>"; };
 		6555665C2B61B84E0071E46C /* StoriesSwiftUI-MVVM-CombineUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "StoriesSwiftUI-MVVM-CombineUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		655566702B61B90E0071E46C /* String+Localized.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Localized.swift"; sourceTree = "<group>"; };
 		655566712B61B90E0071E46C /* UIDevice+ScreenType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+ScreenType.swift"; sourceTree = "<group>"; };
@@ -117,6 +121,13 @@
 		655566CD2B61BB2F0071E46C /* StoriesListCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesListCoordinator.swift; sourceTree = "<group>"; };
 		655566CE2B61BB2F0071E46C /* TabCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabCoordinator.swift; sourceTree = "<group>"; };
 		655566CF2B61BB2F0071E46C /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		65FABF122B98FF840031CCE8 /* StoriesListViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesListViewModelTests.swift; sourceTree = "<group>"; };
+		65FABF152B98FFA80031CCE8 /* StoriesImageManagerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesImageManagerMock.swift; sourceTree = "<group>"; };
+		65FABF162B98FFA80031CCE8 /* StoriesAPIMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesAPIMock.swift; sourceTree = "<group>"; };
+		65FABF172B98FFA80031CCE8 /* StoriesEnvironmentMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesEnvironmentMock.swift; sourceTree = "<group>"; };
+		65FABF182B98FFA80031CCE8 /* ModelMockData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelMockData.swift; sourceTree = "<group>"; };
+		65FABF192B98FFA80031CCE8 /* StoriesStateManagerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesStateManagerMock.swift; sourceTree = "<group>"; };
+		65FABF1F2B98FFF50031CCE8 /* StoriesSwiftUI-MVVM-Combine.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "StoriesSwiftUI-MVVM-Combine.xctestplan"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,7 +200,9 @@
 		655566552B61B84E0071E46C /* StoriesSwiftUI-MVVM-CombineTests */ = {
 			isa = PBXGroup;
 			children = (
-				655566562B61B84E0071E46C /* StoriesSwiftUI_MVVM_CombineTests.swift */,
+				65FABF1F2B98FFF50031CCE8 /* StoriesSwiftUI-MVVM-Combine.xctestplan */,
+				65FABF142B98FFA80031CCE8 /* MockModel */,
+				65FABF112B98FF840031CCE8 /* StoriesList */,
 			);
 			path = "StoriesSwiftUI-MVVM-CombineTests";
 			sourceTree = "<group>";
@@ -371,6 +384,26 @@
 				655566CF2B61BB2F0071E46C /* Coordinator.swift */,
 			);
 			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		65FABF112B98FF840031CCE8 /* StoriesList */ = {
+			isa = PBXGroup;
+			children = (
+				65FABF122B98FF840031CCE8 /* StoriesListViewModelTests.swift */,
+			);
+			path = StoriesList;
+			sourceTree = "<group>";
+		};
+		65FABF142B98FFA80031CCE8 /* MockModel */ = {
+			isa = PBXGroup;
+			children = (
+				65FABF152B98FFA80031CCE8 /* StoriesImageManagerMock.swift */,
+				65FABF162B98FFA80031CCE8 /* StoriesAPIMock.swift */,
+				65FABF172B98FFA80031CCE8 /* StoriesEnvironmentMock.swift */,
+				65FABF182B98FFA80031CCE8 /* ModelMockData.swift */,
+				65FABF192B98FFA80031CCE8 /* StoriesStateManagerMock.swift */,
+			);
+			path = MockModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -556,7 +589,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				655566572B61B84E0071E46C /* StoriesSwiftUI_MVVM_CombineTests.swift in Sources */,
+				65FABF1B2B98FFA80031CCE8 /* StoriesAPIMock.swift in Sources */,
+				65FABF132B98FF840031CCE8 /* StoriesListViewModelTests.swift in Sources */,
+				65FABF1A2B98FFA80031CCE8 /* StoriesImageManagerMock.swift in Sources */,
+				65FABF1E2B98FFA80031CCE8 /* StoriesStateManagerMock.swift in Sources */,
+				65FABF1C2B98FFA80031CCE8 /* StoriesEnvironmentMock.swift in Sources */,
+				65FABF1D2B98FFA80031CCE8 /* ModelMockData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

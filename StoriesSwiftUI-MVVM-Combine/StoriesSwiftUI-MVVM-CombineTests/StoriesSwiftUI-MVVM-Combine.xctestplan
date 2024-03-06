@@ -1,0 +1,28 @@
+{
+  "configurations" : [
+    {
+      "id" : "8BCDAA16-0367-48D9-9BBA-80133361DD5B",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:StoriesSwiftUI-MVVM-Combine.xcodeproj",
+      "identifier" : "655566412B61B84D0071E46C",
+      "name" : "StoriesSwiftUI-MVVM-Combine"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:StoriesSwiftUI-MVVM-Combine.xcodeproj",
+        "identifier" : "655566512B61B84E0071E46C",
+        "name" : "StoriesSwiftUI-MVVM-CombineTests"
+      }
+    }
+  ],
+  "version" : 1
+}
