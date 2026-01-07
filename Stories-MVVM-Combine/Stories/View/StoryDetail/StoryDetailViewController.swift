@@ -7,7 +7,6 @@
 
 import Foundation
 import UIKit
-import TagListView
 import Combine
 
 class StoryDetailViewController: UIViewController {
@@ -83,15 +82,6 @@ class StoryDetailViewController: UIViewController {
         return label
     }()
     
-    private lazy var tagsListView: TagListView = {
-        let tagsListView = TagListView()
-        tagsListView.alignment = .leading
-        tagsListView.backgroundColor = .clear
-        tagsListView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return tagsListView
-    }()
-    
     init(viewModel: any StoryDetailViewModelContract) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -145,14 +135,6 @@ class StoryDetailViewController: UIViewController {
         // make the descriptionTitle be the first the compress if the vertical spacing cannot fit all elements
         descriptionTitle.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         descrptionStackView.addArrangedSubview(descriptionTitle)
-        descrptionStackView.addArrangedSubview(tagsListView)
-        // add heightConstraint to ensure that the tagsListView height grows depending on the amount of tags
-        let heightConstraint = tagsListView.heightAnchor.constraint(greaterThanOrEqualToConstant: 18.0)
-        heightConstraint.priority = .init(250.0)
-        NSLayoutConstraint.activate([
-            tagsListView.widthAnchor.constraint(equalTo: descrptionStackView.widthAnchor),
-            heightConstraint
-        ])
     }
     
     private func setupDesign() {
@@ -166,10 +148,6 @@ class StoryDetailViewController: UIViewController {
                 strongSelf.authorTitle.textColor = theme.attributes.colors.primaryFill()
                 strongSelf.descriptionTitle.font = theme.attributes.fonts.body()
                 strongSelf.descriptionTitle.textColor = theme.attributes.colors.primaryFill()
-                strongSelf.tagsListView.textFont = theme.attributes.fonts.body()
-                strongSelf.tagsListView.textColor = theme.attributes.colors.secondaryFill()
-                strongSelf.tagsListView.tagBackgroundColor = theme.attributes.colors.secondary()
-                strongSelf.tagsListView.cornerRadius = theme.attributes.dimensions.tagCornerRadius()
             }
             .store(in: &cancelBag)
     }
@@ -199,14 +177,6 @@ class StoryDetailViewController: UIViewController {
         storyTitle.text = story?.title ?? "..."
         authorTitle.text = story?.user?.name ?? "..."
         descriptionTitle.text = story?.description ?? "..."
-        
-        // reset all the tags in the tags stack view
-        tagsListView.removeAllTags()
-        // only take the first five tags of the story
-        if let tags = story?.tags?.prefix(5) {
-            let formattedTags = Array(tags).map({ return "#\($0)" })
-            tagsListView.addTags(formattedTags)
-        }
     }
     
     private func presentError(message: String) {
