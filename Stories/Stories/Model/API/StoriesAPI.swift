@@ -24,24 +24,30 @@ class StoriesAPI: APIContract {
                    parameters: request.parameters,
                    requestModifier: { $0.timeoutInterval = request.timeoutInterval }
         ).responseDecodable(of: R.Response.self) { response in
+            func completion(_ finalResult: Result<R.Response, APIError>) {
+                DispatchQueue.main.async {
+                    result?(finalResult)
+                }
+            }
+            
             switch response.result {
             case .success:
                 if let data = response.value {
-                    result?(.success(data))
+                    completion(.success(data))
                 } else {
-                    result?(.failure(APIError.serverError))
+                    completion(.failure(APIError.serverError))
                 }
             case .failure(let error):
                 if let underlyingError = error.underlyingError,
                     let urlError = underlyingError as? URLError {
                     switch urlError.code {
                     case .timedOut, .notConnectedToInternet:
-                        result?(.failure(APIError.lostConnection))
+                        completion(.failure(APIError.lostConnection))
                     default:
-                        result?(.failure(APIError.serverError))
+                        completion(.failure(APIError.serverError))
                     }
                 } else {
-                    result?(.failure(APIError.serverError))
+                    completion(.failure(APIError.serverError))
                 }
             }
         }
